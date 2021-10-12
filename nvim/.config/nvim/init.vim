@@ -32,9 +32,20 @@ set shortmess+=c
 set colorcolumn=80
 
 call plug#begin('~/.vim/plugged')
+
+Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+" Themes
 Plug 'tanvirtin/monokai.nvim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" gc comments
+Plug 'tpope/vim-commentary'
+
 call plug#end()
 
 colorscheme monokai
