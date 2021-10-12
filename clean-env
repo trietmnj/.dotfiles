@@ -1,7 +1,9 @@
+#!/usr/bin/env fish
+
 pushd $DOTFILES
 for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
-do
-    echo "Removing $folder"
-    stow -D $folder
-done
+    do
+        echo "Removing $folder"
+        stow -D $folder
+    done
 popd
