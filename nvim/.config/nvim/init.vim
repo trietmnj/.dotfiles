@@ -3,6 +3,9 @@ set shiftwidth=4
 set expandtab
 set smartindent
 
+" https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
+set clipboard=unnamedplus
+
 set exrc
 set guicursor=
 set relativenumber
@@ -46,6 +49,11 @@ Plug 'vim-airline/vim-airline-themes'
 " gc comments
 Plug 'tpope/vim-commentary'
 
+" LSP
+Plug 'neovim/nvim-lspconfig'
+" :LspInstall
+Plug 'kabouzeid/nvim-lspinstall'
+
 call plug#end()
 
 colorscheme monokai
@@ -64,3 +72,5 @@ augroup AUTO
     autocmd!
     autocmd BufWritePre * : call TrimWhitespace()
 augroup END
+
+let g:airline_theme='molokai'
