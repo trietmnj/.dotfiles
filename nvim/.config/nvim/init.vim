@@ -25,13 +25,9 @@ set scrolloff=8
 set noshowmode
 set completeopt=menuone,noinsert,noselect
 set signcolumn=yes
-
 set cmdheight=2
-
 set updatetime=50
-
 set shortmess+=c
-
 set colorcolumn=80
 
 call plug#begin('~/.vim/plugged')
@@ -53,8 +49,7 @@ Plug 'tpope/vim-commentary'
 Plug 'neovim/nvim-lspconfig'
 " :LspInstall
 " Plug 'kabouzeid/nvim-lspinstall'
-
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
@@ -62,7 +57,6 @@ colorscheme monokai
 highlight Normal guibg=none
 
 let mapleader = " "
-nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep for >")})<CR>
 
 fun! TrimWhitespace()
     let l:save = winsaveview()
@@ -110,25 +104,38 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ' :'
 let g:airline_symbols.dirty='⚡'
 
-" LSP
-" lua << EOF
 
-" local function on_attach()
-" end
-
-" require('lspconfig').gopls.setup{
-"     on_attach=on_attach,
-"     cmd = {"gopls", "serve"},
-"     settings = {
-"         gopls = {
-"             analyses = {
-"                 unusedparams = true,
-"             },
-"             staticcheck = true,
-"         },
-"     },
-" }
+" TELESCOPE
+lua << EOF
 
 
+local actions = require('telescope.actions')
+require('telescope').setup({
+    defaults = {
+        file_sorter = require("telescope.sorters").get_fzy_sorter,
+        prompt_prefix = " >",
+        color_devicons = true,
 
-" EOF
+        file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+        grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+        qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+
+        mappings = {
+            i = {
+                ["<C-x>"] = false,
+                ["<C-q>"] = actions.send_to_qflist,
+            },
+        },
+    },
+    extensions = {
+        fzy_native = {
+            override_generic_sorter = false,
+            override_file_sorter = true,
+        },
+    },
+})
+
+
+EOF
+
+
