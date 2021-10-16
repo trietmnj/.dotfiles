@@ -47,13 +47,17 @@ Plug 'tpope/vim-commentary'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
-" :LspInstall
 " Plug 'kabouzeid/nvim-lspinstall'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/playground'
 
 call plug#end()
 
 lua require('lsp_config')
+lua require'nvim-treesitter.configs'.setup { indent = { enable = true }, highlight = { enable = true }, incremental_selection = { enable = true }, textobjects = { enable = true }}
+" lua require('nvim-treesitter.configs').setup { highlight = { enable = false }}
 
 colorscheme monokai
 highlight Normal guibg=none
@@ -108,4 +112,14 @@ let g:airline_symbols.dirty='⚡'
 
 autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 autocmd BufWritePre *.go lua goimports(1000)
+
+nnoremap Y y$
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
+
 

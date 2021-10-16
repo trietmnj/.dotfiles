@@ -53,6 +53,8 @@ end
 
 nvim_lsp.gopls.setup{
 	cmd = {'gopls', 'serve'},
+    filetypes = { "go", "gomod" },
+    -- root_dir = root_pattern("go.mod", ".git"),
 	-- for postfix snippets and analyzers
 	capabilities = capabilities,
 	    settings = {
