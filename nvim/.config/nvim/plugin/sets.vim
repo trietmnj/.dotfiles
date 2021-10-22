@@ -31,5 +31,4 @@ set updatetime=50
 set shortmess+=c
 set colorcolumn=80
 
-set mouse=a               " tell vim to recognize mouse commands in "all" modes
-set ttyfast               " improve fluidity of mouse commands, this isn't necessary but I believe improves performance
+set encoding=UTF-8

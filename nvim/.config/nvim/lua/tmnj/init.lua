@@ -1,7 +1,6 @@
 require("tmnj.lsp")
 require("tmnj.telescope")
 
-
 P = function(v)
   print(vim.inspect(v))
   return v

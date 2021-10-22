@@ -24,13 +24,19 @@ Plug 'hrsh7th/nvim-cmp'
 
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/playground'
-Plug 'simrat39/symbols-outline.nvim'
+
 Plug 'preservim/nerdtree'
+Plug 'ryanoasis/vim-devicons'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+Plug 'simrat39/symbols-outline.nvim'
+Plug 'ThePrimeagen/git-worktree.nvim'
 
 call plug#end()
 
 lua require'nvim-treesitter.configs'.setup { indent = { enable = true }, highlight = { enable = true }, incremental_selection = { enable = true }, textobjects = { enable = true }}
 " lua require('nvim-treesitter.configs').setup { highlight = { enable = false }}
+lua require('tmnj')
 
 colorscheme monokai
 highlight Normal guibg=none
@@ -51,8 +57,3 @@ augroup END
 autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 autocmd BufWritePre *.go lua goimports(1000)
 
-" Nerdtree
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
