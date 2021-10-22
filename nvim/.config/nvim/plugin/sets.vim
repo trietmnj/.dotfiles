@@ -14,6 +14,7 @@ set nohlsearch
 set hidden
 set noerrorbells
 set nowrap
+set ignorecase
 set smartcase
 set noswapfile
 set nobackup
@@ -30,3 +31,5 @@ set updatetime=50
 set shortmess+=c
 set colorcolumn=80
 
+set mouse=a               " tell vim to recognize mouse commands in "all" modes
+set ttyfast               " improve fluidity of mouse commands, this isn't necessary but I believe improves performance
