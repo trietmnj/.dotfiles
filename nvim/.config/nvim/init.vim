@@ -1,35 +1,3 @@
-set tabstop=4 softtabstop=4
-set shiftwidth=4
-set expandtab
-set smartindent
-
-" https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
-set clipboard=unnamedplus
-
-set exrc
-set guicursor=
-set relativenumber
-set number
-set nohlsearch
-set hidden
-set noerrorbells
-set nowrap
-set smartcase
-set noswapfile
-set nobackup
-set undodir=~/.vim/undodir
-set undofile
-set incsearch
-set termguicolors
-set scrolloff=8
-set noshowmode
-set completeopt=menuone,noinsert,noselect
-set signcolumn=yes
-set cmdheight=2
-set updatetime=50
-set shortmess+=c
-set colorcolumn=80
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'nvim-lua/popup.nvim'
@@ -44,20 +12,26 @@ Plug 'vim-airline/vim-airline-themes'
 
 " gc comments
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
 " Plug 'kabouzeid/nvim-lspinstall'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/nvim-cmp'
 
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/playground'
+Plug 'simrat39/symbols-outline.nvim'
+Plug 'preservim/nerdtree'
 
 call plug#end()
 
-lua require('lsp_config')
 lua require'nvim-treesitter.configs'.setup { indent = { enable = true }, highlight = { enable = true }, incremental_selection = { enable = true }, textobjects = { enable = true }}
 " lua require('nvim-treesitter.configs').setup { highlight = { enable = false }}
+" lua require('tmnj')
 
 colorscheme monokai
 highlight Normal guibg=none
@@ -109,17 +83,18 @@ let g:airline_symbols.colnr = ' :'
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ' :'
 let g:airline_symbols.dirty='⚡'
+let g:airline_symbols.notexists= '?'
 
 autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 autocmd BufWritePre *.go lua goimports(1000)
 
-nnoremap Y y$
-nnoremap n nzzzv
-nnoremap N Nzzzv
-nnoremap J mzJ`z
-inoremap , ,<c-g>u
-inoremap . .<c-g>u
-inoremap ! !<c-g>u
-inoremap ? ?<c-g>u
+" Git
+nmap <leader>gh :diffget //3<CR>
+nmap <leader>gu :diffget //2<CR>
+nmap <leader>gs :G<CR>
 
-
+" Nerdtree
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
