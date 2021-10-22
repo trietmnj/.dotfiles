@@ -28,6 +28,7 @@ Plug 'nvim-treesitter/playground'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 Plug 'simrat39/symbols-outline.nvim'
 Plug 'ThePrimeagen/git-worktree.nvim'
