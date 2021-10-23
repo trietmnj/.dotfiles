@@ -100,7 +100,7 @@ nvim_lsp.gopls.setup{
     end
   end
 
-vim.lsp.set_log_level("debug")
+vim.lsp.set_log_level("error")
 
 -- Setup nvim-cmp.
 local cmp = require'cmp'
@@ -154,3 +154,27 @@ local opts = {
 }
 
 require('symbols-outline').setup(opts)
+
+-- lsp_installer
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.settings {
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+}
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
+
+    -- (optional) Customize the options passed to the server
+    -- if server.name == "tsserver" then
+    --     opts.root_dir = function() ... end
+    -- end
+
+    -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
+    server:setup(opts)
+    vim.cmd [[ do User LspAttachBuffers ]]
+end)

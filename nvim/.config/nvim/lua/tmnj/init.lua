@@ -1,5 +1,6 @@
 require("tmnj.lsp")
 require("tmnj.telescope")
+require("tmnj.outline")
 
 P = function(v)
   print(vim.inspect(v))

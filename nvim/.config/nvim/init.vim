@@ -16,6 +16,7 @@ Plug 'tpope/vim-fugitive'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
 " Plug 'kabouzeid/nvim-lspinstall'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'hrsh7th/cmp-nvim-lsp'
