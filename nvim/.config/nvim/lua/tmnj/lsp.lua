@@ -178,3 +178,9 @@ lsp_installer.on_server_ready(function(server)
     server:setup(opts)
     vim.cmd [[ do User LspAttachBuffers ]]
 end)
+
+vim.g.symbols_outline = {
+    auto_preview = false,
+    width = 25,
+    lsp_blacklist = {"tailwindcss"},
+}

@@ -32,3 +32,4 @@ set shortmess+=c
 set colorcolumn=80
 
 set encoding=UTF-8
+set mouse=a

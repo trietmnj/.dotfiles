@@ -24,6 +24,8 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'tpope/vim-surround'
 Plug 'mattn/emmet-vim'
+Plug 'puremourning/vimspector'
+Plug 'szw/vim-maximizer'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'nvim-treesitter/playground'
@@ -35,6 +37,8 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 Plug 'simrat39/symbols-outline.nvim'
 Plug 'ThePrimeagen/git-worktree.nvim'
+" Plug 'jamestthompson3/nvim-remote-containers'
+Plug 'AndrewRadev/splitjoin.vim'
 
 call plug#end()
 
