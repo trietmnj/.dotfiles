@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
+" navigation
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -9,9 +10,13 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'tanvirtin/monokai.nvim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " gc comments
 Plug 'tpope/vim-commentary'
+
+" git
 Plug 'tpope/vim-fugitive'
 
 " LSP
@@ -22,23 +27,25 @@ Plug 'williamboman/nvim-lsp-installer'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'tpope/vim-surround'
 Plug 'mattn/emmet-vim'
+
+" debugger
+" https://puremourning.github.io/vimspector/configuration.html#docker-example
 Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
 
+" trees
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'nvim-treesitter/playground'
-
 Plug 'preservim/nerdtree'
-Plug 'ryanoasis/vim-devicons'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-
 Plug 'simrat39/symbols-outline.nvim'
 Plug 'ThePrimeagen/git-worktree.nvim'
 " Plug 'jamestthompson3/nvim-remote-containers'
+
+" editing
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'tpope/vim-surround'
 
 call plug#end()
 
