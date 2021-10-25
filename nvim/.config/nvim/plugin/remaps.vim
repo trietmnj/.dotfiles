@@ -7,3 +7,4 @@ inoremap . .<c-g>u
 inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
 
+nnoremap <C-s> :SymbolsOutline<CR>
