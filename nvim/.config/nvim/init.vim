@@ -20,7 +20,7 @@ Plug 'tpope/vim-commentary'
 " git
 Plug 'tpope/vim-fugitive'
 
-" LSP
+" Intellisense
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
 " Plug 'kabouzeid/nvim-lspinstall'
@@ -29,6 +29,8 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'mattn/emmet-vim'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
