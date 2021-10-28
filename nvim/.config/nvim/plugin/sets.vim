@@ -35,3 +35,7 @@ set encoding=UTF-8
 set mouse=a
 
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+
+" ls-brackets
+let g:usemarks = 0
+let g:cb_disable_default = { '{': 'n' }

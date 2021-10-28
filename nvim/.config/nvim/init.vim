@@ -49,6 +49,8 @@ Plug 'ThePrimeagen/git-worktree.nvim'
 " editing
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-surround'
+Plug 'LucHermitte/lh-vim-lib'
+Plug 'LucHermitte/lh-brackets'
 
 call plug#end()
 
