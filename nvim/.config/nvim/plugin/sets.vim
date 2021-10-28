@@ -33,3 +33,5 @@ set colorcolumn=80
 
 set encoding=UTF-8
 set mouse=a
+
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2

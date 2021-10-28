@@ -64,6 +64,11 @@ nnoremap <C-f> :NERDTreeFind<CR>
 let g:nerd_preview_enabled = 0
 let g:preview_last_buffer  = 0
 
+" enable line numbers
+let NERDTreeShowLineNumbers=1
+" make sure relative line numbers are used
+autocmd FileType nerdtree setlocal relativenumber
+
 function! NerdTreePreview()
   " Only on nerdtree window
   if (&ft ==# 'nerdtree')

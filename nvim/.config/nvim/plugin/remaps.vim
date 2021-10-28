@@ -8,3 +8,4 @@ inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
 
 nnoremap <C-s> :SymbolsOutline<CR>
+nmap ff :lua vim.lsp.buf.formatting()<CR>
