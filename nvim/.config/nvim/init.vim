@@ -31,6 +31,8 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'mattn/emmet-vim'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+" Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
+" Plug 'ray-x/navigator.lua'
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example

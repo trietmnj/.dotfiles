@@ -1,5 +1,3 @@
-lua require("tmnj")
-
 nnoremap <leader>rr :lua require('tmnj.telescope').refactors()<CR>
 vnoremap <leader>rr :lua require('tmnj.telescope').refactors()<CR>
 nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
