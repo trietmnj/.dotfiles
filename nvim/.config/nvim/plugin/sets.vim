@@ -30,6 +30,7 @@ set cmdheight=2
 set updatetime=50
 set shortmess+=c
 set colorcolumn=80
+set omnifunc
 
 set encoding=UTF-8
 set mouse=a

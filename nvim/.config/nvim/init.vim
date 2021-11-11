@@ -5,6 +5,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'unblevable/quick-scope'
 
 " Themes
 Plug 'tanvirtin/monokai.nvim'
@@ -12,7 +13,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'Yggdroot/indentLine'
 
 " gc comments
 Plug 'tpope/vim-commentary'
@@ -23,7 +23,6 @@ Plug 'tpope/vim-fugitive'
 " Intellisense
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
-" Plug 'kabouzeid/nvim-lspinstall'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -57,11 +56,7 @@ Plug 'LucHermitte/lh-brackets'
 call plug#end()
 
 lua require'nvim-treesitter.configs'.setup { indent = { enable = true }, highlight = { enable = true }, incremental_selection = { enable = true }, textobjects = { enable = true }}
-" lua require('nvim-treesitter.configs').setup { highlight = { enable = false }}
 lua require('tmnj')
-
-colorscheme monokai
-highlight Normal guibg=none
 
 let mapleader = " "
 

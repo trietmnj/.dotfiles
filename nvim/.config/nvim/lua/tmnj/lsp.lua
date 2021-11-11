@@ -1,6 +1,4 @@
--- https://pmihaylov.com/vim-for-go-development/
 local nvim_lsp = require('lspconfig')
--- require'navigator'.setup()
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
