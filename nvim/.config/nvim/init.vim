@@ -14,22 +14,16 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" gc comments
-Plug 'tpope/vim-commentary'
-
-" git
-Plug 'tpope/vim-fugitive'
-
 " Intellisense
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'mattn/emmet-vim'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
 " Plug 'ray-x/navigator.lua'
 
@@ -52,6 +46,11 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-surround'
 Plug 'LucHermitte/lh-vim-lib'
 Plug 'LucHermitte/lh-brackets'
+" gc comments
+Plug 'tpope/vim-commentary'
+" git
+Plug 'tpope/vim-fugitive'
+Plug 'BitsuMamo/cheat-sh-nvim'
 
 call plug#end()
 
