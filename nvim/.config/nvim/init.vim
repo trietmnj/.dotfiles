@@ -6,6 +6,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'unblevable/quick-scope'
+Plug 'justinmk/vim-sneak'
 
 " Themes
 Plug 'tanvirtin/monokai.nvim'
@@ -13,6 +14,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter'
+Plug 'Yggdroot/indentLine'
 
 " Intellisense
 Plug 'neovim/nvim-lspconfig'
@@ -22,7 +25,8 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'mattn/emmet-vim'
 Plug 'L3MON4D3/LuaSnip'
-Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+" vim-doge doesn't work
+" Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
 " Plug 'ray-x/navigator.lua'
