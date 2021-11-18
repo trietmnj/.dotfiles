@@ -1,1 +1,1 @@
-:set list lcs=tab:\|\ 
+set list lcs=tab:\|\ 

@@ -9,3 +9,5 @@ augroup END
 
 colorscheme monokai
 highlight Normal guibg=none
+
+let g:sneak#use_ic_scs = 1
