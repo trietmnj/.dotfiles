@@ -50,6 +50,8 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-surround'
 Plug 'LucHermitte/lh-vim-lib'
 Plug 'LucHermitte/lh-brackets'
+Plug 'rhysd/vim-grammarous'
+
 " gc comments
 Plug 'tpope/vim-commentary'
 " git
