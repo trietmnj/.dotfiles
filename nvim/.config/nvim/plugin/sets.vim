@@ -43,3 +43,5 @@ let g:usemarks = 0
 let g:cb_disable_default = { '{': 'n' }
 
 let g:rainbow_active = 1
+
+let g:marker_define_jump_mappings = 0
