@@ -10,12 +10,15 @@ Plug 'justinmk/vim-sneak'
 
 " Themes
 Plug 'tanvirtin/monokai.nvim'
+" Plug 'sickill/vim-monokai'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
+" Plug 'luochen1990/rainbow'
+Plug 'p00f/nvim-ts-rainbow'
 
 " Intellisense
 Plug 'neovim/nvim-lspconfig'
@@ -24,9 +27,10 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'mattn/emmet-vim'
-Plug 'L3MON4D3/LuaSnip'
+" Plug 'L3MON4D3/LuaSnip'
 " vim-doge doesn't work
 " Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+" nvim-lsp-installer can install gopls too
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
 " Plug 'ray-x/navigator.lua'
@@ -48,8 +52,8 @@ Plug 'ThePrimeagen/git-worktree.nvim'
 " editing
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-surround'
-Plug 'LucHermitte/lh-vim-lib'
-Plug 'LucHermitte/lh-brackets'
+" Plug 'LucHermitte/lh-vim-lib'
+" Plug 'LucHermitte/lh-brackets'
 Plug 'rhysd/vim-grammarous'
 
 " gc comments
@@ -60,8 +64,25 @@ Plug 'BitsuMamo/cheat-sh-nvim'
 
 call plug#end()
 
-lua require'nvim-treesitter.configs'.setup { indent = { enable = true }, highlight = { enable = true }, incremental_selection = { enable = true }, textobjects = { enable = true }}
-lua require('tmnj')
+lua << EOF
+
+require'nvim-treesitter.configs'.setup {
+    indent = { enable = true },
+    highlight = { enable = true },
+    incremental_selection = { enable = true },
+    textobjects = { enable = true },
+    rainbow = {
+        enable = true,
+        -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+        max_file_lines = nil, -- Do not enable for files with more than n lines, int
+        -- colors = {}, -- table of hex strings
+        -- termcolors = {} -- table of colour name strings
+  }}
+
+require('tmnj')
+
+EOF
 
 let mapleader = " "
 

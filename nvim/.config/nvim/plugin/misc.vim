@@ -7,7 +7,7 @@ augroup qs_colors
   autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 augroup END
 
-colorscheme monokai
+colorscheme monokai_soda
 highlight Normal guibg=none
 
 let g:sneak#use_ic_scs = 1
