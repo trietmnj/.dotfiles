@@ -9,9 +9,15 @@ inoremap ? ?<c-g>u
 
 nnoremap <C-s> :SymbolsOutline<CR>
 nmap <leader>ff :lua vim.lsp.buf.formatting()<CR>
-nmap <leader>b :bnext<CR>
-nmap <leader>v :bp<CR>
-nmap <leader>c :bp <bar> bd #<CR>
+
+nmap <C-m> :bnext<CR>
+nmap <C-n> :bprev<CR>
+nmap <C-b> :bp <bar> bd #<CR>
+
+" nmap <leader>. :bnext<CR>
+" nmap <leader>, :bp<CR>
+" nmap <leader>n :bp <bar> bd #<CR>
+
 " change from under_score to camelCase
 vmap <leader>=++ :s#_\(\l\)#\u\1#g<CR>
 
