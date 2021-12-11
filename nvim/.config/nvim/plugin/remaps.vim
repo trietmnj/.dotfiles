@@ -12,7 +12,7 @@ nmap <leader>ff :lua vim.lsp.buf.formatting()<CR>
 
 nmap <C-m> :bnext<CR>
 nmap <C-n> :bprev<CR>
-nmap <C-b> :bp <bar> bd #<CR>
+nmap <C-x> :bp <bar> bd #<CR>
 
 " nmap <leader>. :bnext<CR>
 " nmap <leader>, :bp<CR>
