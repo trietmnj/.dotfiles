@@ -63,6 +63,7 @@ Plug 'tpope/vim-commentary'
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'BitsuMamo/cheat-sh-nvim'
+Plug 'tpope/vim-rhubarb'
 
 call plug#end()
 
