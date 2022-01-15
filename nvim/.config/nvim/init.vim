@@ -39,8 +39,8 @@ Plug 'folke/trouble.nvim'
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
-Plug 'puremourning/vimspector'
-Plug 'szw/vim-maximizer'
+" Plug 'puremourning/vimspector'
+" Plug 'szw/vim-maximizer'
 
 " trees
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
