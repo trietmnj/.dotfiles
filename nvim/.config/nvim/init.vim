@@ -58,7 +58,7 @@ Plug 'tpope/vim-surround'
 " Plug 'LucHermitte/lh-vim-lib'
 " Plug 'LucHermitte/lh-brackets'
 Plug 'rhysd/vim-grammarous'
-Plug 'folke/which-key.nvim'
+" Plug 'folke/which-key.nvim'
 
 " gc comments
 Plug 'tpope/vim-commentary'
