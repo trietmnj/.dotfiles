@@ -117,7 +117,7 @@ M.dev = function(opts)
     local mod_name = vim.split(dev, "/lua/")
     if #mod_name ~= 2 then
         print("===================================================")
-        print("HEY PRIME. I DO NOT KNOW HOW TO FIND THIS FILE:")
+        print("I DO NOT KNOW HOW TO FIND THIS FILE:")
         print(dev)
         print("===================================================")
     end

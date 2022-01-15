@@ -7,6 +7,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'unblevable/quick-scope'
 Plug 'ggandor/lightspeed.nvim'
+Plug 'chentau/marks.nvim'
 
 " Themes
 Plug 'tanvirtin/monokai.nvim'
