@@ -6,7 +6,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'unblevable/quick-scope'
-Plug 'justinmk/vim-sneak'
+Plug 'ggandor/lightspeed.nvim'
 
 " Themes
 Plug 'tanvirtin/monokai.nvim'
