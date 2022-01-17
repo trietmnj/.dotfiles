@@ -7,7 +7,8 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'unblevable/quick-scope'
 Plug 'ggandor/lightspeed.nvim'
-Plug 'chentau/marks.nvim'
+" Plug 'chentau/marks.nvim'
+Plug 'ThePrimeagen/harpoon'
 
 " Themes
 Plug 'tanvirtin/monokai.nvim'
@@ -59,6 +60,7 @@ Plug 'LucHermitte/lh-vim-lib'
 Plug 'LucHermitte/lh-brackets'
 Plug 'rhysd/vim-grammarous'
 " Plug 'folke/which-key.nvim'
+Plug 'matze/vim-move'
 
 " gc comments
 Plug 'tpope/vim-commentary'
