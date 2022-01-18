@@ -37,6 +37,7 @@ set mouse=a
 
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2
 autocmd FileType javascriptreact setlocal ts=2 sts=2 sw=2
+autocmd FileType terraform setlocal ts=2 sts=2 sw=2
 
 " ls-brackets
 let g:usemarks = 0
