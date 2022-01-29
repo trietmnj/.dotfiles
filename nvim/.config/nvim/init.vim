@@ -90,3 +90,18 @@ augroup END
 
 autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 autocmd BufWritePre *.go lua goimports(1000)
+
+if has('wsl')
+    let g:clipboard = {
+          \   'name': 'wslclipboard',
+          \   'copy': {
+          \      '+': '/mnt/c/Apps/win32yank-x64/win32yank.exe -i --crlf',
+          \      '*': '/mnt/c/Apps/win32yank-x64/win32yank.exe -i --crlf',
+          \    },
+          \   'paste': {
+          \      '+': '/mnt/c/Apps/win32yank-x64/win32yank.exe -o --lf',
+          \      '*': '/mnt/c/Apps/win32yank-x64/win32yank.exe -o --lf',
+          \   },
+          \   'cache_enabled': 1,
+          \ }
+endif
