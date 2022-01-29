@@ -38,6 +38,7 @@ Plug 'mattn/emmet-vim'
 " Plug 'ray-x/navigator.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
+Plug 'hashivim/vim-terraform'
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
