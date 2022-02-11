@@ -21,6 +21,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 " Plug 'luochen1990/rainbow'
 Plug 'p00f/nvim-ts-rainbow'
+Plug 'gko/vim-coloresque'
 
 " Intellisense
 Plug 'neovim/nvim-lspconfig'
