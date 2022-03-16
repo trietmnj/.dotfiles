@@ -30,6 +30,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'mattn/emmet-vim'
+" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " Plug 'L3MON4D3/LuaSnip'
 " vim-doge doesn't work
 " Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
