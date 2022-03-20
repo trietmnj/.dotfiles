@@ -41,11 +41,15 @@ Plug 'mattn/emmet-vim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 Plug 'hashivim/vim-terraform'
+Plug 'simrat39/rust-tools.nvim'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'rust-lang/rust.vim'
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
 " Plug 'puremourning/vimspector'
 " Plug 'szw/vim-maximizer'
+Plug 'mfussenegger/nvim-dap'
 
 " trees
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
