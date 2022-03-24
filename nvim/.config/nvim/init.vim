@@ -47,9 +47,9 @@ Plug 'rust-lang/rust.vim'
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
-" Plug 'puremourning/vimspector'
-" Plug 'szw/vim-maximizer'
-Plug 'mfussenegger/nvim-dap'
+Plug 'puremourning/vimspector'
+Plug 'szw/vim-maximizer'
+" Plug 'mfussenegger/nvim-dap'
 
 " trees
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
