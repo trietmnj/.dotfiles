@@ -7,7 +7,8 @@ inoremap . .<c-g>u
 inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
 
-nnoremap <C-s> :SymbolsOutline<CR>
+" nnoremap <C-s> :SymbolsOutline<CR>
+nnoremap <C-s> :TagbarToggle<CR>
 nmap <leader>ff :lua vim.lsp.buf.formatting()<CR>
 
 nmap <C-m> :bnext<CR>

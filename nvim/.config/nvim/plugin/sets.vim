@@ -31,6 +31,8 @@ set updatetime=50
 set shortmess+=c
 set colorcolumn=80
 " set omnifunc
+set foldmethod=indent
+set foldlevelstart=20
 
 set encoding=UTF-8
 set mouse=a
@@ -42,6 +44,12 @@ autocmd FileType typescriptreact setlocal ts=2 sts=2 sw=2
 autocmd FileType terraform setlocal ts=2 sts=2 sw=2
 autocmd FileType css setlocal ts=2 sts=2 sw=2
 autocmd FileType json setlocal ts=2 sts=2 sw=2
+autocmd Syntax c,cpp,vim,xml,html,xhtml,
+            \ go,rust,python,javascript,javascriptreact,
+            \ typescript,typescriptreact,css,json setlocal foldmethod=indent
+autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,
+            \ go,rust,python,javascript,javascriptreact,
+            \ typescript,typescriptreact,css,json normal zR
 
 " ls-brackets
 let g:usemarks = 0

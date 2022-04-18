@@ -29,9 +29,6 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 set mouse=a               " tell vim to recognize mouse commands in "all" modes
 set ttyfast               " improve fluidity of mouse commands, this isn't necessary but I believe improves performance
 
-" delete all buffers, open nerdtree
-" nnoremap <leader>bd :%bd <bar> NERDTree<CR>
-nnoremap <leader>bd :%bdelete<bar>e #<bar>call CleanNoNameEmptyBuffers()<CR>
 
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>

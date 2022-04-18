@@ -3,6 +3,10 @@ nnoremap <C-k> :cprev<CR>zz
 nnoremap <leader>j :lnext<CR>zz
 nnoremap <leader>k :lprev<CR>zz
 
+" delete all buffers, open nerdtree
+" nnoremap <leader>bd :%bd <bar> NERDTree<CR>
+nnoremap <leader>bd :%bdelete<bar>e #<bar>call CleanNoNameEmptyBuffers()<CR>
+
 nnoremap <C-q> :call ToggleQFList(1)<CR>
 nnoremap <leader>q :call ToggleQFList(0)<CR>
 

@@ -49,15 +49,16 @@ Plug 'rust-lang/rust.vim'
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
 Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
-" Plug 'mfussenegger/nvim-dap'
+Plug 'mfussenegger/nvim-dap'
 
 " trees
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'nvim-treesitter/playground'
 Plug 'preservim/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'simrat39/symbols-outline.nvim'
+" Plug 'simrat39/symbols-outline.nvim'
 Plug 'ThePrimeagen/git-worktree.nvim'
+Plug 'preservim/tagbar'
 " Plug 'jamestthompson3/nvim-remote-containers'
 
 " editing
