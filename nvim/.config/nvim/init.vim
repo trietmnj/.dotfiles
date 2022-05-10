@@ -44,6 +44,9 @@ Plug 'hashivim/vim-terraform'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'rust-lang/rust.vim'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'leafOfTree/vim-svelte-plugin'
+Plug 'sheerun/vim-polyglot'
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
