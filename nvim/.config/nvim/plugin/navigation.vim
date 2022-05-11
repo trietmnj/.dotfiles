@@ -32,3 +32,9 @@ fun! ToggleQFList(global)
         end
     endif
 endfun
+
+" Enter should be the same as C-m
+" nmap <C-m> :bnext<CR>
+nmap <Enter> :bnext<CR>
+nmap <C-n> :bprev<CR>
+nmap <C-x> :bp <bar> bd #<CR>

@@ -46,7 +46,7 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'rust-lang/rust.vim'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'leafOfTree/vim-svelte-plugin'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
@@ -75,10 +75,17 @@ Plug 'matze/vim-move'
 
 " gc comments
 Plug 'tpope/vim-commentary'
+" Plug 'trietmnj/vim-context-commentstring'
+" Plug 'tomtom/tcomment_vim'
+" Plug 'Shougo/context_filetype.vim'
+Plug 'tpope/vim-scriptease'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'BitsuMamo/cheat-sh-nvim'
 Plug 'tpope/vim-rhubarb'
+Plug 'rhysd/git-messenger.vim'
 
 call plug#end()
 

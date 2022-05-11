@@ -45,12 +45,13 @@ autocmd FileType svelte setlocal ts=2 sts=2 sw=2
 autocmd FileType terraform setlocal ts=2 sts=2 sw=2
 autocmd FileType css setlocal ts=2 sts=2 sw=2
 autocmd FileType json setlocal ts=2 sts=2 sw=2
-autocmd Syntax c,cpp,vim,xml,html,xhtml,
-            \ go,rust,python,javascript,javascriptreact,
-            \ typescript,typescriptreact,css,json,svelte setlocal foldmethod=indent
-autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,
-            \ go,rust,python,javascript,javascriptreact,
-            \ typescript,typescriptreact,css,json,svelte normal zR
+
+" autocmd Syntax c,cpp,xml,html,xhtml,
+"             \ go,rust,python,javascript,javascriptreact,
+"             \ typescript,typescriptreact,css,json,svelte setlocal foldmethod=indent
+" autocmd Syntax c,cpp,xml,html,xhtml,perl,
+"             \ go,rust,python,javascript,javascriptreact,
+"             \ typescript,typescriptreact,css,json,svelte normal zR
 
 " ls-brackets
 let g:usemarks = 0
@@ -59,4 +60,8 @@ let g:cb_disable_default = { '{': 'n' }
 let g:rainbow_active = 1
 
 let g:marker_define_jump_mappings = 0
+
+" svelte
 let g:svelte_preprocessors = ['typescript', "ts"]
+
+let g:git_messenger_include_diff='current'

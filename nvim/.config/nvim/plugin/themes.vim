@@ -35,4 +35,4 @@ let g:airline_symbols.dirty='⚡'
 let g:airline_symbols.notexists= '?'
 
 hi Container guifg=#BADA55 guibg=Black
-set statusline+=%#Container#%{g:currentContainer}
+" set statusline+=%#Container#%{g:currentContainer}

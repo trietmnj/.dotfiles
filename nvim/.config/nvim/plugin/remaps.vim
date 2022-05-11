@@ -11,10 +11,6 @@ inoremap ? ?<c-g>u
 nnoremap <C-s> :TagbarToggle<CR>
 nmap <leader>ff :lua vim.lsp.buf.formatting()<CR>
 
-nmap <C-m> :bnext<CR>
-nmap <C-n> :bprev<CR>
-nmap <C-x> :bp <bar> bd #<CR>
-
 " nmap <leader>. :bnext<CR>
 " nmap <leader>, :bp<CR>
 " nmap <leader>n :bp <bar> bd #<CR>
