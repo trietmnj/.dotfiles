@@ -75,17 +75,16 @@ Plug 'matze/vim-move'
 
 " gc comments
 Plug 'tpope/vim-commentary'
-" Plug 'trietmnj/vim-context-commentstring'
 " Plug 'tomtom/tcomment_vim'
 " Plug 'Shougo/context_filetype.vim'
-Plug 'tpope/vim-scriptease'
+" Plug 'tpope/vim-scriptease'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'BitsuMamo/cheat-sh-nvim'
 Plug 'tpope/vim-rhubarb'
-Plug 'rhysd/git-messenger.vim'
+" Plug 'rhysd/git-messenger.vim'
 
 call plug#end()
 
