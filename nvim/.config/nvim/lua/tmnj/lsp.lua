@@ -179,9 +179,9 @@ lsp_installer.settings {
 -- end)
 
 require("nvim-lsp-installer").setup {}
-require("rust-tools").setup {
-    -- server = { on_attach = on_attach }
-}
+-- require("rust-tools").setup {
+--     -- server = { on_attach = on_attach }
+-- }
 
 -- local lspconfig = require("lspconfig")
 nvim_lsp.tsserver.setup {}
