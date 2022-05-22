@@ -47,3 +47,7 @@ nmap <C-x> :bp <bar> bd #<CR>
 " noremap   <Down>   <NOP>
 " noremap   <Left>   <NOP>
 " noremap   <Right>  <NOP>
+"
+inoremap <expr> <down> ((pumvisible())?("\<C-n>"):("\<down>"))
+inoremap <expr> <up> ((pumvisible())?("\<C-p>"):("\<up>"))
+

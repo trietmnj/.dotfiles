@@ -79,7 +79,6 @@ M.dev = function(opts)
     opts = opts or {}
 
     opts.cwd = opts.cwd or vim.loop.fs_realpath(vim.loop.cwd())
-    print("HEY BAE", opts.cwd)
 
     local possible_files = vim.api.nvim_get_runtime_file(
         "/lua/**/dev.lua",

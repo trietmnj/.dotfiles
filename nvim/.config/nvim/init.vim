@@ -26,9 +26,24 @@ Plug 'gko/vim-coloresque'
 " Intellisense
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/nvim-cmp'
+" Plug 'hrsh7th/cmp-nvim-lsp'
+" Plug 'hrsh7th/cmp-buffer'
+" Plug 'hrsh7th/cmp-path'
+" Plug 'hrsh7th/cmp-cmdline'
+" Plug 'hrsh7th/nvim-cmp'
+
+" " For vsnip users.
+" Plug 'hrsh7th/cmp-vsnip'
+" Plug 'hrsh7th/vim-vsnip'
+
+" " For ultisnips users.
+" Plug 'SirVer/ultisnips'
+" Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
+
 Plug 'mattn/emmet-vim'
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " Plug 'L3MON4D3/LuaSnip'
@@ -37,16 +52,17 @@ Plug 'mattn/emmet-vim'
 " nvim-lsp-installer can install gopls too
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
-" Plug 'ray-x/navigator.lua'
+Plug 'ray-x/navigator.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 Plug 'hashivim/vim-terraform'
 Plug 'simrat39/rust-tools.nvim'
-Plug 'L3MON4D3/LuaSnip'
 Plug 'rust-lang/rust.vim'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'leafOfTree/vim-svelte-plugin'
 " Plug 'sheerun/vim-polyglot'
+" Plug 'nvim-lua/completion-nvim'
+
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
@@ -121,3 +137,6 @@ if has('wsl')
           \   'cache_enabled': 1,
           \ }
 endif
+
+" let g:coq_settings = { 'auto_start': v:true }
+let g:coq_settings = { 'auto_start': 'shut-up' }

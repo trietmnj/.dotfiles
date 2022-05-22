@@ -65,3 +65,5 @@ let g:marker_define_jump_mappings = 0
 let g:svelte_preprocessors = ['typescript', "ts"]
 
 let g:git_messenger_include_diff='current'
+
+set completeopt=menu,menuone,noselect
