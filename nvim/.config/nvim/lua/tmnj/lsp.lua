@@ -145,6 +145,7 @@ local servers = {
     'lemminx',
     'sumneko_lua',
     'gopls',
+    'cssls',
 }
 for _, lsp in pairs(servers) do
     if lsp == 'gopls' then

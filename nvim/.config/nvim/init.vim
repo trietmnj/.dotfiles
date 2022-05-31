@@ -121,7 +121,7 @@ augroup AUTO
     autocmd BufWritePre * : call TrimWhitespace()
 augroup END
 
-autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
+" autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 
 if has('wsl')
     let g:clipboard = {
