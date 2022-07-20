@@ -89,7 +89,7 @@ vim.lsp.set_log_level("error")
 
 -- lsp_installer
 local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.setup {
+lsp_installer.setup({
     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
     ui = {
         icons = {
@@ -98,7 +98,7 @@ lsp_installer.setup {
             server_uninstalled = "✗"
         }
     }
-}
+})
 
 -- lsp_installer.on_server_ready(function(server)
 --     local opts = {}
