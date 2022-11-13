@@ -1,3 +1,5 @@
+local nvim_lsp = require('lspconfig')
+
 vim.api.nvim_exec([[let g:coq_settings = { 'auto_start': 'shut-up' }]], true)
 local coq = require("coq")
 
@@ -85,7 +87,6 @@ local servers = {
     'omnisharp',
     'csharp_ls'
 }
-local nvim_lsp = require('lspconfig')
 for _, lsp in pairs(servers) do
     if lsp == 'gopls' then
         nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({
@@ -139,30 +140,30 @@ end
 -- }))
 
 -- treesitter
--- require 'nvim-treesitter.configs'.setup {
---     ensure_installed = { "c", "rust", "go", "typescript" },
---     indent = { enable = true },
---     highlight = { enable = true },
---     incremental_selection = { enable = true },
---     textobjects = { enable = true },
---     rainbow = {
---         enable = true,
---         -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
---         extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
---         max_file_lines = nil, -- Do not enable for files with more than n lines, int
---         colors = {
---             '#97e023',
---             '#78DCE8',
---             '#dfd561',
---             '#fa8419',
---             '#9c64fe'
---         }, -- table of hex strings
---         -- termcolors = {} -- table of colour name strings
---     },
---     context_commentstring = {
---         enable = true
---     }
--- }
+require 'nvim-treesitter.configs'.setup {
+    ensure_installed = { "c", "rust", "go", "typescript" },
+    indent = { enable = true },
+    highlight = { enable = true },
+    incremental_selection = { enable = true },
+    textobjects = { enable = true },
+    rainbow = {
+        enable = true,
+        -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+        max_file_lines = nil, -- Do not enable for files with more than n lines, int
+        colors = {
+            '#97e023',
+            '#78DCE8',
+            '#dfd561',
+            '#fa8419',
+            '#9c64fe'
+        }, -- table of hex strings
+        -- termcolors = {} -- table of colour name strings
+    },
+    context_commentstring = {
+        enable = true
+    }
+}
 
 require("mason").setup({
     ui = {
