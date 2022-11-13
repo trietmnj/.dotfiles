@@ -9,7 +9,9 @@ inoremap ? ?<c-g>u
 
 " nnoremap <C-s> :SymbolsOutline<CR>
 nnoremap <C-s> :TagbarToggle<CR>
-nmap <leader>ff :lua vim.lsp.buf.formatting()<CR>
+" nmap <leader>ff :lua vim.lsp.buf.formatting()<CR>
+" nmap <leader>ff :lua vim.lsp.buf.formatting()<CR>
+nmap <leader>ff :lua vim.lsp.buf.format { async = true }<CR>
 
 " nmap <leader>. :bnext<CR>
 " nmap <leader>, :bp<CR>

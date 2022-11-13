@@ -2,9 +2,6 @@ local nvim_lsp = require('lspconfig')
 vim.api.nvim_exec([[let g:coq_settings = { 'auto_start': 'shut-up' }]], true)
 local coq = require("coq")
 
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities.textDocument.completion.completionItem.snippetSupport = true
-
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
@@ -93,17 +90,17 @@ end
 vim.lsp.set_log_level("error")
 
 -- lsp_installer
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.setup({
-    automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-    ui = {
-        icons = {
-            server_installed = "✓",
-            server_pending = "➜",
-            server_uninstalled = "✗"
-        }
-    }
-})
+-- local lsp_installer = require("nvim-lsp-installer")
+-- lsp_installer.setup({
+--     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+--     ui = {
+--         icons = {
+--             server_installed = "✓",
+--             server_pending = "➜",
+--             server_uninstalled = "✗"
+--         }
+--     }
+-- })
 
 -- lsp_installer.on_server_ready(function(server)
 --     local opts = {}
@@ -138,19 +135,23 @@ lsp_installer.setup({
 -- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local servers = {
-    'pyright',
-    'rust_analyzer',
+    'jedi_language_server',
+    -- 'pyright',
+    -- 'rust_analyzer',
     'tsserver',
-    'svelte',
-    'tailwindcss',
-    'vimls',
+    -- 'svelte',
+    -- 'tailwindcss',
+    -- 'vimls',
     'jsonls',
-    'html',
-    'dockerls',
-    'lemminx',
-    'sumneko_lua',
+    -- 'html',
+    -- 'dockerls',
+    -- 'lemminx',
+    -- 'sumneko_lua',
     'gopls',
-    'cssls',
+    -- 'cssls',
+    -- 'solargraph',
+    'omnisharp',
+    'csharp_ls'
 }
 for _, lsp in pairs(servers) do
     if lsp == 'gopls' then
@@ -228,3 +229,17 @@ require 'nvim-treesitter.configs'.setup {
         enable = true
     }
 }
+
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+
+require("mason-lspconfig").setup({
+    ensured_installed = {"jedi_language_server", "jsonls" }
+})

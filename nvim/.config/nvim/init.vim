@@ -25,7 +25,11 @@ Plug 'gko/vim-coloresque'
 
 " Intellisense
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
+" Plug 'williamboman/nvim-lsp-installer'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'williamboman/mason.nvim'
+Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
+
 " Plug 'hrsh7th/cmp-nvim-lsp'
 " Plug 'hrsh7th/cmp-buffer'
 " Plug 'hrsh7th/cmp-path'
@@ -66,7 +70,7 @@ Plug 'leafOfTree/vim-svelte-plugin'
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
-Plug 'puremourning/vimspector'
+" Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
 Plug 'mfussenegger/nvim-dap'
 
