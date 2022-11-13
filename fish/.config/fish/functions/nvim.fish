@@ -1,4 +1,4 @@
 # Defined in - @ line 1
-#function nvim --wraps='~/neovim/bin/nvim' --wraps=vim --description 'alias nvim=~/neovim/bin/nvim'
-#  ~/apps/nvim-linux64/bin/nvim  $argv;
-#end
+function nvim --wraps='~/apps/nvim.appimage' --wraps=vim --description '~/apps/nvim.appimage'
+  ~/apps/nvim.appimage  $argv;
+end
