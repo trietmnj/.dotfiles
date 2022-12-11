@@ -141,7 +141,7 @@ end
 
 -- treesitter
 require 'nvim-treesitter.configs'.setup {
-    ensure_installed = { "c", "rust", "go", "typescript" },
+    ensure_installed = { "c", "rust", "go", "typescript" , "lua", "vim", "python"},
     indent = { enable = true },
     highlight = { enable = true },
     incremental_selection = { enable = true },
@@ -178,3 +178,9 @@ require("mason").setup({
 require("mason-lspconfig").setup({
     ensured_installed = {"jedi_language_server", "jsonls" }
 })
+
+require("trouble").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
