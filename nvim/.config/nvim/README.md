@@ -7,4 +7,3 @@ If there is an issue with :COQdeps, try
 
 Make sure to reinstall nodejs and npm.
 ```
-
