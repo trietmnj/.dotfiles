@@ -1,7 +1,7 @@
 local nvim_lsp = require('lspconfig')
+local coq = require("coq")
 
 vim.api.nvim_exec([[let g:coq_settings = { 'auto_start': 'shut-up' }]], true)
-local coq = require("coq")
 
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -80,13 +80,15 @@ local servers = {
     -- 'html',
     -- 'dockerls',
     -- 'lemminx',
-    -- 'sumneko_lua',
+    'sumneko_lua',
     'gopls',
     -- 'cssls',
     -- 'solargraph',
     'omnisharp',
-    'csharp_ls'
+    'csharp_ls',
+    'ltex',
 }
+
 for _, lsp in pairs(servers) do
     if lsp == 'gopls' then
         nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({
@@ -134,14 +136,63 @@ for _, lsp in pairs(servers) do
     end
 end
 
--- nvim_lsp['sumneko_lua'].setup(coq.lsp_ensure_capabilities( {
---     -- capabilities = capabilities,
---     on_attach = on_attach,
--- }))
+nvim_lsp['sumneko_lua'].setup(coq.lsp_ensure_capabilities({
+    -- capabilities = capabilities,
+    on_attach = on_attach,
+}))
+
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+
+-- require("mason-lspconfig").setup()
+
+require('mason-tool-installer').setup({
+    ensure_installed = {
+        -- you can pin a tool to a particular version
+        -- { 'golangci-lint', version = 'v1.47.0' },
+        -- you can turn off/on auto_update per tool
+        { 'bash-language-server', auto_update = true },
+
+        'lua-language-server',
+        'vim-language-server',
+        -- 'gopls',
+        'stylua',
+        'shellcheck',
+        'editorconfig-checker',
+        -- 'gofumpt',
+        -- 'golines',
+        -- 'gomodifytags',
+        -- 'gotests',
+        -- 'impl',
+        -- 'json-to-struct',
+        -- 'luacheck',
+        -- 'misspell',
+        -- 'revive',
+        -- 'shellcheck',
+        'shfmt',
+        -- 'staticcheck',
+        'vint',
+        'ltex-ls',
+    },
+    auto_update = true,
+    run_on_start = true,
+    -- set a delay (in ms) before the installation starts. This is only
+    -- effective if run_on_start is set to true.
+    -- e.g.: 5000 = 5 second delay, 10000 = 10 second delay, etc...
+    -- Default: 0
+    start_delay = 3000, -- 3 second delay
+})
 
 -- treesitter
-require 'nvim-treesitter.configs'.setup {
-    ensure_installed = { "c", "rust", "go", "typescript" , "lua", "vim", "python"},
+require 'nvim-treesitter.configs'.setup({
+    ensure_installed = { "c", "rust", "go", "typescript", "lua", "vim", "python" },
     indent = { enable = true },
     highlight = { enable = true },
     incremental_selection = { enable = true },
@@ -163,24 +214,6 @@ require 'nvim-treesitter.configs'.setup {
     context_commentstring = {
         enable = true
     }
-}
-
-require("mason").setup({
-    ui = {
-        icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗"
-        }
-    }
 })
 
-require("mason-lspconfig").setup({
-    ensured_installed = {"jedi_language_server", "jsonls" }
-})
-
-require("trouble").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
+require("trouble").setup()
