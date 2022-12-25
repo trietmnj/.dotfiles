@@ -45,6 +45,8 @@ autocmd FileType svelte setlocal ts=2 sts=2 sw=2
 autocmd FileType terraform setlocal ts=2 sts=2 sw=2
 autocmd FileType css setlocal ts=2 sts=2 sw=2
 autocmd FileType json setlocal ts=2 sts=2 sw=2
+" autocmd FileType tex setlocal tw=79 fo=cqt
+au BufRead,BufNewFile *.tex setlocal tw=79 fo=cqt
 
 " autocmd Syntax c,cpp,xml,html,xhtml,
 "             \ go,rust,python,javascript,javascriptreact,
