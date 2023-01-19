@@ -8,7 +8,7 @@ set clipboard=unnamedplus
 
 set exrc
 set guicursor=
-set relativenumber
+" set relativenumber
 set number
 set nohlsearch
 set hidden
@@ -32,7 +32,7 @@ set shortmess+=c
 set colorcolumn=80
 " set omnifunc
 set foldmethod=indent
-set foldlevelstart=20
+set foldlevelstart=0
 
 set encoding=UTF-8
 set mouse=a
