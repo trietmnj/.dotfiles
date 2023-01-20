@@ -32,7 +32,7 @@ set shortmess+=c
 set colorcolumn=80
 " set omnifunc
 set foldmethod=indent
-set foldlevelstart=0
+set foldlevelstart=20
 
 set encoding=UTF-8
 set mouse=a
