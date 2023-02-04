@@ -69,8 +69,8 @@ end
 vim.lsp.set_log_level("error")
 
 local servers = {
-    'jedi_language_server',
-    -- 'pyright',
+    -- 'jedi_language_server',
+    'pyright',
     'rust_analyzer',
     'tsserver',
     -- 'svelte',
@@ -80,7 +80,7 @@ local servers = {
     -- 'html',
     -- 'dockerls',
     -- 'lemminx',
-    'sumneko_lua',
+    -- 'sumneko_lua',
     'gopls',
     -- 'cssls',
     -- 'solargraph',
@@ -139,6 +139,27 @@ end
 nvim_lsp['sumneko_lua'].setup(coq.lsp_ensure_capabilities({
     -- capabilities = capabilities,
     on_attach = on_attach,
+    flags = lsp_flags,
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = "LuaJIT",
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { "vim" },
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
 }))
 
 require("mason").setup({
@@ -151,15 +172,13 @@ require("mason").setup({
     }
 })
 
--- require("mason-lspconfig").setup()
-
 require('mason-tool-installer').setup({
     ensure_installed = {
         -- you can pin a tool to a particular version
         -- { 'golangci-lint', version = 'v1.47.0' },
         -- you can turn off/on auto_update per tool
         { 'bash-language-server', auto_update = true },
-
+        'pyright',
         'lua-language-server',
         'vim-language-server',
         -- 'gopls',

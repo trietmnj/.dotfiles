@@ -8,26 +8,13 @@ map('i', '.<c-g>u', '.', { noremap = true })
 map('i', '!<c-g>u', '!', { noremap = true })
 map('i', '?<c-g>u', '?', { noremap = true })
 
+-- " nnoremap <C-s> :SymbolsOutline<CR>
 map('n', '<c-s>', ':TagbarToggle<CR>', { noremap = true })
+-- " nmap <leader>ff :lua vim.lsp.buf.formatting()<CR>
 map('n', '<leader>ff', ':lua vim.lsp.buf.format({ async = true })<CR>', { noremap = false })
 -- map('v', '<leader>=++', ':s#_\(\l\)#\u\1#g<CR>', { noremap = false })
 map('n', '<leader>cs', ':call CheatSheetCommand()<CR>', { noremap = true })
 map('n', '<leader>cc', ':call CheatSheetCursor()<CR>', { noremap = true })
-
--- nnoremap Y y$
--- nnoremap n nzzzv
--- nnoremap N Nzzzv
--- nnoremap J mzJ`z
--- inoremap , ,<c-g>u
--- inoremap . .<c-g>u
--- inoremap ! !<c-g>u
--- inoremap ? ?<c-g>u
-
--- " nnoremap <C-s> :SymbolsOutline<CR>
--- nnoremap <C-s> :TagbarToggle<CR>
--- " nmap <leader>ff :lua vim.lsp.buf.formatting()<CR>
--- " nmap <leader>ff :lua vim.lsp.buf.formatting()<CR>
--- nmap <leader>ff :lua vim.lsp.buf.format { async = true }<CR>
 
 -- " nmap <leader>. :bnext<CR>
 -- " nmap <leader>, :bp<CR>

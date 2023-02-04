@@ -38,6 +38,7 @@ Plug 'hashivim/vim-terraform'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'rust-lang/rust.vim'
 Plug 'leafOfTree/vim-svelte-plugin'
+Plug 'folke/neodev.nvim'
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
@@ -81,10 +82,10 @@ let g:tex_conceal='abdmg'
 let g:vimtex_view_general_viewer = '~/.dotfiles/mupdf.sh'
 let g:vimtex_view_general_options = '@pdf'
 
-Plug 'sirver/ultisnips'
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+" Plug 'sirver/ultisnips'
+" let g:UltiSnipsExpandTrigger = '<tab>'
+" let g:UltiSnipsJumpForwardTrigger = '<tab>'
+" let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
 
 call plug#end()
 
