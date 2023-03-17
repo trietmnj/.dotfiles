@@ -72,6 +72,7 @@ Plug 'BitsuMamo/cheat-sh-nvim'
 Plug 'tpope/vim-rhubarb'
 
 " latex
+" https://github.com/lervag/vimtex/issues/2508
 Plug 'lervag/vimtex'
 let g:tex_flavor='latex'
 " let g:vimtex_view_method='mupdf'
