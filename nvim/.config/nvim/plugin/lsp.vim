@@ -21,7 +21,7 @@ nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
-augroup WrapLineInTeXFile
+augroup WrapLine
     autocmd!
-    autocmd FileType tex setlocal wrap
+    autocmd FileType tex json setlocal wrap
 augroup END

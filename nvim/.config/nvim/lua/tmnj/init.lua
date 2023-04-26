@@ -3,6 +3,7 @@ require("tmnj.telescope")
 require("tmnj.outline")
 require("tmnj.navigation")
 -- require("tmnj.whichKey")
+require("tmnj.view")
 
 P = function(v)
   print(vim.inspect(v))
