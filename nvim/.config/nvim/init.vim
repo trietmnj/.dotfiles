@@ -53,6 +53,7 @@ Plug 'preservim/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ThePrimeagen/git-worktree.nvim'
 Plug 'preservim/tagbar'
+Plug 'simrat39/symbols-outline.nvim'
 
 " editing
 Plug 'AndrewRadev/splitjoin.vim'
