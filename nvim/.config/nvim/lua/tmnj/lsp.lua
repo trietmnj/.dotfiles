@@ -87,6 +87,7 @@ local servers = {
     'omnisharp',
     'csharp_ls',
     'ltex',
+    'lua_ls',
 }
 
 for _, lsp in pairs(servers) do
@@ -136,7 +137,7 @@ for _, lsp in pairs(servers) do
     end
 end
 
-nvim_lsp['sumneko_lua'].setup(coq.lsp_ensure_capabilities({
+nvim_lsp['lua_ls'].setup(coq.lsp_ensure_capabilities({
     -- capabilities = capabilities,
     on_attach = on_attach,
     flags = lsp_flags,
