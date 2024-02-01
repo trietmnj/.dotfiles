@@ -25,14 +25,18 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'williamboman/mason.nvim'
 Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
+Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
+Plug 'ray-x/navigator.lua'
 
-Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
-Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
+" Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+" Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+" Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
+Plug 'ms-jpq/coq_nvim'
+Plug 'ms-jpq/coq.artifacts'
+Plug 'ms-jpq/coq.thirdparty'
 
 " Utils
 Plug 'mattn/emmet-vim'
-Plug 'ray-x/navigator.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 Plug 'hashivim/vim-terraform'
@@ -86,10 +90,11 @@ let g:tex_conceal='abdmg'
 let g:vimtex_view_general_viewer = '~/.dotfiles/mupdf.sh'
 let g:vimtex_view_general_options = '@pdf'
 
-" Plug 'sirver/ultisnips'
-" let g:UltiSnipsExpandTrigger = '<tab>'
-" let g:UltiSnipsJumpForwardTrigger = '<tab>'
-" let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+Plug 'sirver/ultisnips'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+Plug 'honza/vim-snippets'
 
 " AI
 " Plug 'jackMort/ChatGPT.nvim'
@@ -100,6 +105,7 @@ Plug 'jalvesaq/Nvim-R'
 Plug 'ncm2/ncm2'
 Plug 'gaalcaras/ncm-R'
 Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'ncm2/ncm2-ultisnips'
 
 call plug#end()
 

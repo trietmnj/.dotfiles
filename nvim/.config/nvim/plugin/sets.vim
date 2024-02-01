@@ -70,3 +70,5 @@ let g:svelte_preprocessors = ['typescript', "ts"]
 let g:git_messenger_include_diff='current'
 
 set completeopt=menu,menuone,noselect
+
+let R_assign = 0

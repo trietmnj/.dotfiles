@@ -243,6 +243,8 @@ require 'nvim-treesitter.configs'.setup({
 
 require("trouble").setup()
 
-require('ts_context_commentstring'). setup {
+require('ts_context_commentstring').setup({
     enable_autocmd = false,
-}
+})
+
+require'navigator'.setup()
