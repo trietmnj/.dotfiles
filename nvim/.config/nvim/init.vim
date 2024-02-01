@@ -30,6 +30,7 @@ Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 
+" Utils
 Plug 'mattn/emmet-vim'
 Plug 'ray-x/navigator.lua'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -39,6 +40,7 @@ Plug 'simrat39/rust-tools.nvim'
 Plug 'rust-lang/rust.vim'
 Plug 'leafOfTree/vim-svelte-plugin'
 Plug 'folke/neodev.nvim'
+Plug 'MunifTanjim/nui.nvim'
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
@@ -88,6 +90,16 @@ let g:vimtex_view_general_options = '@pdf'
 " let g:UltiSnipsExpandTrigger = '<tab>'
 " let g:UltiSnipsJumpForwardTrigger = '<tab>'
 " let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+
+" AI
+" Plug 'jackMort/ChatGPT.nvim'
+"
+
+" R
+Plug 'jalvesaq/Nvim-R'
+Plug 'ncm2/ncm2'
+Plug 'gaalcaras/ncm-R'
+Plug 'roxma/vim-hug-neovim-rpc'
 
 call plug#end()
 

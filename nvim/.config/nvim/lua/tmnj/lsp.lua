@@ -88,6 +88,8 @@ local servers = {
     'csharp_ls',
     'ltex',
     'lua_ls',
+    -- 'r-languageserver',
+    'r_language_server',
 }
 
 for _, lsp in pairs(servers) do
@@ -129,6 +131,8 @@ for _, lsp in pairs(servers) do
                 }
             }
         }))
+    elseif lsp == 'r_language_server' then
+        nvim_lsp[lsp].setup({})
     else
         nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({
             -- capabilities = capabilities,
@@ -200,6 +204,7 @@ require('mason-tool-installer').setup({
         -- 'staticcheck',
         'vint',
         'ltex-ls',
+        'r-languageserver',
     },
     auto_update = true,
     run_on_start = true,

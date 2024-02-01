@@ -8,7 +8,6 @@ map('i', '.<c-g>u', '.', { noremap = true })
 map('i', '!<c-g>u', '!', { noremap = true })
 map('i', '?<c-g>u', '?', { noremap = true })
 
--- " nnoremap <C-s> :SymbolsOutline<CR>
 map('n', '<C-s>', ':SymbolsOutline<CR>', { noremap = true })
 -- map('n', '<c-s>', ':TagbarToggle<CR>', { noremap = true })
 -- " nmap <leader>ff :lua vim.lsp.buf.formatting()<CR>
@@ -23,7 +22,3 @@ map('n', '<leader>cc', ':call CheatSheetCursor()<CR>', { noremap = true })
 
 -- " change from under_score to camelCase
 -- vmap <leader>=++ :s#_\(\l\)#\u\1#g<CR>
-
--- " Use Cheat Sheat using command line
--- nnoremap <leader>cs :call CheatSheetCommand()<CR>
--- nnoremap <leader>cc :call CheatSheetCursor()<CR>
