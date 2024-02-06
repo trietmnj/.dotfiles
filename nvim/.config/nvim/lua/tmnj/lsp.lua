@@ -160,10 +160,12 @@ require 'nvim-treesitter.configs'.setup {
         }, -- table of hex strings
         -- termcolors = {} -- table of colour name strings
     },
-    context_commentstring = {
-        enable = true
-    }
+    -- context_commentstring = {
+    --     enable = true
+    -- }
 }
+
+require("ts_context_commentstring").setup({})
 
 require("mason").setup({
     ui = {
