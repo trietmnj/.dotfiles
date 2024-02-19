@@ -86,6 +86,13 @@ let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
 
+" R
+Plug 'jalvesaq/Nvim-R'
+Plug 'ncm2/ncm2'
+Plug 'gaalcaras/ncm-R'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'ncm2/ncm2-ultisnips'
+
 call plug#end()
 
 lua << EOF

@@ -85,7 +85,8 @@ local servers = {
     -- 'cssls',
     -- 'solargraph',
     'omnisharp',
-    'csharp_ls'
+    'csharp_ls',
+    'r_language_server'
 }
 for _, lsp in pairs(servers) do
     if lsp == 'gopls' then
