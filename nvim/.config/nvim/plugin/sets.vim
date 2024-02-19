@@ -45,6 +45,10 @@ autocmd FileType svelte setlocal ts=2 sts=2 sw=2
 autocmd FileType terraform setlocal ts=2 sts=2 sw=2
 autocmd FileType css setlocal ts=2 sts=2 sw=2
 autocmd FileType json setlocal ts=2 sts=2 sw=2
+" autocmd FileType tex setlocal tw=79 fo=cqt
+au BufRead,BufNewFile *.tex setlocal tw=79 fo=cqt
+autocmd FileType r setlocal ts=2 sts=2 sw=2
+autocmd FileType rmd setlocal ts=2 sts=2 sw=2
 
 " autocmd Syntax c,cpp,xml,html,xhtml,
 "             \ go,rust,python,javascript,javascriptreact,
@@ -67,3 +71,5 @@ let g:svelte_preprocessors = ['typescript', "ts"]
 let g:git_messenger_include_diff='current'
 
 set completeopt=menu,menuone,noselect
+
+let R_assign = 0

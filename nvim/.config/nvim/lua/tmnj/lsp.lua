@@ -1,9 +1,7 @@
 local nvim_lsp = require('lspconfig')
-vim.api.nvim_exec([[let g:coq_settings = { 'auto_start': 'shut-up' }]], true)
 local coq = require("coq")
 
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities.textDocument.completion.completionItem.snippetSupport = true
+vim.api.nvim_exec([[let g:coq_settings = { 'auto_start': 'shut-up' }]], true)
 
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -31,28 +29,11 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
-    -- Set some keybinds conditional on server capabilities
-    if client.resolved_capabilities.document_formatting then
+    if client.server_capabilities.document_formatting then
         buf_set_keymap("n", "ff", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    elseif client.resolved_capabilities.document_range_formatting then
+    elseif client.server_capabilities.document_range_formatting then
         buf_set_keymap("n", "ff", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     end
-
-    -- Set autocommands conditional on server_capabilities
-    -- if client.resolved_capabilities.document_highlight then
-    --     vim.api.nvim_exec([[
-    --   hi LspReferenceRead cterm=bold ctermbg=DarkMagenta guibg=LightYellow
-    --   hi LspReferenceText cterm=bold ctermbg=DarkMagenta guibg=LightYellow
-    --   hi LspReferenceWrite cterm=bold ctermbg=DarkMagenta guibg=LightYellow
-    --   augroup lsp_document_highlight
-    --     autocmd! * <buffer>
-    --     autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-    --     autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-    --   augroup END
-    -- ]]   , false)
-    -- end
-
-    -- require 'completion'.on_attach(client)
 end
 
 function goimports(timeoutms)
@@ -87,66 +68,30 @@ end
 
 vim.lsp.set_log_level("error")
 
--- lsp_installer
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.setup({
-    automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-    ui = {
-        icons = {
-            server_installed = "✓",
-            server_pending = "➜",
-            server_uninstalled = "✗"
-        }
-    }
-})
-
--- lsp_installer.on_server_ready(function(server)
---     local opts = {}
-
---     -- (optional) Customize the options passed to the server
---     -- if server.name == "tsserver" then
---     --     opts.root_dir = function() ... end
---     -- end
-
---     if server.name == "rust_analyzer" then
---         require("rust-tools").setup {
---             -- The "server" property provided in rust-tools setup function are the
---             -- settings rust-tools will provide to lspconfig during init.            --
---             -- We merge the necessary settings from nvim-lsp-installer (server:get_default_options())
---             -- with the user's own settings (opts).
---             server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
---         }
---         server:attach_buffers()
---         -- Only if standalone support is needed
---         require("rust-tools").start_standalone_if_required()
---     else
---     -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
---         server:setup(opts)
---     end
---     vim.cmd [[ do User LspAttachBuffers ]]
--- end)
-
-
--- Setup lspconfig.
--- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities.textDocument.completion.completionItem.snippetSupport = true
-
 local servers = {
+    -- 'jedi_language_server',
     'pyright',
     'rust_analyzer',
     'tsserver',
-    'svelte',
-    'tailwindcss',
-    'vimls',
+    -- 'svelte',
+    -- 'tailwindcss',
+    -- 'vimls',
     'jsonls',
-    'html',
-    'dockerls',
-    'lemminx',
-    'sumneko_lua',
+    -- 'html',
+    -- 'dockerls',
+    -- 'lemminx',
+    -- 'sumneko_lua',
     'gopls',
-    'cssls',
+    -- 'cssls',
+    -- 'solargraph',
+    'omnisharp',
+    'csharp_ls',
+    'ltex',
+    'lua_ls',
+    -- 'r-languageserver',
+    'r_language_server',
 }
+
 for _, lsp in pairs(servers) do
     if lsp == 'gopls' then
         nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({
@@ -186,6 +131,8 @@ for _, lsp in pairs(servers) do
                 }
             }
         }))
+    elseif lsp == 'r_language_server' then
+        nvim_lsp[lsp].setup({})
     else
         nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({
             -- capabilities = capabilities,
@@ -194,13 +141,83 @@ for _, lsp in pairs(servers) do
     end
 end
 
--- nvim_lsp['sumneko_lua'].setup(coq.lsp_ensure_capabilities( {
---     -- capabilities = capabilities,
---     on_attach = on_attach,
--- }))
+nvim_lsp['lua_ls'].setup(coq.lsp_ensure_capabilities({
+    -- capabilities = capabilities,
+    on_attach = on_attach,
+    flags = lsp_flags,
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = "LuaJIT",
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { "vim" },
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
+}))
+
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+
+require('mason-tool-installer').setup({
+    ensure_installed = {
+        -- you can pin a tool to a particular version
+        -- { 'golangci-lint', version = 'v1.47.0' },
+        -- you can turn off/on auto_update per tool
+        { 'bash-language-server', auto_update = true },
+        'pyright',
+        'lua-language-server',
+        'vim-language-server',
+        -- 'gopls',
+        'stylua',
+        'shellcheck',
+        'editorconfig-checker',
+        -- 'gofumpt',
+        -- 'golines',
+        -- 'gomodifytags',
+        -- 'gotests',
+        -- 'impl',
+        -- 'json-to-struct',
+        -- 'luacheck',
+        -- 'misspell',
+        -- 'revive',
+        -- 'shellcheck',
+        'shfmt',
+        -- 'staticcheck',
+        'vint',
+        'ltex-ls',
+        'r-languageserver',
+    },
+    auto_update = true,
+    run_on_start = true,
+    -- set a delay (in ms) before the installation starts. This is only
+    -- effective if run_on_start is set to true.
+    -- e.g.: 5000 = 5 second delay, 10000 = 10 second delay, etc...
+    -- Default: 0
+    start_delay = 3000, -- 3 second delay
+})
 
 -- treesitter
-require 'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup({
+    ensure_installed = { "c", "rust", "go", "typescript", "lua", "vim", "python" },
     indent = { enable = true },
     highlight = { enable = true },
     incremental_selection = { enable = true },
@@ -219,7 +236,15 @@ require 'nvim-treesitter.configs'.setup {
         }, -- table of hex strings
         -- termcolors = {} -- table of colour name strings
     },
-    context_commentstring = {
-        enable = true
-    }
-}
+    -- context_commentstring = {
+    --     enable = true
+    -- }
+})
+
+require("trouble").setup()
+
+require('ts_context_commentstring').setup({
+    enable_autocmd = false,
+})
+
+require'navigator'.setup()

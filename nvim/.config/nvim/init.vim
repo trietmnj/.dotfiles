@@ -7,66 +7,48 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'unblevable/quick-scope'
 Plug 'ggandor/lightspeed.nvim'
-" Plug 'chentau/marks.nvim'
 Plug 'ThePrimeagen/harpoon'
 
 " Themes
 Plug 'tanvirtin/monokai.nvim'
-" Plug 'sickill/vim-monokai'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
-" Plug 'luochen1990/rainbow'
-Plug 'p00f/nvim-ts-rainbow'
+Plug 'p00f/nvim-ts-rainbow' " bracket coloring
 Plug 'gko/vim-coloresque'
 
 " Intellisense
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
-" Plug 'hrsh7th/cmp-nvim-lsp'
-" Plug 'hrsh7th/cmp-buffer'
-" Plug 'hrsh7th/cmp-path'
-" Plug 'hrsh7th/cmp-cmdline'
-" Plug 'hrsh7th/nvim-cmp'
-
-" " For vsnip users.
-" Plug 'hrsh7th/cmp-vsnip'
-" Plug 'hrsh7th/vim-vsnip'
-
-" " For ultisnips users.
-" Plug 'SirVer/ultisnips'
-" Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-
-Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
-Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
-
-Plug 'mattn/emmet-vim'
-" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-" Plug 'L3MON4D3/LuaSnip'
-" vim-doge doesn't work
-" Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-" nvim-lsp-installer can install gopls too
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'williamboman/mason.nvim'
+Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
+Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
 Plug 'ray-x/navigator.lua'
+
+" Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+" Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+" Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
+Plug 'ms-jpq/coq_nvim'
+Plug 'ms-jpq/coq.artifacts'
+Plug 'ms-jpq/coq.thirdparty'
+
+" Utils
+Plug 'mattn/emmet-vim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 Plug 'hashivim/vim-terraform'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'rust-lang/rust.vim'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'leafOfTree/vim-svelte-plugin'
-" Plug 'sheerun/vim-polyglot'
-" Plug 'nvim-lua/completion-nvim'
-
+Plug 'folke/neodev.nvim'
+Plug 'MunifTanjim/nui.nvim'
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
-Plug 'puremourning/vimspector'
+" Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
 Plug 'mfussenegger/nvim-dap'
 
@@ -75,10 +57,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend upda
 Plug 'nvim-treesitter/playground'
 Plug 'preservim/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-" Plug 'simrat39/symbols-outline.nvim'
 Plug 'ThePrimeagen/git-worktree.nvim'
 Plug 'preservim/tagbar'
-" Plug 'jamestthompson3/nvim-remote-containers'
+Plug 'simrat39/symbols-outline.nvim'
 
 " editing
 Plug 'AndrewRadev/splitjoin.vim'
@@ -86,21 +67,45 @@ Plug 'tpope/vim-surround'
 Plug 'LucHermitte/lh-vim-lib'
 Plug 'LucHermitte/lh-brackets'
 Plug 'rhysd/vim-grammarous'
-" Plug 'folke/which-key.nvim'
 Plug 'matze/vim-move'
 
-" gc comments
+" comments
 Plug 'tpope/vim-commentary'
-" Plug 'tomtom/tcomment_vim'
-" Plug 'Shougo/context_filetype.vim'
-" Plug 'tpope/vim-scriptease'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'BitsuMamo/cheat-sh-nvim'
 Plug 'tpope/vim-rhubarb'
-" Plug 'rhysd/git-messenger.vim'
+
+" latex
+" https://github.com/lervag/vimtex/issues/2508
+Plug 'lervag/vimtex'
+let g:tex_flavor='latex'
+" let g:vimtex_view_method='mupdf'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+" https://github.com/lervag/vimtex/issues/2566
+let g:vimtex_view_general_viewer = '~/.dotfiles/mupdf.sh'
+let g:vimtex_view_general_options = '@pdf'
+
+Plug 'sirver/ultisnips'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+Plug 'honza/vim-snippets'
+
+" AI
+" Plug 'jackMort/ChatGPT.nvim'
+"
+
+" R
+Plug 'jalvesaq/Nvim-R'
+Plug 'ncm2/ncm2'
+Plug 'gaalcaras/ncm-R'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'ncm2/ncm2-ultisnips'
 
 call plug#end()
 
@@ -121,8 +126,8 @@ augroup AUTO
     autocmd BufWritePre * : call TrimWhitespace()
 augroup END
 
-" autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
-
+"
+autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 if has('wsl')
     let g:clipboard = {
           \   'name': 'wslclipboard',
@@ -138,5 +143,7 @@ if has('wsl')
           \ }
 endif
 
-" let g:coq_settings = { 'auto_start': v:true }
-let g:coq_settings = { 'auto_start': 'shut-up' }
+if has('win32') || (has('unix') && exists('$WSLENV'))
+elseif executable('mupdf.exe')
+    let g:vimtex_view_general_viewer = 'mupdf.exe'
+endif
