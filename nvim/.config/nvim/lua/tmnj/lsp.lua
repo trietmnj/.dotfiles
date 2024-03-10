@@ -69,7 +69,7 @@ end
 vim.lsp.set_log_level("error")
 
 local servers = {
-    -- 'jedi_language_server',
+    'jedi_language_server',
     'pyright',
     'rust_analyzer',
     'tsserver',
@@ -247,4 +247,4 @@ require('ts_context_commentstring').setup({
     enable_autocmd = false,
 })
 
-require'navigator'.setup()
+require 'navigator'.setup()
