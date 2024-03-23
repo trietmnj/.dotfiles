@@ -11,7 +11,9 @@ local on_attach = function(client, bufnr)
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     -- Mappings.
-    local opts = { noremap = true, silent = true }
+    local opts = { noremap = true,
+        -- silent = true,
+    }
     buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', 'ga', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
@@ -86,6 +88,7 @@ local servers = {
     -- 'solargraph',
     'omnisharp',
     'csharp_ls',
+    'ltex',
     'r_language_server'
 }
 for _, lsp in pairs(servers) do
@@ -135,14 +138,19 @@ for _, lsp in pairs(servers) do
     end
 end
 
--- nvim_lsp['sumneko_lua'].setup(coq.lsp_ensure_capabilities( {
---     -- capabilities = capabilities,
---     on_attach = on_attach,
--- }))
-
 -- treesitter
 require 'nvim-treesitter.configs'.setup {
-    ensure_installed = { "c", "rust", "go", "typescript" , "lua", "vim", "python"},
+    ensure_installed = {
+        "c",
+        "rust",
+        "go",
+        "typescript",
+        "lua",
+        "vim",
+        "python",
+        "latex",
+        "r",
+    },
     indent = { enable = true },
     highlight = { enable = true },
     incremental_selection = { enable = true },
