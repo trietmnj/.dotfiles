@@ -4,38 +4,39 @@ vim.api.nvim_exec([[let g:coq_settings = { 'auto_start': 'shut-up' }]], true)
 local coq = require("coq")
 
 local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    -- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     -- Mappings.
-    local opts = { noremap = true,
+    local opts = {
+        noremap = true,
         -- silent = true,
     }
-    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'ga', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<C-l>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    -- buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    -- buf_set_keymap('n', 'ga', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    -- buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    -- buf_set_keymap('n', '<C-l>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+    -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+    -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+    -- buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    -- buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    -- buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    -- buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
-    if client.server_capabilities.document_formatting then
-        buf_set_keymap("n", "ff", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    elseif client.server_capabilities.document_range_formatting then
-        buf_set_keymap("n", "ff", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-    end
+    -- if client.server_capabilities.document_formatting then
+    --     buf_set_keymap("n", "ff", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    -- elseif client.server_capabilities.document_range_formatting then
+    --     buf_set_keymap("n", "ff", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+    -- end
 end
 
 function goimports(timeoutms)
@@ -72,25 +73,27 @@ vim.lsp.set_log_level("error")
 
 local servers = {
     'jedi_language_server',
-    -- 'pyright',
+    'pyright',
     'rust_analyzer',
     'tsserver',
     -- 'svelte',
     -- 'tailwindcss',
-    -- 'vimls',
+    'vimls',
     'jsonls',
     -- 'html',
     -- 'dockerls',
     -- 'lemminx',
     -- 'sumneko_lua',
     'gopls',
-    -- 'cssls',
+    'cssls',
     -- 'solargraph',
     'omnisharp',
     'csharp_ls',
     'ltex',
-    'r_language_server'
+    'lua_ls',
+    'r_language_server',
 }
+
 for _, lsp in pairs(servers) do
     if lsp == 'gopls' then
         nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({
@@ -150,7 +153,12 @@ require 'nvim-treesitter.configs'.setup {
         "python",
         "latex",
         "r",
+        "html",
+        "css",
+        "javascript",
     },
+    sync_install = true,
+    auto_install = true,
     indent = { enable = true },
     highlight = { enable = true },
     incremental_selection = { enable = true },
@@ -174,7 +182,7 @@ require 'nvim-treesitter.configs'.setup {
     -- }
 }
 
-require("ts_context_commentstring").setup({})
+-- require("ts_context_commentstring").setup({})
 
 require("mason").setup({
     ui = {
@@ -186,12 +194,24 @@ require("mason").setup({
     }
 })
 
-require("mason-lspconfig").setup({
-    ensured_installed = {"jedi_language_server", "jsonls" }
+require("mason-tool-installer").setup({
+    ensure_installed = {
+        { "bash-language-server", auto_update = true },
+        "jedi_language_server",
+        "jsonls",
+        "pyright",
+        "lua-language-server",
+        "vim-language-server",
+        "ltex-ls",
+        "r-languageserver",
+    },
+    auto_update = true,
+    run_on_start = true,
+    start_delay = 3000,
 })
 
 require("trouble").setup {
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
-  }
+}
