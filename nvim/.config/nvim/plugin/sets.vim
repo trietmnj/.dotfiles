@@ -73,3 +73,6 @@ let g:git_messenger_include_diff='current'
 set completeopt=menu,menuone,noselect
 
 let R_assign = 0
+
+" comment
+let g:skip_ts_context_commentstring_module=1
