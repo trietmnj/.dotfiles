@@ -1,3 +1,4 @@
+vim.g.mapleader = ' '
 local map = vim.api.nvim_set_keymap
 map('n', 'y$', 'Y', { noremap = true })
 map('n', 'nzzzv', 'n', { noremap = true })
@@ -9,7 +10,9 @@ map('i', '!<c-g>u', '!', { noremap = true })
 map('i', '?<c-g>u', '?', { noremap = true })
 
 map('n', '<C-s>', ':SymbolsOutline<CR>', { noremap = true })
-map('n', '<leader>ff', ':lua vim.lsp.buf.format({ async = true })<CR>', { noremap = false })
+-- map('n', '<leader>ff', ':lua vim.lsp.buf.format({ async = true })<CR>', { noremap = false })
+vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format, { noremap = false })
+vim.keymap.set('v', '<leader>ff', vim.lsp.buf.format, { noremap = false })
 
 -- cheatsheet
 map('n', '<leader>cs', ':call CheatSheetCommand()<CR>', { noremap = true })
