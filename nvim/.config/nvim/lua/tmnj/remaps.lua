@@ -18,6 +18,11 @@ vim.keymap.set('v', '<leader>ff', vim.lsp.buf.format, { noremap = false })
 map('n', '<leader>cs', ':call CheatSheetCommand()<CR>', { noremap = true })
 map('n', '<leader>cc', ':call CheatSheetCursor()<CR>', { noremap = true })
 
+-- Git
+map('n', '<leader>gh', ':diffget //3<CR>', { noremap = true })
+map('n', '<leader>gu', ':diffget //2<CR>', { noremap = true })
+map('n', '<leader>gs', ':G<CR>', { noremap = true })
+
 -- " TODO change from under_score to camelCase
 -- vmap <leader>=++ :s#_\(\l\)#\u\1#g<CR>
 -- function toggle_case_visual()
