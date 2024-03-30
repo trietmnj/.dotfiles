@@ -6,3 +6,5 @@ if test -f /home/tmnj/apps/miniconda3/bin/conda
 end
 # <<< conda initialize <<<
 
+set -x JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk-amd64
+

@@ -90,7 +90,7 @@ let g:tex_conceal='abdmg'
 let g:vimtex_view_general_viewer = '~/.dotfiles/mupdf.sh'
 let g:vimtex_view_general_options = '@pdf'
 
-Plug 'sirver/ultisnips'
+" Plug 'sirver/ultisnips'
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
@@ -106,6 +106,10 @@ Plug 'ncm2/ncm2'
 Plug 'gaalcaras/ncm-R'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'ncm2/ncm2-ultisnips'
+
+" windows layout
+Plug 'camspiers/animate.vim'
+Plug 'camspiers/lens.vim'
 
 call plug#end()
 
