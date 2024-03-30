@@ -11,8 +11,7 @@ map('i', '?<c-g>u', '?', { noremap = true })
 
 map('n', '<C-s>', ':SymbolsOutline<CR>', { noremap = true })
 -- map('n', '<leader>ff', ':lua vim.lsp.buf.format({ async = true })<CR>', { noremap = false })
-vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format, { noremap = false })
-vim.keymap.set('v', '<leader>ff', vim.lsp.buf.format, { noremap = false })
+vim.keymap.set({ 'n', 'v' }, '<leader>ff', vim.lsp.buf.format, { noremap = false })
 
 -- cheatsheet
 map('n', '<leader>cs', ':call CheatSheetCommand()<CR>', { noremap = true })
@@ -22,6 +21,16 @@ map('n', '<leader>cc', ':call CheatSheetCursor()<CR>', { noremap = true })
 map('n', '<leader>gh', ':diffget //3<CR>', { noremap = true })
 map('n', '<leader>gu', ':diffget //2<CR>', { noremap = true })
 map('n', '<leader>gs', ':G<CR>', { noremap = true })
+
+-- Harpoon
+local hm = require("harpoon.mark")
+local hu = require("harpoon.ui")
+vim.keymap.set('n', '<leader>gh', hm.add_file, { noremap = true, silent = true })
+vim.keymap.set('n', '<C-e>', hu.toggle_quick_menu, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>y', function() return hu.nav_file(1) end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>u', function() return hu.nav_file(2) end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>i', function() return hu.nav_file(3) end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>o', function() return hu.nav_file(4) end, { noremap = true, silent = true })
 
 -- " TODO change from under_score to camelCase
 -- vmap <leader>=++ :s#_\(\l\)#\u\1#g<CR>
