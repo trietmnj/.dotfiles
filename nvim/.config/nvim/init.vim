@@ -28,9 +28,6 @@ Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
 " Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
 " Plug 'ray-x/navigator.lua'
 
-" Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-" Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
-" Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 Plug 'ms-jpq/coq_nvim'
 Plug 'ms-jpq/coq.artifacts'
 Plug 'ms-jpq/coq.thirdparty'
@@ -44,7 +41,7 @@ Plug 'simrat39/rust-tools.nvim'
 Plug 'rust-lang/rust.vim'
 Plug 'leafOfTree/vim-svelte-plugin'
 Plug 'folke/neodev.nvim'
-Plug 'MunifTanjim/nui.nvim'
+" Plug 'MunifTanjim/nui.nvim'
 
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
@@ -110,8 +107,8 @@ Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'ncm2/ncm2-ultisnips'
 
 " windows layout
-Plug 'camspiers/animate.vim'
-Plug 'camspiers/lens.vim'
+" Plug 'camspiers/animate.vim'
+" Plug 'camspiers/lens.vim'
 
 call plug#end()
 

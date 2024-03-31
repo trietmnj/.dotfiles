@@ -75,7 +75,7 @@ local servers = {
     'tsserver',
     -- 'svelte',
     -- 'tailwindcss',
-    -- 'vimls',
+    'vimls',
     'jsonls',
     -- 'html',
     -- 'dockerls',
@@ -88,7 +88,6 @@ local servers = {
     'csharp_ls',
     'ltex',
     'lua_ls',
-    -- 'r-languageserver',
     'r_language_server',
 }
 
@@ -233,7 +232,7 @@ require('nvim-treesitter.configs').setup({
     highlight = { enable = true, disable = { "note" } },
     incremental_selection = { enable = true },
     textobjects = { enable = true },
-    additional_vim_regex_highlighting = false,
+    -- additional_vim_regex_highlighting = false,
     rainbow = {
         enable = true,
         -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
