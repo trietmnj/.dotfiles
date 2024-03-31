@@ -39,15 +39,6 @@ nmap <Enter> :bnext<CR>
 nmap <C-n> :bprev<CR>
 nmap <C-x> :bp <bar> bd #<CR>
 
-" inoremap  <Up>     <NOP>
-" inoremap  <Down>   <NOP>
-" inoremap  <Left>   <NOP>
-" inoremap  <Right>  <NOP>
-" noremap   <Up>     <NOP>
-" noremap   <Down>   <NOP>
-" noremap   <Left>   <NOP>
-" noremap   <Right>  <NOP>
-"
 inoremap <expr> <down> ((pumvisible())?("\<C-n>"):("\<down>"))
 inoremap <expr> <up> ((pumvisible())?("\<C-p>"):("\<up>"))
 
