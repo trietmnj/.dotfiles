@@ -8,7 +8,7 @@ set clipboard=unnamedplus
 
 set exrc
 set guicursor=
-set relativenumber
+" set relativenumber
 set number
 set nohlsearch
 set hidden
