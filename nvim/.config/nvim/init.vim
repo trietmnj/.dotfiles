@@ -97,6 +97,7 @@ Plug 'honza/vim-snippets'
 
 " AI
 " Plug 'jackMort/ChatGPT.nvim'
+Plug 'github/copilot.vim'
 "
 
 " R
