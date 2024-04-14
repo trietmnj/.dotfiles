@@ -1,4 +1,8 @@
-# Defined in - @ line 1
-function nvim --wraps='~/apps/nvim.appimage' --wraps=vim --description '~/apps/nvim.appimage'
-  ~/apps/nvim-linux64/bin/nvim $argv;
+function nvim
+    set machine_name (hostname)
+    if test $machine_name = "tTunesLaptop"
+	~/apps/squashfs-root/usr/bin/nvim $argv;
+    else
+	~/apps/nvim-linux64/bin/nvim $argv;
+    end
 end

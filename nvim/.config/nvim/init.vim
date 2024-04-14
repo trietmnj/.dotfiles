@@ -46,8 +46,13 @@ Plug 'folke/neodev.nvim'
 " debugger
 " https://puremourning.github.io/vimspector/configuration.html#docker-example
 " Plug 'puremourning/vimspector'
-Plug 'szw/vim-maximizer'
 Plug 'mfussenegger/nvim-dap'
+
+" windows layout
+" Plug 'camspiers/animate.vim'
+" Plug 'camspiers/lens.vim'
+Plug 'szw/vim-maximizer'
+
 
 " trees
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
@@ -70,6 +75,7 @@ Plug 'matze/vim-move'
 Plug 'tpope/vim-commentary'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 " rmd chunks
+" TODO still not working
 Plug 'echasnovski/mini.nvim'
 
 " git
@@ -106,10 +112,6 @@ Plug 'ncm2/ncm2'
 Plug 'gaalcaras/ncm-R'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'ncm2/ncm2-ultisnips'
-
-" windows layout
-" Plug 'camspiers/animate.vim'
-" Plug 'camspiers/lens.vim'
 
 call plug#end()
 
