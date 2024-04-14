@@ -28,6 +28,9 @@ Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
 Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make'}
 Plug 'ray-x/navigator.lua'
 
+" AI
+Plug 'github/copilot.vim'
+
 " Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 " Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 " Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
