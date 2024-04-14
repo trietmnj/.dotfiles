@@ -19,6 +19,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 Plug 'p00f/nvim-ts-rainbow' " bracket coloring
 Plug 'gko/vim-coloresque'
+Plug 'norcalli/nvim-colorizer.lua'
 
 " Intellisense
 Plug 'neovim/nvim-lspconfig'

@@ -1,3 +1,4 @@
+# TODO add in case for macOS
 function nvim
     set machine_name (hostname)
     if test $machine_name = "tTunesLaptop"

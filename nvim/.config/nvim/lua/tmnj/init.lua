@@ -5,6 +5,7 @@ require("tmnj.navigation")
 require("tmnj.remaps")
 require("tmnj.ai")
 -- require("tmnj.whichKey")
+require("tmnj.theme")
 
 P = function(v)
   print(vim.inspect(v))
