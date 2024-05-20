@@ -25,3 +25,9 @@ augroup WrapLine
     autocmd!
     autocmd FileType tex json setlocal wrap
 augroup END
+
+imap <script><silent><nowait><expr> <Tab> copilot#Accept()
+
+let g:coq_settings = { "keymap.recommended": v:false }
+ino <silent><expr> <C-y>   pumvisible() ? "\<C-n>" : "\<Tab>"
+

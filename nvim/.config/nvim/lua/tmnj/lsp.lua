@@ -245,13 +245,13 @@ require("mason-lspconfig").setup({
     ensured_installed = {"jedi_language_server", "jsonls" }
 })
 
-vim.keymap.set('i', '<Tab>', 'copilot#Accept("\\<CR>")', {
-          expr = true,
-          replace_keycodes = false
+-- vim.api.nvim_del_keymap('i', '<Tab>')
+vim.keymap.set('i', '<tab>', 'copilot#Accept("\\<CR>")', {
+        expr = true,
+        replace_keycodes = false,
+        silent = true
         })
-        -- vim.g.copilot_no_tab_map = true
-        --
+-- vim.g.copilot_no_tab_map = true
+vim.keymap.set('n', '<C-u>', ':Copilot panel <CR>', { silent = true })
 
--- map <C-0> to open the copilot panel
-vim.keymap.set('n', '<C-y>', ':Copilot panel <CR>', { silent = false })
 

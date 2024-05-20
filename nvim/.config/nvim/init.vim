@@ -12,61 +12,34 @@ Plug 'ThePrimeagen/harpoon'
 
 " Themes
 Plug 'tanvirtin/monokai.nvim'
-" Plug 'sickill/vim-monokai'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
-" Plug 'luochen1990/rainbow'
 Plug 'p00f/nvim-ts-rainbow'
-" Plug 'gko/vim-esque'
 Plug 'norcalli/nvim-colorizer.lua'
 
 " Intellisense
 Plug 'neovim/nvim-lspconfig'
-" Plug 'williamboman/nvim-lsp-installer'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'williamboman/mason.nvim'
 Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
 
-" Plug 'hrsh7th/cmp-nvim-lsp'
-" Plug 'hrsh7th/cmp-buffer'
-" Plug 'hrsh7th/cmp-path'
-" Plug 'hrsh7th/cmp-cmdline'
-" Plug 'hrsh7th/nvim-cmp'
+Plug 'ms-jpq/coq_nvim'
+Plug 'ms-jpq/coq.artifacts'
+Plug 'ms-jpq/coq.thirdparty'
 
-" " For vsnip users.
-" Plug 'hrsh7th/cmp-vsnip'
-" Plug 'hrsh7th/vim-vsnip'
-
-" " For ultisnips users.
-" Plug 'SirVer/ultisnips'
-" Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-
-Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
-Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
-
+" Utils
 Plug 'mattn/emmet-vim'
-" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-" Plug 'L3MON4D3/LuaSnip'
-" vim-doge doesn't work
-" Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-" nvim-lsp-installer can install gopls too
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
-Plug 'ray-x/navigator.lua'
+" Plug 'ray-x/navigator.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 Plug 'hashivim/vim-terraform'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'rust-lang/rust.vim'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'leafOfTree/vim-svelte-plugin'
-" Plug 'sheerun/vim-polyglot'
-" Plug 'nvim-lua/completion-nvim'
 
 
 " debugger
@@ -80,10 +53,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend upda
 Plug 'nvim-treesitter/playground'
 Plug 'preservim/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-" Plug 'simrat39/symbols-outline.nvim'
 Plug 'ThePrimeagen/git-worktree.nvim'
 Plug 'preservim/tagbar'
-" Plug 'jamestthompson3/nvim-remote-containers'
+Plug 'simrat39/symbols-outline.nvim'
 
 " editing
 Plug 'AndrewRadev/splitjoin.vim'
@@ -91,21 +63,22 @@ Plug 'tpope/vim-surround'
 Plug 'LucHermitte/lh-vim-lib'
 Plug 'LucHermitte/lh-brackets'
 Plug 'rhysd/vim-grammarous'
-" Plug 'folke/which-key.nvim'
 Plug 'matze/vim-move'
 
 " gc comments
 Plug 'tpope/vim-commentary'
-" Plug 'tomtom/tcomment_vim'
-" Plug 'Shougo/context_filetype.vim'
-" Plug 'tpope/vim-scriptease'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'BitsuMamo/cheat-sh-nvim'
 Plug 'tpope/vim-rhubarb'
-" Plug 'rhysd/git-messenger.vim'
+
+" snip
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+Plug 'honza/vim-snippets'
 
 " AI
 Plug 'github/copilot.vim'
