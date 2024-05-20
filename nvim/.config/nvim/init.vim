@@ -27,9 +27,9 @@ Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'williamboman/mason.nvim'
 Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
 
-Plug 'ms-jpq/coq_nvim'
-Plug 'ms-jpq/coq.artifacts'
-Plug 'ms-jpq/coq.thirdparty'
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 
 " Utils
 Plug 'mattn/emmet-vim'
