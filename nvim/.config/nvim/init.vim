@@ -107,6 +107,9 @@ Plug 'BitsuMamo/cheat-sh-nvim'
 Plug 'tpope/vim-rhubarb'
 " Plug 'rhysd/git-messenger.vim'
 
+" AI
+Plug 'github/copilot.vim'
+
 call plug#end()
 
 lua << EOF
