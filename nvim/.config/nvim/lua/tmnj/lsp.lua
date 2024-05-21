@@ -252,6 +252,6 @@ vim.keymap.set('i', '<tab>', 'copilot#Accept("\\<CR>")', {
         silent = true
         })
 -- vim.g.copilot_no_tab_map = true
-vim.keymap.set('n', '<C-u>', ':Copilot panel <CR>', { silent = true })
+vim.keymap.set('n', '<C-y>', ':Copilot panel <CR>', { silent = true })
 
 
