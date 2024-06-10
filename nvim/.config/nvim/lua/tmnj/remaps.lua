@@ -9,7 +9,7 @@ map('i', '.<c-g>u', '.', { noremap = true })
 map('i', '!<c-g>u', '!', { noremap = true })
 map('i', '?<c-g>u', '?', { noremap = true })
 
-map('n', '<C-s>', ':SymbolsOutline<CR>', { noremap = true })
+map('n', '<C-s>', ':Vista!!<CR>', { noremap = true })
 -- map('n', '<leader>ff', ':lua vim.lsp.buf.format({ async = true })<CR>', { noremap = false })
 vim.keymap.set({ 'n', 'v' }, '<leader>ff', vim.lsp.buf.format, { noremap = false })
 
@@ -31,6 +31,10 @@ vim.keymap.set('n', '<leader>y', function() return hu.nav_file(1) end, { noremap
 vim.keymap.set('n', '<leader>u', function() return hu.nav_file(2) end, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>i', function() return hu.nav_file(3) end, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>o', function() return hu.nav_file(4) end, { noremap = true, silent = true })
+
+
+-- don't know why this is remapped to something other than ~
+vim.keymap.set('i', '~', '~', { noremap = true, silent = true })
 
 -- " TODO change from under_score to camelCase
 -- vmap <leader>=++ :s#_\(\l\)#\u\1#g<CR>

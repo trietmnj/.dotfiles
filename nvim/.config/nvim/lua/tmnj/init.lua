@@ -1,6 +1,5 @@
 require("tmnj.lsp")
 require("tmnj.telescope")
-require("tmnj.outline")
 require("tmnj.navigation")
 require("tmnj.remaps")
 require("tmnj.ai")
@@ -8,15 +7,15 @@ require("tmnj.ai")
 require("tmnj.theme")
 
 P = function(v)
-  print(vim.inspect(v))
-  return v
+    print(vim.inspect(v))
+    return v
 end
 
 if pcall(require, 'plenary') then
-  RELOAD = require('plenary.reload').reload_module
+    RELOAD = require('plenary.reload').reload_module
 
-  R = function(name)
-    RELOAD(name)
-    return require(name)
-  end
+    R = function(name)
+        RELOAD(name)
+        return require(name)
+    end
 end

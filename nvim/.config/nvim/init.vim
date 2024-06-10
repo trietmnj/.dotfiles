@@ -17,7 +17,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
-Plug 'p00f/nvim-ts-rainbow' " bracket coloring
+" Plug 'p00f/nvim-ts-rainbow' " bracket coloring
 Plug 'gko/vim-coloresque'
 Plug 'norcalli/nvim-colorizer.lua'
 
@@ -61,8 +61,8 @@ Plug 'nvim-treesitter/playground'
 Plug 'preservim/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ThePrimeagen/git-worktree.nvim'
-Plug 'preservim/tagbar'
-Plug 'simrat39/symbols-outline.nvim'
+" Plug 'preservim/tagbar'
+Plug 'liuchengxu/vista.vim'
 
 " editing
 Plug 'AndrewRadev/splitjoin.vim'
