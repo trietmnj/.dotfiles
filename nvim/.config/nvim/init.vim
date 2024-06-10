@@ -54,14 +54,12 @@ Plug 'mfussenegger/nvim-dap'
 " Plug 'camspiers/lens.vim'
 Plug 'szw/vim-maximizer'
 
-
 " trees
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'nvim-treesitter/playground'
 Plug 'preservim/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ThePrimeagen/git-worktree.nvim'
-" Plug 'preservim/tagbar'
 Plug 'liuchengxu/vista.vim'
 
 " editing

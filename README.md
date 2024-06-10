@@ -33,15 +33,32 @@ Setup dependencies for neovim
     sudo bash /tmp/nodesource_setup.sh
     sudo apt update
     sudo apt install nodejs
+    npm install --global yarn
+    yarn global add neovim
 
     curl https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-x86_64.sh --output anaconda.sh
     bash anaconda.sh
     sudo apt install python3-pip
-    pip install vim-vint
+    pip3 install vim-vint
+    pip3 install neovim
+
+    sudo apt install default-jre
+    sudo apt install default-jdk
+
+    sudo apt install texlive-base
+    tlmgr init-usertree
+    tlmgr install latexmk
 ```
 
 Debugging - clean out cache
 ```
 sudo apt clean
 sudo apt autoremove
+```
+
+# Using latex
+latexmk is the CLI workhorse
+```
+Clean up intermediate files generated for latex rendering
+    latexmk -c
 ```
