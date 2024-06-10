@@ -22,8 +22,8 @@ do
           find "${PWD}" -maxdepth 1 -name "*.synctex.gz" -execdir \
             bash -c 'cat "{}" | gunzip | sed --expression="s@/mnt/\(.\)/@\1:/@g" | gzip > "{}.tmp" && mv "{}.tmp" "{}"' \;
         fi
-    # else
-    #     new_arg+=" $arg "
+    else
+        new_arg+=" $arg "
     fi
 
 done
