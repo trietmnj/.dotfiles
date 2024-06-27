@@ -41,12 +41,37 @@ Setup dependencies for neovim
     sudo apt install python3-pip
     pip3 install vim-vint
     pip3 install neovim
+    apt install python3.10-venv
 
     sudo apt install default-jre
     sudo apt install default-jdk
 
     sudo apt install texlive-base
     tlmgr init-usertree
+    tlmgr install latexmk
+
+    mkdir -p ~/R/x86_64-pc-linux-gnu-library/4.1
+    sudo apt install libxml2-dev libcurl4-openssl-dev libssl-dev
+
+In an R terminal
+    install.package("xml2")
+    install.package("roxygen2")
+    install.package("lintr")
+
+    sudo apt install biber
+```
+
+Setup Latex from the Tex User Group
+
+https://www.tug.org/texlive/
+
+```
+    cd /tmp
+    wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+    zcat < install-tl-unx.tar.gz | tar xf -
+cd into installation folder, replace *  with actual folder name
+    cd install-tl-*
+    sudo perl ./install-tl --no-interaction
     tlmgr install latexmk
 ```
 
