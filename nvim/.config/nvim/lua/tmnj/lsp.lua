@@ -86,9 +86,10 @@ local servers = {
     -- 'solargraph',
     'omnisharp',
     'csharp_ls',
-    'ltex',
+    -- 'ltex',
     'lua_ls',
     'r_language_server',
+    'texlab'
 }
 
 for _, lsp in pairs(servers) do
@@ -202,8 +203,9 @@ require('mason-tool-installer').setup({
         'shfmt',
         -- 'staticcheck',
         'vint',
-        'ltex-ls',
+        -- 'ltex-ls',
         'r-languageserver',
+        'texlab',
     },
     auto_update = true,
     run_on_start = true,

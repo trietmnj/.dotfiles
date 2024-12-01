@@ -14,12 +14,12 @@ nnoremap <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
 " autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 100)
 
 " Trouble error lists
-nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xx <cmd>Trouble diagnostics toggle<cr>
+nnoremap <leader>xX <cmd>Trouble diagnostics toggle filter.buf=0<cr>
 nnoremap <leader>xw <cmd>TroubleToggle lsp_workspace_diagnostics<cr>
-nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
-nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
-nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
-nnoremap gR <cmd>TroubleToggle lsp_references<cr>
+nnoremap <leader>xq <cmd>Trouble qflist toggle<cr>
+nnoremap <leader>xl <cmd>Trouble loclist toggle<cr>
+nnoremap gR <cmd>Trouble symbols toggle focus=false<cr>
 
 augroup WrapLineInTeXFile
     autocmd!

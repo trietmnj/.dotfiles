@@ -64,11 +64,12 @@ Plug 'liuchengxu/vista.vim'
 
 " editing
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'
 Plug 'LucHermitte/lh-vim-lib'
 Plug 'LucHermitte/lh-brackets'
 Plug 'rhysd/vim-grammarous'
 Plug 'matze/vim-move'
+Plug 'godlygeek/tabular'
 
 " comments
 Plug 'tpope/vim-commentary'

@@ -84,6 +84,34 @@ sudo apt autoremove
 # Using latex
 latexmk is the CLI workhorse
 ```
-Clean up intermediate files generated for latex rendering
-    latexmk -c
+1. Install via TUG
+https://www.tug.org/texlive/quickinstall.html
+
+2. Loosen access permission in isntallation folder
+sudo chmod -R 777 /usr/local/texlive/
+
+3. Update texlive-scripts
+tlmgr update texlive-scripts
+
+    Clean up intermediate files generated for latex rendering
+latexmk -c
+
+\ll to start autocompiling
+Open file with MuPDF
+
+    change tlmgr repo
+tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet
+
+    install package
+tlmgr install <package>
+
+    update package manager
+tlmgr update --self
+
+
+Find packages on CTAN
+    https://ctan.org/
+
+
+texlive-scripts
 ```
