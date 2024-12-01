@@ -32,9 +32,17 @@ vim.keymap.set('n', '<leader>u', function() return hu.nav_file(2) end, { noremap
 vim.keymap.set('n', '<leader>i', function() return hu.nav_file(3) end, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>o', function() return hu.nav_file(4) end, { noremap = true, silent = true })
 
-
 -- don't know why this is remapped to something other than ~
 vim.keymap.set('i', '~', '~', { noremap = true, silent = true })
+
+-- Tabular
+map('n', '<leader>a=', ':Tabularize /=<CR>', { noremap = true })
+map('v', '<leader>a=', ':Tabularize /=<CR>', { noremap = true })
+map('n', '<leader>a:', ':Tabularize /:\zs<CR>', { noremap = true })
+map('v', '<leader>a:', ':Tabularize /:\zs<CR>', { noremap = true })
+
+-- block visual
+map('n', '<F3>', '<C-v>', { noremap = true })
 
 -- " TODO change from under_score to camelCase
 -- vmap <leader>=++ :s#_\(\l\)#\u\1#g<CR>
