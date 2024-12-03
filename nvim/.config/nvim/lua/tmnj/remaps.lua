@@ -42,7 +42,7 @@ map('n', '<leader>a:', ':Tabularize /:\zs<CR>', { noremap = true })
 map('v', '<leader>a:', ':Tabularize /:\zs<CR>', { noremap = true })
 
 -- block visual
-map('n', '<F3>', '<C-v>', { noremap = true })
+map('n', '<F4>', '<C-v>', { noremap = true })
 
 -- " TODO change from under_score to camelCase
 -- vmap <leader>=++ :s#_\(\l\)#\u\1#g<CR>
