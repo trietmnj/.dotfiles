@@ -44,6 +44,12 @@ map('v', '<leader>a:', ':Tabularize /:\zs<CR>', { noremap = true })
 -- block visual
 map('n', '<F4>', '<C-v>', { noremap = true })
 
+-- turning :W to save file too
+vim.api.nvim_create_user_command('W', function()
+    vim.cmd('w') -- Save the file
+    print("File saved! Use :w next time.")
+end, {})
+
 -- " TODO change from under_score to camelCase
 -- vmap <leader>=++ :s#_\(\l\)#\u\1#g<CR>
 -- function toggle_case_visual()
