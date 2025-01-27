@@ -131,6 +131,19 @@ for _, lsp in pairs(servers) do
                 }
             }
         }))
+    elseif lsp == 'pyright' then
+        nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({
+            settings = {
+                python = {
+                    analysis = {
+                        autoSearchPaths = true,
+                        useLibraryCodeForTypes = true,
+                    },
+                    pythonPath = "/home/linuxbrew/.linuxbrew/bin/python3.11", -- Explicit path
+                },
+            },
+            on_attach = on_attach,
+        }))
     elseif lsp == 'r_language_server' then
         nvim_lsp[lsp].setup({})
     else
