@@ -7,7 +7,7 @@ SETUVAR --export LS_COLORS:rs\x3d0\x3adi\x3d01\x3b34\x3aln\x3d01\x3b36\x3amh\x3d
 SETUVAR --export --path PATH:\x1d
 SETUVAR --export STOW_FOLDERS:/home/tmnj/\x2edotfiles/
 SETUVAR --export TEXLIVE_HOME:/usr/local/texlive/2024
-SETUVAR __fish_initialized:3100
+SETUVAR __fish_initialized:3800
 SETUVAR fish_color_autosuggestion:BD93F9
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:F8F8F2
@@ -26,7 +26,7 @@ SETUVAR fish_color_operator:00a6b2
 SETUVAR fish_color_param:FF79C6
 SETUVAR fish_color_quote:F1FA8C
 SETUVAR fish_color_redirection:8BE9FD
-SETUVAR fish_color_search_match:bryellow\x1e\x2d\x2dbackground\x3dbrblack
+SETUVAR fish_color_search_match:white\x1e\x2d\x2dbackground\x3dbrblack
 SETUVAR fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrblack
 SETUVAR fish_color_status:red
 SETUVAR fish_color_user:brgreen
