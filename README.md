@@ -6,13 +6,19 @@ Configuration to quickly set up development environment
 
 1. Setup fish
 
+    1a. Install and configure fish
+
+    ```bash
+    curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+    ````
+
     1c. Set `fish` as the default shell
 
     ```bash
     chsh -s /usr/bin/fish
     ```
 
-    1d.
+    1d. Use theme `neolambda` from `Oh My Fish`
 
 2. Setup tmux
 
@@ -22,20 +28,38 @@ Configuration to quickly set up development environment
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     ```
 
+    2b. Setup tmux along with Oh My Fish and Darcula
+
+    ```
+        tmux
+        Ctrl + b + I
+    ```
+
 3. Setup nvim
 
-3a. Setup dependencies for neovim
+    3a. Setup dependencies for neovim
 
-```bash
-    sudo apt install gcc
-    sudo apt install ripgrep
-    sudo apt install fd-find
-    sudo apt install universal-ctags
-```
+    ```bash
+        sudo apt install -y gcc ripgrep fd-find universal-ctags
+    ```
 
-4. Setup nvim
+    Install Rust
+
+    ```bash
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        source "$HOME/.cargo/env"
+    ```
+
+    3b. Update `nodejs` for Copilot
+
+    ```bash
+        sudo apt remove -y nodejs
+        curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
+        sudo apt-get install -y nodejs
+    ```
 
 5. Setup win32yank-x64 for copying from terminal
+
     5a. Copy `win32yank-x64/` from project root to /mnt/c/Applications/
 
 6. Configure `fish`, `neovim`, and `tmux`
@@ -47,17 +71,6 @@ Configuration to quickly set up development environment
     ```
 
 7. Install `ripgrep` for fast greping through repo
-
-Install and configure fish
-````
-curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
-````
-
-Setup tmux along with Oh My Fish and Darcula
-```
-    tmux
-    Ctrl + b + I
-```
 
 ```bash
     curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh

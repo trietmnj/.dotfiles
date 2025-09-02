@@ -72,7 +72,7 @@ local servers = {
     'jedi_language_server',
     'pyright',
     'rust_analyzer',
-    'tsserver',
+    'ts_ls',
     -- 'svelte',
     -- 'tailwindcss',
     'vimls',
