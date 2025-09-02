@@ -1,10 +1,30 @@
-# Setup guide
-Clone into home folder
+# .dotfiles
+
+Configuration to quickly set up development environment
+
+## Quick setup
+
+1. Setup fish
+
+2. Setup tmux
+
+3. Setup nvim
+
+4. Setup nvim
+
+5. Setup win32yank-x64 for copying from terminal
+    5a. Copy `win32yank-x64/` from project root to /mnt/c/Applications/
+
+6. Configure `fish`, `neovim`, and `tmux`
+    6a. Setup `stow`
+
+    ```bash
+        sudo apt update && sudo apt install stow
+        export STOW_FOLDERS=/home/tmnj/.dotfiles/
+    ```
 
 Install and configure stow
 ```
-    sudo apt install stow
-    export STOW_FOLDERS=/home/tmnj/.dotfiles/
     stow fish
     stow nvim
     stow tmux

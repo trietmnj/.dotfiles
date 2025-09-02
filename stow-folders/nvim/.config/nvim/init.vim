@@ -138,12 +138,12 @@ if has('wsl')
     let g:clipboard = {
           \   'name': 'wslclipboard',
           \   'copy': {
-          \      '+': '/mnt/c/Apps/win32yank-x64/win32yank.exe -i --crlf',
-          \      '*': '/mnt/c/Apps/win32yank-x64/win32yank.exe -i --crlf',
+          \      '+': '/mnt/c/Applications/win32yank-x64/win32yank.exe -i --crlf',
+          \      '*': '/mnt/c/Applications/win32yank-x64/win32yank.exe -i --crlf',
           \    },
           \   'paste': {
-          \      '+': '/mnt/c/Apps/win32yank-x64/win32yank.exe -o --lf',
-          \      '*': '/mnt/c/Apps/win32yank-x64/win32yank.exe -o --lf',
+          \      '+': '/mnt/c/Applications/win32yank-x64/win32yank.exe -o --lf',
+          \      '*': '/mnt/c/Applications/win32yank-x64/win32yank.exe -o --lf',
           \   },
           \   'cache_enabled': 1,
           \ }

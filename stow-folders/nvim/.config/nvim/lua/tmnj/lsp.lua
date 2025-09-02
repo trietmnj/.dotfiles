@@ -66,7 +66,7 @@ end
 --     end
 -- end
 
-vim.lsp.set_log_level("error")
+vim.lsp.log.set_level("error")
 
 local servers = {
     'jedi_language_server',
