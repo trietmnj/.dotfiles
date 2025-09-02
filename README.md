@@ -31,8 +31,8 @@ Configuration to quickly set up development environment
     2b. Setup tmux along with Oh My Fish and Darcula
 
     ```
-        tmux
-        Ctrl + b + I
+    tmux
+    Ctrl + b + I
     ```
 
 3. Setup nvim
@@ -40,22 +40,27 @@ Configuration to quickly set up development environment
     3a. Setup dependencies for neovim
 
     ```bash
-        sudo apt install -y gcc ripgrep fd-find universal-ctags
+    sudo apt install -y gcc ripgrep fd-find universal-ctags
     ```
 
-    Install Rust
+    Install `rust` and and dependencies required `rust`
 
     ```bash
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-        source "$HOME/.cargo/env"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    source "$HOME/.cargo/env"
+    ```
+
+    ```bash
+    sudo apt install -y unzip
+    cargo install stylua
     ```
 
     3b. Update `nodejs` for Copilot
 
     ```bash
-        sudo apt remove -y nodejs
-        curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
-        sudo apt-get install -y nodejs
+    sudo apt remove -y nodejs
+    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
+    sudo apt-get install -y nodejs
     ```
 
 5. Setup win32yank-x64 for copying from terminal
@@ -66,13 +71,13 @@ Configuration to quickly set up development environment
     6a. Setup `stow`
 
     ```bash
-        sudo apt update && sudo apt install stow
-        export STOW_FOLDERS=/home/tmnj/.dotfiles/
+    sudo apt update && sudo apt install stow
+    export STOW_FOLDERS=/home/tmnj/.dotfiles/
     ```
 
 7. Install `ripgrep` for fast greping through repo
 
-```bash
+    ```bash
     curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
     sudo bash /tmp/nodesource_setup.sh
     sudo apt update
@@ -98,7 +103,22 @@ Configuration to quickly set up development environment
     sudo apt install libxml2-dev libcurl4-openssl-dev libssl-dev
 
     sudo apt install r-base
-```
+    ```
+
+## `R`
+
+1. Install `R`
+
+    ```bash
+    sudo apt install -y r-base libcurl4-openssl-dev libssl-dev libxml2-dev
+    ```
+
+    1a. Install `r-languageserver`
+
+    ```bash
+    sudo R -q -e 'install.packages("languageserver", repos="https://cloud.r-project.org")'
+    ```
+
 
 ```R
 In an R terminal
