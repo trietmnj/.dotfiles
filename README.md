@@ -8,6 +8,12 @@ Configuration to quickly set up development environment
 
 2. Setup tmux
 
+    2a. Install `tmux plugin manager`
+
+    ```bash
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    ```
+
 3. Setup nvim
 
 4. Setup nvim
@@ -23,12 +29,7 @@ Configuration to quickly set up development environment
         export STOW_FOLDERS=/home/tmnj/.dotfiles/
     ```
 
-Install and configure stow
-```
-    stow fish
-    stow nvim
-    stow tmux
-```
+7. Install `ripgrep` for fast greping through repo
 
 Install and configure fish
 ````
