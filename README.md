@@ -55,12 +55,22 @@ Configuration to quickly set up development environment
     cargo install stylua
     ```
 
+    ```bash
+    npm install -g neovim
+    ```
+
     3b. Update `nodejs` for Copilot
 
     ```bash
     sudo apt remove -y nodejs
     curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
     sudo apt-get install -y nodejs
+    ```
+
+    3c. Install `treesitter`
+
+    ```bash
+    :TSInstall <package>
     ```
 
 5. Setup win32yank-x64 for copying from terminal
