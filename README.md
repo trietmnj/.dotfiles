@@ -6,6 +6,14 @@ Configuration to quickly set up development environment
 
 1. Setup fish
 
+    1c. Set `fish` as the default shell
+
+    ```bash
+    chsh -s /usr/bin/fish
+    ```
+
+    1d.
+
 2. Setup tmux
 
     2a. Install `tmux plugin manager`
@@ -15,6 +23,15 @@ Configuration to quickly set up development environment
     ```
 
 3. Setup nvim
+
+3a. Setup dependencies for neovim
+
+```bash
+    sudo apt install gcc
+    sudo apt install ripgrep
+    sudo apt install fd-find
+    sudo apt install universal-ctags
+```
 
 4. Setup nvim
 
@@ -42,14 +59,7 @@ Setup tmux along with Oh My Fish and Darcula
     Ctrl + b + I
 ```
 
-Setup dependencies for neovim
-```
-    sudo apt install gcc
-    sudo apt install r-base
-    sudo apt install ripgrep
-    sudo apt install fd-find
-    sudo apt install universal-ctags
-
+```bash
     curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
     sudo bash /tmp/nodesource_setup.sh
     sudo apt update
@@ -73,6 +83,8 @@ Setup dependencies for neovim
 
     mkdir -p ~/R/x86_64-pc-linux-gnu-library/4.1
     sudo apt install libxml2-dev libcurl4-openssl-dev libssl-dev
+
+    sudo apt install r-base
 
 In an R terminal
     install.package("xml2")
