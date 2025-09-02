@@ -111,7 +111,7 @@ Setup Latex from the Tex User Group
 
 https://www.tug.org/texlive/
 
-```
+```bash
     cd /tmp
     wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
     zcat < install-tl-unx.tar.gz | tar xf -
@@ -127,17 +127,23 @@ sudo apt clean
 sudo apt autoremove
 ```
 
-# Using latex
+## `LaTeX`
+
 latexmk is the CLI workhorse
-```
+
 1. Install via TUG
+
 https://www.tug.org/texlive/quickinstall.html
 
-2. Loosen access permission in isntallation folder
+2. Loosen access permission in the installation folder
+
+```bash
 sudo chmod -R 777 /usr/local/texlive/
+```
 
 3. Update texlive-scripts
-tlmgr update texlive-scripts
+
+    tlmgr update texlive-scripts
 
     Clean up intermediate files generated for latex rendering
 latexmk -c
@@ -149,15 +155,20 @@ Open file with MuPDF
 tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet
 
     install package
-tlmgr install <package>
+
+    ```bash
+    tlmgr install <package>
+    ```
 
     update package manager
-tlmgr update --self
 
+    ```bash
+    tlmgr update --self
+    tlmgr install <package>
+    ```
 
-Find packages on CTAN
+    Find packages on CTAN
     https://ctan.org/
 
 
 texlive-scripts
-```
