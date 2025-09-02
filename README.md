@@ -98,7 +98,9 @@ Configuration to quickly set up development environment
     sudo apt install libxml2-dev libcurl4-openssl-dev libssl-dev
 
     sudo apt install r-base
+```
 
+```R
 In an R terminal
     install.package("xml2")
     install.package("roxygen2")
@@ -110,16 +112,6 @@ In an R terminal
 Setup Latex from the Tex User Group
 
 https://www.tug.org/texlive/
-
-```bash
-    cd /tmp
-    wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-    zcat < install-tl-unx.tar.gz | tar xf -
-cd into installation folder, replace *  with actual folder name
-    cd install-tl-*
-    sudo perl ./install-tl --no-interaction
-    tlmgr install latexmk
-```
 
 Debugging - clean out cache
 ```
@@ -172,3 +164,15 @@ tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet
 
 
 texlive-scripts
+
+```bash
+    cd /tmp
+    wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+    zcat < install-tl-unx.tar.gz | tar xf -
+    cd into installation folder, replace *  with actual folder name
+    cd install-tl-*
+    sudo perl ./install-tl --no-interaction
+    tlmgr install latexmk
+```
+
+
