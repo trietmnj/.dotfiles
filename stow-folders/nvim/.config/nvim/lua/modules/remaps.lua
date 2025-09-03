@@ -22,16 +22,6 @@ map('n', '<leader>gh', ':diffget //3<CR>', { noremap = true })
 map('n', '<leader>gu', ':diffget //2<CR>', { noremap = true })
 map('n', '<leader>gs', ':G<CR>', { noremap = true })
 
--- Harpoon
-local hm = require("harpoon.mark")
-local hu = require("harpoon.ui")
-vim.keymap.set('n', '<leader>gh', hm.add_file, { noremap = true, silent = true })
-vim.keymap.set('n', '<C-e>', hu.toggle_quick_menu, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>y', function() return hu.nav_file(1) end, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>u', function() return hu.nav_file(2) end, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>i', function() return hu.nav_file(3) end, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>o', function() return hu.nav_file(4) end, { noremap = true, silent = true })
-
 -- don't know why this is remapped to something other than ~
 vim.keymap.set('i', '~', '~', { noremap = true, silent = true })
 

@@ -2,6 +2,7 @@
 local pickers      = require("telescope.pickers")
 local finders      = require("telescope.finders")
 local previewers   = require("telescope.previewers")
+
 local action_state = require("telescope.actions.state")
 local conf         = require("telescope.config").values
 local actions      = require("telescope.actions")
@@ -12,13 +13,13 @@ local M = {}
 function M.setup()
   require("telescope").setup({
     defaults = {
-      file_sorter     = require("telescope.sorters").get_fzy_sorter,
-      prompt_prefix   = " >",
-      color_devicons  = true,
+      file_sorter      = require("telescope.sorters").get_fzy_sorter,
+      prompt_prefix    = " >",
+      color_devicons   = true,
 
-      file_previewer  = require("telescope.previewers").vim_buffer_cat.new,
-      grep_previewer  = require("telescope.previewers").vim_buffer_vimgrep.new,
-      qflist_previewer= require("telescope.previewers").vim_buffer_qflist.new,
+      file_previewer   = require("telescope.previewers").vim_buffer_cat.new,
+      grep_previewer   = require("telescope.previewers").vim_buffer_vimgrep.new,
+      qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
 
       mappings = {
         i = {
@@ -50,13 +51,13 @@ function M.setup()
     tb.grep_string({ search = vim.fn.input("Grep For > ") })
   end, vim.tbl_extend("force", base, { desc = "Grep (prompt)" }))
 
-  map("n", "<C-p>",  tb.git_files,   vim.tbl_extend("force", base, { desc = "Git files" }))
-  map("n", "<leader>pf", tb.find_files, vim.tbl_extend("force", base, { desc = "Find files" }))
+  map("n", "<C-p>",       tb.git_files,  vim.tbl_extend("force", base, { desc = "Git files" }))
+  map("n", "<leader>pf",  tb.find_files, vim.tbl_extend("force", base, { desc = "Find files" }))
   map("n", "<leader>pw", function()
     tb.grep_string({ search = vim.fn.expand("<cword>") })
   end, vim.tbl_extend("force", base, { desc = "Grep word under cursor" }))
-  map("n", "<leader>pb", tb.buffers,   vim.tbl_extend("force", base, { desc = "Buffers" }))
-  map("n", "<leader>vh", tb.help_tags, vim.tbl_extend("force", base, { desc = "Help tags" }))
+  map("n", "<leader>pb",  tb.buffers,   vim.tbl_extend("force", base, { desc = "Buffers" }))
+  map("n", "<leader>vh",  tb.help_tags, vim.tbl_extend("force", base, { desc = "Help tags" }))
 
   map("n", "<leader>vrc", function() require("tmnj.telescope").search_dotfiles() end,
     vim.tbl_extend("force", base, { desc = "Search dotfiles" }))
@@ -88,18 +89,18 @@ function M.search_dotfiles()
 end
 
 local function refactor(prompt_bufnr)
-  local content = require("telescope.actions.state").get_selected_entry(prompt_bufnr)
-  require("telescope.actions").close(prompt_bufnr)
+  local content = action_state.get_selected_entry(prompt_bufnr)
+  actions.close(prompt_bufnr)
   require("refactoring").refactor(content.value)
 end
 
 function M.refactors()
-  require("telescope.pickers").new({}, {
+  pickers.new({}, {
     prompt_title = "refactors",
-    finder = require("telescope.finders").new_table({
+    finder = finders.new_table({
       results = require("refactoring").get_refactors(),
     }),
-    sorter = require("telescope.config").values.generic_sorter({}),
+    sorter = conf.generic_sorter({}),
     attach_mappings = function(_, map)
       map("i", "<CR>", refactor)
       map("n", "<CR>", refactor)
@@ -181,3 +182,26 @@ function M.dev(opts)
         local entry = action_state.get_selected_entry()
         actions.close(...)
         mod[entry.value.text]()
+      end)
+
+      map("i", "<tab>", function(...)
+        local entry = action_state.get_selected_entry()
+        actions.close(...)
+        vim.schedule(function()
+          vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes(
+              string.format("<esc>:lua require('%s').%s()<CR>", mod_name, entry.value.text),
+              true, false, true
+            ),
+            "n",
+            true
+          )
+        end)
+      end)
+
+      return true
+    end,
+  }):find()
+end
+
+return M

@@ -1,10 +1,11 @@
-require("tmnj.lsp")
-require("tmnj.telescope")
-require("tmnj.navigation")
-require("tmnj.remaps")
-require("tmnj.ai")
--- require("tmnj.whichKey")
-require("tmnj.theme")
+-- lua/modules/init.lua
+pcall(require, "telescope")
+pcall(require, "navigation")
+pcall(require, "remaps")
+pcall(require, "ai")
+pcall(require, "theme")
+pcall(require, "keymaps")
+pcall(require, "globals")
 
 P = function(v)
     print(vim.inspect(v))
