@@ -228,6 +228,12 @@ install.packages("roxygen2")
 install.packages("lintr")
 ```
 
+`nvim-R` requires `latexmk`, which needs `tlmgr`
+
+```bash
+sudo tlmgr install latexmk
+```
+
 ### 7.5 Java
 
 ```bash
