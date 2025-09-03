@@ -1,252 +1,257 @@
 -- lua/tmnj/lsp.lua
-local nvim_lsp = require('lspconfig')
-local coq = require("coq")
 
-vim.api.nvim_exec([[let g:coq_settings = { 'auto_start': 'shut-up' }]], true)
+-- =====================================================================
+--  Neovim LSP + Tools Config (organized)
+--  Sections:
+--   1) Globals & Utilities
+--   2) Plugin Bootstraps (require)
+--   3) UI / Diagnostics / Trouble keymaps
+--   4) LSP: on_attach, flags, servers
+--   5) Mason & Tooling
+--   6) Treesitter
+--   7) Commenting (ts_context_commentstring + mini.comment)
+--   8) Autocommands (TeX wrap)
+-- =====================================================================
 
-local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+-- ---------------------------------------------------------------------
+-- 1) Globals & Utilities
+-- ---------------------------------------------------------------------
+vim.g.coq_settings = { auto_start = "shut-up" }  -- COQ: quiet autostart
+vim.lsp.log.set_level("error")                   -- reduce LSP log noise
+local lsp_flags = { debounce_text_changes = 150 }
 
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    -- Mappings.
-    local opts = { noremap = true, silent = true }
-    -- buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    -- buf_set_keymap('n', 'ga', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    -- buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    -- buf_set_keymap('n', '<C-l>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    -- buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    -- buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    -- buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    -- buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-
-    -- if client.server_capabilities.document_formatting then
-    --     buf_set_keymap("n", "ff", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    -- elseif client.server_capabilities.document_range_formatting then
-    --     buf_set_keymap("v", "ff", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-    -- end
+-- Small helper for local buffer keymaps
+local function bmap(buf, mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.buffer = buf
+  opts.silent = opts.silent ~= false
+  opts.noremap = opts.noremap ~= false
+  vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-vim.lsp.log.set_level("error")
+-- ---------------------------------------------------------------------
+-- 2) Plugin Bootstraps
+-- ---------------------------------------------------------------------
+local nvim_lsp = require("lspconfig")
+local coq      = require("coq")  -- completion front-end
 
+-- ---------------------------------------------------------------------
+-- 3) UI / Diagnostics / Trouble keymaps (global)
+-- ---------------------------------------------------------------------
+do
+  local opts = { noremap = true, silent = true }
+  local map = vim.keymap.set
+  map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", opts)
+  map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", opts)
+  map("n", "<leader>xw", "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>", opts)
+  map("n", "<leader>xq", "<cmd>Trouble qflist toggle<cr>", opts)
+  map("n", "<leader>xl", "<cmd>Trouble loclist toggle<cr>", opts)
+  map("n", "gR",        "<cmd>Trouble symbols toggle focus=false<cr>", opts)
+end
+
+-- ---------------------------------------------------------------------
+-- 4) LSP: on_attach, flags, servers
+-- ---------------------------------------------------------------------
+local on_attach = function(client, bufnr)
+  -- completion
+  vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+  -- Buffer-local LSP keymaps
+  bmap(bufnr, "n", "ga", vim.lsp.buf.code_action)
+  bmap(bufnr, "n", "gd", vim.lsp.buf.definition)
+  bmap(bufnr, "n", "gD", vim.lsp.buf.declaration)
+  bmap(bufnr, "n", "gr", vim.lsp.buf.references)
+  bmap(bufnr, "n", "gi", vim.lsp.buf.implementation)
+  bmap(bufnr, "n", "K",  vim.lsp.buf.hover)
+  bmap(bufnr, "n", "<leader>rn", vim.lsp.buf.rename)
+  -- bmap(bufnr, "n", "<C-k>", vim.lsp.buf.signature_help)
+
+  -- Optional: format on save per-buffer
+  -- vim.api.nvim_create_autocmd("BufWritePre", {
+  --   buffer = bufnr,
+  --   callback = function() vim.lsp.buf.format({ timeout_ms = 100 }) end,
+  -- })
+end
+
+-- List of servers + per-server overrides
 local servers = {
-    'jedi_language_server',
-    'pyright',
-    'rust_analyzer',
-    'ts_ls',
-    'vimls',
-    'jsonls',
-    'gopls',
-    'omnisharp',
-    'csharp_ls',
-    'lua_ls',
-    'r_language_server',
-    'texlab'
-    -- 'svelte',
-    -- 'tailwindcss',
-    -- 'html',
-    -- 'dockerls',
-    -- 'lemminx',
-    -- 'sumneko_lua',
-    -- 'cssls',
-    -- 'solargraph',
-    -- 'ltex',
+  "jedi_language_server",
+  "pyright",
+  "rust_analyzer",
+  "ts_ls",
+  "vimls",
+  "jsonls",
+  "gopls",
+  "omnisharp",
+  "csharp_ls",
+  "lua_ls",
+  "r_language_server",
+  "texlab",
+--     -- 'svelte',
+--     -- 'tailwindcss',
+--     -- 'html',
+--     -- 'dockerls',
+--     -- 'lemminx',
+--     -- 'sumneko_lua',
+--     -- 'cssls',
+--     -- 'solargraph',
+--     -- 'ltex',
 }
 
-for _, lsp in pairs(servers) do
-    if lsp == 'gopls' then
-        nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({
-            cmd = { 'gopls', 'serve' },
-            filetypes = { "go", "gomod" },
-            -- root_dir = root_pattern("go.mod", ".git"),
-            -- for postfix snippets and analyzers
-            -- capabilities = capabilities,
-            settings = {
-                gopls = {
-                    experimentalPostfixCompletions = true,
-                    analyses = {
-                        unusedparams = true,
-                        shadow = true,
-                    },
-                    staticcheck = true,
-                },
-            },
-            on_attach = on_attach,
-        }))
-    elseif lsp == 'rust_analyzer' then
-        nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({
-            -- capabilities = capabilities,
-            on_attach = on_attach,
-            settings = {
-                ["rust-analyzer"] = {
-                    assist = {
-                        importGranularity = "module",
-                        importPrefix = "self",
-                    },
-                    cargo = {
-                        loadOutDirsFromCheck = true
-                    },
-                    procMacro = {
-                        enable = true
-                    },
-                }
-            }
-        }))
-    elseif lsp == 'pyright' then
-        nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({
-            settings = {
-                python = {
-                    analysis = {
-                        autoSearchPaths = true,
-                        useLibraryCodeForTypes = true,
-                    },
-                    pythonPath = "/home/linuxbrew/.linuxbrew/bin/python3.11", -- Explicit path
-                },
-            },
-            on_attach = on_attach,
-        }))
-    elseif lsp == 'r_language_server' then
-        nvim_lsp[lsp].setup({})
-    else
-        nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({
-            -- capabilities = capabilities,
-            on_attach = on_attach,
-        }))
-    end
+for _, lsp in ipairs(servers) do
+  if lsp == "gopls" then
+    nvim_lsp.gopls.setup(coq.lsp_ensure_capabilities({
+      cmd = { "gopls", "serve" },
+      filetypes = { "go", "gomod" },
+      settings = {
+        gopls = {
+          experimentalPostfixCompletions = true,
+          analyses = { unusedparams = true, shadow = true },
+          staticcheck = true,
+        },
+      },
+      on_attach = on_attach,
+      flags = lsp_flags,
+    }))
+
+  elseif lsp == "rust_analyzer" then
+    nvim_lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities({
+      on_attach = on_attach,
+      flags = lsp_flags,
+      settings = {
+        ["rust-analyzer"] = {
+          assist = { importGranularity = "module", importPrefix = "self" },
+          cargo = { loadOutDirsFromCheck = true },
+          procMacro = { enable = true },
+        },
+      },
+    }))
+
+  elseif lsp == "pyright" then
+    nvim_lsp.pyright.setup(coq.lsp_ensure_capabilities({
+      on_attach = on_attach,
+      flags = lsp_flags,
+      settings = {
+        python = {
+          analysis = {
+            autoSearchPaths = true,
+            useLibraryCodeForTypes = true,
+          },
+          -- Tip: usually let pyright auto-detect venv; set only if you need a fixed interpreter:
+          pythonPath = "/home/linuxbrew/.linuxbrew/bin/python3.11",
+        },
+      },
+    }))
+
+  elseif lsp == "lua_ls" then
+    nvim_lsp.lua_ls.setup(coq.lsp_ensure_capabilities({
+      on_attach = on_attach,
+      flags = lsp_flags,
+      settings = {
+        Lua = {
+          runtime = { version = "LuaJIT" },
+          diagnostics = { globals = { "vim" } },
+          workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+          telemetry = { enable = false },
+        },
+      },
+    }))
+
+  elseif lsp == "r_language_server" then
+    nvim_lsp.r_language_server.setup(coq.lsp_ensure_capabilities({
+      on_attach = on_attach,
+      flags = lsp_flags,
+      -- languageserver must be installed in R
+    }))
+
+  else
+    nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({
+      on_attach = on_attach,
+      flags = lsp_flags,
+    }))
+  end
 end
 
-nvim_lsp['lua_ls'].setup(coq.lsp_ensure_capabilities({
-    -- capabilities = capabilities,
-    on_attach = on_attach,
-    flags = lsp_flags,
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = "LuaJIT",
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { "vim" },
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
-}))
-
+-- ---------------------------------------------------------------------
+-- 5) Mason & Tooling
+-- ---------------------------------------------------------------------
 require("mason").setup({
-    ui = {
-        icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗"
-        }
-    }
-})
-
-require('mason-tool-installer').setup({
-    ensure_installed = {
-        -- you can pin a tool to a particular version
-        -- { 'golangci-lint', version = 'v1.47.0' },
-        -- you can turn off/on auto_update per tool
-        { 'bash-language-server', auto_update = true },
-        'pyright',
-        'lua-language-server',
-        'vim-language-server',
-        -- 'gopls',
-        'stylua',
-        'shellcheck',
-        'editorconfig-checker',
-        -- 'gofumpt',
-        -- 'golines',
-        -- 'gomodifytags',
-        -- 'gotests',
-        -- 'impl',
-        -- 'json-to-struct',
-        -- 'luacheck',
-        -- 'misspell',
-        -- 'revive',
-        -- 'shellcheck',
-        'shfmt',
-        -- 'staticcheck',
-        'vint',
-        -- 'ltex-ls',
-        'r-languageserver',
-        'texlab',
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗",
     },
-    auto_update = true,
-    run_on_start = true,
-    -- set a delay (in ms) before the installation starts. This is only
-    -- effective if run_on_start is set to true.
-    -- e.g.: 5000 = 5 second delay, 10000 = 10 second delay, etc...
-    -- Default: 0
-    start_delay = 3000, -- 3 second delay
+  },
 })
 
--- treesitter
-require('nvim-treesitter.configs').setup({
-    ensure_installed = {
-        "c",
-        "lua",
-        "vim",
-        "vimdoc",
-        "query",
-        "rust",
-        "go",
-        "typescript",
-        "python",
-        "r",
-    },
-    indent = { enable = true },
-    highlight = { enable = true, disable = { "note" } },
-    incremental_selection = { enable = true },
-    textobjects = { enable = true },
-    -- additional_vim_regex_highlighting = false,
-    rainbow = {
-        enable = true,
-        -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-        max_file_lines = nil, -- Do not enable for files with more than n lines, int
-        colors = {
-            '#97e023',
-            '#78DCE8',
-            '#dfd561',
-            '#fa8419',
-            '#9c64fe'
-        }, -- table of hex strings
-        -- termcolors = {} -- table of colour name strings
-    },
+require("mason-tool-installer").setup({
+  ensure_installed = {
+    { "bash-language-server", auto_update = true },
+    "pyright",
+    "lua-language-server",
+    "vim-language-server",
+    "stylua",
+    "shellcheck",
+    "editorconfig-checker",
+    "shfmt",
+    "vint",
+    "r-languageserver",
+    "texlab",
+  },
+  auto_update = true,
+  run_on_start = true,
+  start_delay = 3000,
 })
 
-require("trouble").setup()
-
-require('ts_context_commentstring').setup({
-    enable_autocmd = false,
+-- ---------------------------------------------------------------------
+-- 6) Treesitter
+-- ---------------------------------------------------------------------
+require("nvim-treesitter.configs").setup({
+  ensure_installed = {
+    "c",
+    "lua",
+    "vim",
+    "vimdoc",
+    "query",
+    "rust",
+    "go",
+    "typescript",
+    "python",
+    "r",
+  },
+  indent = { enable = true },
+  highlight = { enable = true, disable = { "note" } },
+  incremental_selection = { enable = true },
+  textobjects = { enable = true },
+  -- Keep rainbow only if you have the plugin installed
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
+    colors = { "#97e023", "#78DCE8", "#dfd561", "#fa8419", "#9c64fe" },
+  },
 })
 
-require('mini.comment').setup({
-    options = {
-        custom_commentstring = function()
-            return require('ts_context_commentstring').calculate_commentstring() or vim.bo.commentstring
-        end,
-    },
+-- ---------------------------------------------------------------------
+-- 7) Commenting / Commentstring
+-- ---------------------------------------------------------------------
+require("ts_context_commentstring").setup({ enable_autocmd = false })
+require("mini.comment").setup({
+  options = {
+    custom_commentstring = function()
+      return require("ts_context_commentstring").calculate_commentstring()
+        or vim.bo.commentstring
+    end,
+  },
 })
 
--- require 'navigator'.setup()
+-- ---------------------------------------------------------------------
+-- 8) Autocommands
+-- ---------------------------------------------------------------------
+local wrapGrp = vim.api.nvim_create_augroup("WrapLineInTeXFile", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  group = wrapGrp,
+  pattern = "tex",
+  callback = function() vim.opt_local.wrap = true end,
+})
