@@ -1,208 +1,244 @@
 # .dotfiles
 
-Configuration to quickly set up development environment
+Configuration to quickly set up development environment.
 
-## Quick setup
+---
 
-1. Setup fish
+## Quick Setup
 
-    1a. Install and configure fish
+### 1. Setup Fish
 
-    ```bash
-    curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
-    ````
+1a. Install and configure Fish:
 
-    1c. Set `fish` as the default shell
+```bash
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+```
 
-    ```bash
-    chsh -s /usr/bin/fish
-    ```
+1b. Set Fish as the default shell:
 
-    1d. Use theme `neolambda` from `Oh My Fish`
+```bash
+chsh -s /usr/bin/fish
+```
 
-2. Setup tmux
+1c. Use theme `neolambda` from **Oh My Fish**.
 
-    2a. Install `tmux plugin manager`
+---
 
-    ```bash
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    ```
+### 2. Setup Tmux
 
-    2b. Setup tmux along with Oh My Fish and Darcula
+2a. Install Tmux Plugin Manager:
 
-    ```
-    tmux
-    Ctrl + b + I
-    ```
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
 
-3. Setup nvim
+2b. Setup Tmux plugins:
 
-    3a. Setup dependencies for neovim
+```text
+tmux
+Ctrl + b + I
+```
 
-    ```bash
-    sudo apt install -y gcc ripgrep fd-find universal-ctags
-    ```
+---
 
-    Install `rust` and and dependencies required `rust`
+### 3. Setup Neovim
 
-    ```bash
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    source "$HOME/.cargo/env"
-    ```
+3a. Install dependencies:
 
-    ```bash
-    sudo apt install -y unzip
-    cargo install stylua
-    ```
+```bash
+sudo apt install -y gcc ripgrep fd-find universal-ctags unzip
+```
 
-    ```bash
-    npm install -g neovim
-    ```
+Install Rust and dependencies:
 
-    3b. Update `nodejs` for Copilot
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source "$HOME/.cargo/env"
+```
 
-    ```bash
-    sudo apt remove -y nodejs
-    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
-    sudo apt-get install -y nodejs
-    ```
+Install formatting and Neovim support:
 
-    3c. Install `treesitter`
+```bash
+cargo install stylua
+npm install -g neovim
+```
 
-    ```bash
-    :TSInstall <package>
-    ```
+3b. Update Node.js for GitHub Copilot:
 
-5. Setup win32yank-x64 for copying from terminal
+```bash
+sudo apt remove -y nodejs
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
+sudo apt-get install -y nodejs
+```
 
-    5a. Copy `win32yank-x64/` from project root to /mnt/c/Applications/
+3c. Install Treesitter packages inside Neovim:
 
-6. Configure `fish`, `neovim`, and `tmux`
-    6a. Setup `stow`
+```vim
+:TSInstall <language>
+```
 
-    ```bash
-    sudo apt update && sudo apt install stow
-    export STOW_FOLDERS=/home/tmnj/.dotfiles/
-    ```
+---
 
-7. Install `ripgrep` for fast greping through repo
+### 4. Setup win32yank-x64 (Clipboard Integration)
 
-    ```bash
-    curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
-    sudo bash /tmp/nodesource_setup.sh
-    sudo apt update
-    sudo apt install nodejs
-    npm install --global yarn
-    yarn global add neovim
+Copy `win32yank-x64/` from project root to:
 
-    curl https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-x86_64.sh --output anaconda.sh
-    bash anaconda.sh
-    sudo apt install python3-pip
-    pip3 install vim-vint
-    pip3 install neovim
-    apt install python3.10-venv
+```text
+/mnt/c/Applications/
+```
 
-    sudo apt install default-jre
-    sudo apt install default-jdk
+---
 
-    sudo apt install texlive-base
-    tlmgr init-usertree
-    tlmgr install latexmk
+### 5. Configure Fish, Neovim, and Tmux with Stow
 
-    mkdir -p ~/R/x86_64-pc-linux-gnu-library/4.1
-    sudo apt install libxml2-dev libcurl4-openssl-dev libssl-dev
+```bash
+sudo apt update && sudo apt install -y stow
+export STOW_FOLDERS=/home/tmnj/.dotfiles/
+```
 
-    sudo apt install r-base
-    ```
+---
 
-## `R`
+### 6. Setup Additional Tools
 
-1. Install `R`
+Install ripgrep, Node.js, Yarn, and Anaconda:
 
-    ```bash
-    sudo apt install -y r-base libcurl4-openssl-dev libssl-dev libxml2-dev
-    ```
+```bash
+curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
+sudo bash /tmp/nodesource_setup.sh
+sudo apt update
+sudo apt install -y nodejs
+npm install --global yarn
+yarn global add neovim
 
-    1a. Install `r-languageserver`
+curl https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-x86_64.sh --output anaconda.sh
+bash anaconda.sh
+```
 
-    ```bash
-    sudo R -q -e 'install.packages("languageserver", repos="https://cloud.r-project.org")'
-    ```
+Python and Neovim:
 
+```bash
+sudo apt install python3-pip python3.10-venv
+pip3 install vim-vint neovim
+```
+
+Java:
+
+```bash
+sudo apt install default-jre default-jdk
+```
+
+LaTeX (base):
+
+```bash
+sudo apt install texlive-base
+tlmgr init-usertree
+tlmgr install latexmk
+```
+
+R setup folders:
+
+```bash
+mkdir -p ~/R/x86_64-pc-linux-gnu-library/4.1
+sudo apt install libxml2-dev libcurl4-openssl-dev libssl-dev r-base
+```
+
+---
+
+## R
+
+Install R and dependencies:
+
+```bash
+sudo apt install -y r-base libcurl4-openssl-dev libssl-dev libxml2-dev
+```
+
+Install R language server:
+
+```bash
+sudo R -q -e 'install.packages("languageserver", repos="https://cloud.r-project.org")'
+```
+
+In R terminal:
 
 ```R
-In an R terminal
-    install.package("xml2")
-    install.package("roxygen2")
-    install.package("lintr")
-
-    sudo apt install biber
+install.packages("xml2")
+install.packages("roxygen2")
+install.packages("lintr")
 ```
 
-Setup Latex from the Tex User Group
+Biber:
 
-https://www.tug.org/texlive/
-
-Debugging - clean out cache
-```
-sudo apt clean
-sudo apt autoremove
+```bash
+sudo apt install biber
 ```
 
-## `LaTeX`
+---
 
-latexmk is the CLI workhorse
+## LaTeX
 
-1. Install via TUG
+`latexmk` is the CLI workhorse.
 
-https://www.tug.org/texlive/quickinstall.html
+### 1. Install via TUG
 
-2. Loosen access permission in the installation folder
+Follow instructions: [https://www.tug.org/texlive/quickinstall.html](https://www.tug.org/texlive/quickinstall.html)
+
+### 2. Permissions
 
 ```bash
 sudo chmod -R 777 /usr/local/texlive/
 ```
 
-3. Update texlive-scripts
-
-    tlmgr update texlive-scripts
-
-    Clean up intermediate files generated for latex rendering
-latexmk -c
-
-\ll to start autocompiling
-Open file with MuPDF
-
-    change tlmgr repo
-tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet
-
-    install package
-
-    ```bash
-    tlmgr install <package>
-    ```
-
-    update package manager
-
-    ```bash
-    tlmgr update --self
-    tlmgr install <package>
-    ```
-
-    Find packages on CTAN
-    https://ctan.org/
-
-
-texlive-scripts
+### 3. Update Scripts
 
 ```bash
-    cd /tmp
-    wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-    zcat < install-tl-unx.tar.gz | tar xf -
-    cd into installation folder, replace *  with actual folder name
-    cd install-tl-*
-    sudo perl ./install-tl --no-interaction
-    tlmgr install latexmk
+tlmgr update texlive-scripts
 ```
 
+### 4. Usage
 
+- Clean up intermediate files:
+
+```bash
+latexmk -c
+```
+
+- Start auto-compiling: `\ll`
+- Open with MuPDF
+
+### 5. Change tlmgr Repository
+
+```bash
+tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet
+```
+
+### 6. Install and Update Packages
+
+```bash
+tlmgr install <package>
+tlmgr update --self
+tlmgr install <package>
+```
+
+Find packages: [https://ctan.org/](https://ctan.org/)
+
+### 7. Manual Installation Example
+
+```bash
+cd /tmp
+wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+zcat < install-tl-unx.tar.gz | tar xf -
+cd install-tl-*
+sudo perl ./install-tl --no-interaction
+tlmgr install latexmk
+```
+
+---
+
+## Debugging
+
+Clean out cache:
+
+```bash
+sudo apt clean
+sudo apt autoremove
+```
