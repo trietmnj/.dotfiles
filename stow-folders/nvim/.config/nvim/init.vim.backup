@@ -1,3 +1,4 @@
+" init.vim
 call plug#begin('~/.vim/plugged')
 
 " navigation
