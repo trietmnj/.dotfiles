@@ -1,244 +1,340 @@
 # .dotfiles
 
-Configuration to quickly set up development environment.
+A streamlined, **idempotent** setup for a Linux/WSL development environment using **Oh My Fish**, **tmux**, and **Neovim**—plus language toolchains (Rust, Node.js), R, and TeX Live.
+
+> Target: Ubuntu/WSL (works on Debian-based).
+> Assumes your dotfiles repo layout is compatible with `stow` (e.g., `fish/`, `nvim/`, `tmux/`, etc.).
 
 ---
 
-## Quick Setup
+## Table of Contents
 
-### 1. Setup Fish
+1. [System Prep](#system-prep)
+2. [Shell: Fish + Oh My Fish](#shell-fish--oh-my-fish)
+3. [tmux + TPM](#tmux--tpm)
+4. [Neovim + Tooling](#neovim--tooling)
+5. [Windows Clipboard (win32yank) for WSL](#windows-clipboard-win32yank-for-wsl)
+6. [Dotfile Symlinks with GNU Stow](#dotfile-symlinks-with-gnu-stow)
+7. [Languages & Runtimes](#languages--runtimes)
+   - [Rust](#rust)
+   - [Node.js (LTS/Current)](#nodejs-ltscurrent)
+   - [Python basics](#python-basics)
+   - [R](#r)
+   - [Java](#java)
+8. [LaTeX / TeX Live](#latex--tex-live)
+9. [Troubleshooting & Maintenance](#troubleshooting--maintenance)
 
-1a. Install and configure Fish:
+---
+
+## System Prep
+
+Update base system and install common tooling:
 
 ```bash
-curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+sudo apt update
+sudo apt install -y \
+  build-essential curl git unzip ca-certificates \
+  ripgrep fd-find universal-ctags \
+  stow
 ```
 
-1b. Set Fish as the default shell:
+- `ripgrep`, `fd-find`, and `universal-ctags` are used by many Neovim configs.
+- `unzip` fixes failures like `Could not find executable "unzip"` during tool installs.
+
+---
+
+## Shell: Fish + Oh My Fish
+
+Install **Oh My Fish** and set Fish default:
 
 ```bash
+# Install Oh My Fish
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+
+# Make fish your default shell (path may vary; confirm with `which fish`)
 chsh -s /usr/bin/fish
 ```
 
-1c. Use theme `neolambda` from **Oh My Fish**.
+Set the theme to **neolambda**:
+
+```fish
+# In fish
+omf install neolambda
+omf theme neolambda
+```
+
+> Tip: If `omf` not found, start a new Fish session or `exec fish`.
 
 ---
 
-### 2. Setup Tmux
+## tmux + TPM
 
-2a. Install Tmux Plugin Manager:
+Install **TPM** (Tmux Plugin Manager):
 
 ```bash
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-2b. Setup Tmux plugins:
+Ensure your `~/.tmux.conf` includes:
+
+```tmux
+set -g @plugin 'tmux-plugins/tpm'
+# ... your other plugins
+run -b '~/.tmux/plugins/tpm/tpm'
+```
+
+Install tmux plugins:
 
 ```text
 tmux
-Ctrl + b + I
+# then press: Ctrl + b   I
 ```
 
 ---
 
-### 3. Setup Neovim
+## Neovim + Tooling
 
-3a. Install dependencies:
+Install Neovim support tools (you already installed `ripgrep`, `fd-find`, `universal-ctags`, `unzip` above).
 
+### Formatters & LSP glue
 ```bash
-sudo apt install -y gcc ripgrep fd-find universal-ctags unzip
-```
-
-Install Rust and dependencies:
-
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-source "$HOME/.cargo/env"
-```
-
-Install formatting and Neovim support:
-
-```bash
+# Lua formatter used by many NVim setups
 cargo install stylua
+
+# Node bridge for Neovim plugins
 npm install -g neovim
 ```
 
-3b. Update Node.js for GitHub Copilot:
+> If `cargo` not found, see [Rust](#rust) section first.
 
-```bash
-sudo apt remove -y nodejs
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
-sudo apt-get install -y nodejs
-```
-
-3c. Install Treesitter packages inside Neovim:
+### Treesitter grammars (inside Neovim)
+Open Neovim and install languages:
 
 ```vim
 :TSInstall <language>
 ```
 
----
-
-### 4. Setup win32yank-x64 (Clipboard Integration)
-
-Copy `win32yank-x64/` from project root to:
-
-```text
-/mnt/c/Applications/
-```
+> Run after your config loads; install only what you need (`lua`, `python`, `r`, `bash`, `markdown`, etc.).
 
 ---
 
-### 5. Configure Fish, Neovim, and Tmux with Stow
+## Windows Clipboard (win32yank) for WSL
+
+If you use WSL and want system clipboard yanks in NVim:
+
+1. Copy the `win32yank-x64/` folder from this repo to **Windows** (e.g., `C:\Applications\win32yank-x64\`).
+2. Ensure executable bit (from WSL):
+   ```bash
+   chmod +x /mnt/c/Applications/win32yank-x64/win32yank.exe
+   ```
+3. Point your Neovim/fish config to the correct path:
+   - Example (NVim): set `g:clipboard` provider or ensure your `provider#clipboard` points to that `.exe`.
+4. Common error fixed:
+   `Invalid value for argument cmd: '/mnt/c/Apps/win32yank-x64/win32yank.exe' is not executable`
+   → Use the **exact** path you installed and ensure `chmod +x`.
+
+---
+
+## Dotfile Symlinks with GNU Stow
+
+From your dotfiles repo root:
 
 ```bash
-sudo apt update && sudo apt install -y stow
-export STOW_FOLDERS=/home/tmnj/.dotfiles/
+# Example: link fish, nvim, and tmux configs into $HOME
+stow -v fish
+stow -v nvim
+stow -v tmux
+
+# To restow (overwrite) after changes:
+stow -R -v fish nvim tmux
+
+# To unlink:
+stow -D -v fish nvim tmux
 ```
+
+> You generally **don’t** need to export `STOW_FOLDERS`; `stow` acts on the current directory.
 
 ---
 
-### 6. Setup Additional Tools
+## Languages & Runtimes
 
-Install ripgrep, Node.js, Yarn, and Anaconda:
+### Rust
+```bash
+# Install rustup and default toolchain
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source "$HOME/.cargo/env"
+```
+
+### Node.js (LTS/Current)
+
+Use **NodeSource** to install Node 22.x (drop older instructions to avoid conflicts):
 
 ```bash
-curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
-sudo bash /tmp/nodesource_setup.sh
-sudo apt update
+# Remove conflicting distro node if present
+sudo apt remove -y nodejs || true
+
+# Install Node.js 22.x
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 sudo apt install -y nodejs
-npm install --global yarn
-yarn global add neovim
 
-curl https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-x86_64.sh --output anaconda.sh
-bash anaconda.sh
+# (Optional) Yarn
+npm install -g corepack
+corepack enable
+# Now `yarn` available via corepack (managed by Node)
 ```
 
-Python and Neovim:
+### Python basics
+
+If you don’t need conda, this is sufficient for editor tooling:
 
 ```bash
-sudo apt install python3-pip python3.10-venv
-pip3 install vim-vint neovim
+sudo apt install -y python3-pip python3.10-venv
+pip3 install --user neovim vim-vint
 ```
 
-Java:
+> Prefer per-project virtualenvs (e.g., with `python3 -m venv .venv && source .venv/bin/activate`) for app/dev work.
 
-```bash
-sudo apt install default-jre default-jdk
-```
+> If you **do** want Anaconda, install it separately (but avoid mixing conda and system `pip` in the same env).
 
-LaTeX (base):
+### R
 
-```bash
-sudo apt install texlive-base
-tlmgr init-usertree
-tlmgr install latexmk
-```
-
-R setup folders:
-
-```bash
-mkdir -p ~/R/x86_64-pc-linux-gnu-library/4.1
-sudo apt install libxml2-dev libcurl4-openssl-dev libssl-dev r-base
-```
-
----
-
-## R
-
-Install R and dependencies:
+Install R and dev headers:
 
 ```bash
 sudo apt install -y r-base libcurl4-openssl-dev libssl-dev libxml2-dev
 ```
 
-Install R language server:
+Set CRAN repo (optional but recommended for reproducibility):
+
+```bash
+sudo sh -c 'echo "options(repos = c(CRAN = \"https://cloud.r-project.org\"))" >> /etc/R/Rprofile.site'
+```
+
+Install R language server (for NVim LSP):
 
 ```bash
 sudo R -q -e 'install.packages("languageserver", repos="https://cloud.r-project.org")'
 ```
 
-In R terminal:
+Useful extras in an R session:
 
-```R
+```r
 install.packages("xml2")
 install.packages("roxygen2")
 install.packages("lintr")
 ```
 
-Biber:
+### Java
+
+Install modern JDK:
 
 ```bash
-sudo apt install biber
+sudo apt install -y openjdk-21-jdk
 ```
 
 ---
 
-## LaTeX
+## LaTeX / TeX Live
 
-`latexmk` is the CLI workhorse.
+You have two common paths:
 
-### 1. Install via TUG
+### A) **TeX Live via TUG (recommended, up-to-date)**
 
-Follow instructions: [https://www.tug.org/texlive/quickinstall.html](https://www.tug.org/texlive/quickinstall.html)
-
-### 2. Permissions
+**Per-user** install (avoids unsafe permissions):
 
 ```bash
-sudo chmod -R 777 /usr/local/texlive/
+# Download installer
+cd /tmp
+wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+tar xzf install-tl-unx.tar.gz
+cd install-tl-*
+
+# Non-interactive per-user install into $HOME/texlive
+./install-tl --no-interaction --texdir="$HOME/texlive/2025" --texuserdir="$HOME/texmf"
 ```
 
-### 3. Update Scripts
+Add TeX Live to your PATH (Fish):
+
+```fish
+set -Ux PATH $HOME/texlive/2025/bin/x86_64-linux $PATH
+```
+
+Make tlmgr tools visible:
 
 ```bash
-tlmgr update texlive-scripts
+tlmgr path add
 ```
 
-### 4. Usage
-
-- Clean up intermediate files:
+Install `latexmk` and friends:
 
 ```bash
-latexmk -c
+tlmgr update --self
+tlmgr install latexmk
 ```
 
-- Start auto-compiling: `\ll`
-- Open with MuPDF
-
-### 5. Change tlmgr Repository
+Switch mirrors / repository:
 
 ```bash
 tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet
 ```
 
-### 6. Install and Update Packages
+**Usage tips**
 
 ```bash
-tlmgr install <package>
-tlmgr update --self
-tlmgr install <package>
+# Clean intermediate files in the current LaTeX project
+latexmk -c
+
+# (NVim) If you use vimtex, \ll starts continuous compilation
 ```
 
-Find packages: [https://ctan.org/](https://ctan.org/)
+> Avoid `sudo chmod -R 777 /usr/local/texlive/` — use per-user install above or manage group permissions if system-wide is required.
 
-### 7. Manual Installation Example
+### B) **Minimal distro install**
+
+If you prefer Ubuntu packages:
 
 ```bash
-cd /tmp
-wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-zcat < install-tl-unx.tar.gz | tar xf -
-cd install-tl-*
-sudo perl ./install-tl --no-interaction
-tlmgr install latexmk
+sudo apt install -y texlive-base latexmk biber
 ```
+
+> `tlmgr` is not supported with Ubuntu packages. Use TUG method if you need `tlmgr`.
 
 ---
 
-## Debugging
+## Troubleshooting & Maintenance
 
-Clean out cache:
+- **Package install failures**
+  ```bash
+  sudo apt update --fix-missing
+  sudo apt -f install
+  ```
+- **Oh My Fish not found** → Start a new shell: `exec fish`
+- **Stylua install fails** → Ensure `unzip` is installed (covered above) and Rust toolchain is present.
+- **Neovim Treesitter errors** → `:TSUpdate`, or pin a stable parser version.
+- **Clipboard in WSL** → Confirm the exact path to `win32yank.exe` and `chmod +x` it; ensure NVim config references the correct path.
+- **Re-run safety**
+  All steps are safe to re-run; at worst you’ll see “already installed” messages.
 
-```bash
-sudo apt clean
-sudo apt autoremove
-```
+---
+
+## Appendix: Optional Extras
+
+- **bash-language-server** (for bash LSP in NVim):
+  ```bash
+  npm install -g bash-language-server
+  ```
+- **R formatter & lint helpers**:
+  ```r
+  install.packages(c("styler", "formatR"))
+  ```
+
+---
+
+## Done 🎉
+
+- Shell: Fish + OMF `neolambda`
+- Terminal: tmux + TPM
+- Editor: Neovim with Treesitter, Stylua, Node bridge
+- Toolchains: Rust, Node 22, Python, R, Java
+- TeX Live: per-user via TUG with `tlmgr` + `latexmk`
+
