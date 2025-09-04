@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd("BufWritePre", { group = aug, pattern = "*", callbac
 vim.api.nvim_create_autocmd("BufWritePre", { group = aug, pattern = "*.go", callback = format_on_save })
 
 -------------------------------------------------
--- Core options / leader
+-- Leaders
 -------------------------------------------------
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "

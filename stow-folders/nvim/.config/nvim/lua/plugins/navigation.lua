@@ -20,23 +20,4 @@ return {
     end,
     },
 
-    {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    event = "VeryLazy",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local hm = require("harpoon.mark")
-      local hu = require("harpoon.ui")
-
-      -- Keymaps
-      vim.keymap.set("n", "<leader>gh", hm.add_file, { noremap = true, silent = true, desc = "Harpoon add file" })
-      vim.keymap.set("n", "<C-e>", hu.toggle_quick_menu, { noremap = true, silent = true, desc = "Harpoon quick menu" })
-      vim.keymap.set("n", "<leader>y", function() hu.nav_file(1) end, { noremap = true, silent = true, desc = "Harpoon to file 1" })
-      vim.keymap.set("n", "<leader>u", function() hu.nav_file(2) end, { noremap = true, silent = true, desc = "Harpoon to file 2" })
-      vim.keymap.set("n", "<leader>i", function() hu.nav_file(3) end, { noremap = true, silent = true, desc = "Harpoon to file 3" })
-      vim.keymap.set("n", "<leader>o", function() hu.nav_file(4) end, { noremap = true, silent = true, desc = "Harpoon to file 4" })
-    end,
-  },
-
 }

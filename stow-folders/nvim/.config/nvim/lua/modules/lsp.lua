@@ -8,9 +8,8 @@
 --   3) UI / Diagnostics / Trouble keymaps
 --   4) LSP: on_attach, flags, servers
 --   5) Mason & Tooling
---   6) Treesitter
---   7) Commenting (ts_context_commentstring + mini.comment)
---   8) Autocommands (TeX wrap)
+--   6) Commenting (ts_context_commentstring + mini.comment)
+--   7) Autocommands (TeX wrap)
 -- =====================================================================
 
 -- ---------------------------------------------------------------------
@@ -199,37 +198,8 @@ require("mason-tool-installer").setup({
     start_delay = 3000,
 })
 
--- -- ---------------------------------------------------------------------
--- -- 6) Treesitter
--- -- ---------------------------------------------------------------------
--- require("nvim-treesitter.configs").setup({
---     ensure_installed = {
---         "c",
---         "lua",
---         "vim",
---         "vimdoc",
---         "query",
---         "rust",
---         "go",
---         "typescript",
---         "python",
---         "r",
---     },
---     indent = { enable = true },
---     highlight = { enable = true, disable = { "note" } },
---     incremental_selection = { enable = true },
---     textobjects = { enable = true },
---     -- Keep rainbow only if you have the plugin installed
---     rainbow = {
---         enable = true,
---         extended_mode = true,
---         max_file_lines = nil,
---         colors = { "#97e023", "#78DCE8", "#dfd561", "#fa8419", "#9c64fe" },
---     },
--- })
-
 -- ---------------------------------------------------------------------
--- 7) Commenting / Commentstring
+-- 6) Commenting / Commentstring
 -- ---------------------------------------------------------------------
 require("ts_context_commentstring").setup({ enable_autocmd = false })
 require("mini.comment").setup({
@@ -242,7 +212,7 @@ require("mini.comment").setup({
 })
 
 -- ---------------------------------------------------------------------
--- 8) Autocommands
+-- 7) Autocommands
 -- ---------------------------------------------------------------------
 local wrapGrp = vim.api.nvim_create_augroup("WrapLineInTeXFile", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {

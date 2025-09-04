@@ -1,10 +1,13 @@
 -- lua/plugins/trouble.lua
 return {
+
   {
     "folke/trouble.nvim",
-    branch = "main",
     cmd = "Trouble",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = {
+            "nvim-tree/nvim-web-devicons",
+            "nvim-treesitter/nvim-treesitter",
+        },
     opts = {},
     keys = {
       { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",              desc = "Diagnostics (workspace)" },
@@ -14,4 +17,5 @@ return {
       { "<leader>xl", "<cmd>Trouble loclist toggle<cr>",                  desc = "Location list" },
     },
   },
+
 }

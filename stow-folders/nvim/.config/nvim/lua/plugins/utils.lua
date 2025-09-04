@@ -1,4 +1,4 @@
--- plugins/utils.lua
+-- lua/plugins/utils.lua
 return {
   { "mattn/emmet-vim",              ft = { "html", "css", "sass", "scss", "javascript", "typescript", "vue", "svelte" } },
   { "hashivim/vim-terraform",       ft = { "tf", "terraform" } },
