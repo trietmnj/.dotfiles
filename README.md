@@ -219,7 +219,7 @@ uvx --from vim-vint vint --version
 
 ```bash
 sudo apt install -y r-base libcurl4-openssl-dev libssl-dev libxml2-dev
-sudo R -q -e 'install.packages("languageserver", repos="https://cloud.r-project.org")'
+R -q -e 'install.packages(c("languageserver","lintr","styler","jsonlite"), repos="https://cloud.r-project.org")'
 ```
 
 In R:

@@ -19,7 +19,9 @@ return {
           "go",
           "typescript",
           "python",
-          "r",
+
+          -- r requirements
+          "markdown", "markdown_inline", "r", "rnoweb", "yaml", "latex", "csv",
         },
 
         highlight = { enable = true, disable = { "note" } },
