@@ -4,15 +4,9 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    branch = "master",
     event = { "BufReadPost", "BufNewFile" },
-    dependencies = {
-      -- Required if you want `textobjects = { enable = true }`
-      { "nvim-treesitter/nvim-treesitter-textobjects", lazy = true },
-
-      -- Rainbow parentheses: pick ONE of these (rainbow2 is the maintained fork)
-      -- { "HiPhish/nvim-ts-rainbow2", lazy = true },  -- recommended
-      -- { "p00f/nvim-ts-rainbow", lazy = true },      -- legacy, archived
-    },
+    dependencies = { },
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
@@ -28,25 +22,49 @@ return {
           "r",
         },
 
-        -- Core
         highlight = { enable = true, disable = { "note" } },
         indent = { enable = true },
-
-        -- From your base config
         context_commentstring = { enable = true, enable_autocmd = false },
-
-        -- Extras you enabled
         incremental_selection = { enable = true },
-        textobjects = { enable = true },
 
-        -- Keep rainbow only if you’ve installed one of the rainbow plugins above
-        rainbow = {
-          enable = true,
-          extended_mode = true,
-          max_file_lines = nil,
-          colors = { "#97e023", "#78DCE8", "#dfd561", "#fa8419", "#9c64fe" },
-        },
       })
+    end,
+  },
+
+    -- Rainbow Delimiters (after TS)
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      local rd = require("rainbow-delimiters")
+      vim.g.rainbow_delimiters = {
+        -- Global strategy works well for most; vimscript uses local for speed
+        strategy = {
+          [""]  = rd.strategy["global"],
+          vim   = rd.strategy["local"],
+        },
+        -- Default query name; you can override per filetype if needed
+        query = {
+          [""]    = "rainbow-delimiters",
+          -- latex = "rainbow-blocks",
+        },
+        -- Priority lets it win over theme highlights if needed
+        priority = {
+          [""] = 110,
+          lua  = 210,
+        },
+        -- Use the provided highlight groups (override these in your colors if you want custom colors)
+        highlight = {
+          "RainbowDelimiterRed",
+          "RainbowDelimiterYellow",
+          "RainbowDelimiterBlue",
+          "RainbowDelimiterOrange",
+          "RainbowDelimiterGreen",
+          "RainbowDelimiterViolet",
+          "RainbowDelimiterCyan",
+        },
+      }
     end,
   },
 

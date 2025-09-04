@@ -14,12 +14,16 @@ return {
   },
   { "ryanoasis/vim-devicons",      lazy = true }, -- Vim devicons (fonts)
   { "nvim-tree/nvim-web-devicons", lazy = true }, -- Lua devicons
-  { "Xuyuanp/nerdtree-git-plugin", dependencies = { "preservim/nerdtree" }, lazy = true },
+    -- show git diff in sign column
   { "airblade/vim-gitgutter",      event = "BufReadPre" },
+    -- show indent lines
   { "Yggdroot/indentLine",         event = "VeryLazy" },
+    -- color schemes for different file types
   { "gko/vim-coloresque",          ft = { "css", "scss", "sass", "less" } },
+
+  -- show color codes in their actual color e.g., #FF0000
   {
-    "norcalli/nvim-colorizer.lua",
+    "catgoose/nvim-colorizer.lua",
     event = "BufReadPre",
     config = function() require("colorizer").setup() end,
   },
