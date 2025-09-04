@@ -24,6 +24,7 @@ vim.api.nvim_create_autocmd("BufWritePre", { group = aug, pattern = "*.go", call
 -- Core options / leader
 -------------------------------------------------
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -------------------------------------------------
 -- Setup lazy.nvim for package management
@@ -47,4 +48,4 @@ require("lazy").setup({
 -------------------------------------------------
 -- Your own Lua modules (optional)
 -------------------------------------------------
-pcall(require, "modules")
+require("modules").setup()

@@ -22,8 +22,9 @@ return {
 
     {
     "ThePrimeagen/harpoon",
-    branch = "harpoon", -- optional: if you want v2 branch
+    branch = "harpoon2",
     event = "VeryLazy",
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       local hm = require("harpoon.mark")
       local hu = require("harpoon.ui")

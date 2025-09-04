@@ -199,34 +199,34 @@ require("mason-tool-installer").setup({
     start_delay = 3000,
 })
 
--- ---------------------------------------------------------------------
--- 6) Treesitter
--- ---------------------------------------------------------------------
-require("nvim-treesitter.configs").setup({
-    ensure_installed = {
-        "c",
-        "lua",
-        "vim",
-        "vimdoc",
-        "query",
-        "rust",
-        "go",
-        "typescript",
-        "python",
-        "r",
-    },
-    indent = { enable = true },
-    highlight = { enable = true, disable = { "note" } },
-    incremental_selection = { enable = true },
-    textobjects = { enable = true },
-    -- Keep rainbow only if you have the plugin installed
-    rainbow = {
-        enable = true,
-        extended_mode = true,
-        max_file_lines = nil,
-        colors = { "#97e023", "#78DCE8", "#dfd561", "#fa8419", "#9c64fe" },
-    },
-})
+-- -- ---------------------------------------------------------------------
+-- -- 6) Treesitter
+-- -- ---------------------------------------------------------------------
+-- require("nvim-treesitter.configs").setup({
+--     ensure_installed = {
+--         "c",
+--         "lua",
+--         "vim",
+--         "vimdoc",
+--         "query",
+--         "rust",
+--         "go",
+--         "typescript",
+--         "python",
+--         "r",
+--     },
+--     indent = { enable = true },
+--     highlight = { enable = true, disable = { "note" } },
+--     incremental_selection = { enable = true },
+--     textobjects = { enable = true },
+--     -- Keep rainbow only if you have the plugin installed
+--     rainbow = {
+--         enable = true,
+--         extended_mode = true,
+--         max_file_lines = nil,
+--         colors = { "#97e023", "#78DCE8", "#dfd561", "#fa8419", "#9c64fe" },
+--     },
+-- })
 
 -- ---------------------------------------------------------------------
 -- 7) Commenting / Commentstring
