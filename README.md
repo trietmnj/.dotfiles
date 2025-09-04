@@ -19,8 +19,10 @@ sudo apt install -y \
   stow
 ```
 
-- `ripgrep`, `fd-find`, and `universal-ctags` are used by many Neovim configs.
+- `ripgrep`, `fd-find`, and `universal-ctags` are used by many Neovim configs.j
 - `unzip` fixes failures like `Could not find executable "unzip"` during tool installs.
+
+Install fonts from `fonts/` and set Windows Terminal to use a Nerd Font (e.g., FiraCode NF).
 
 ---
 

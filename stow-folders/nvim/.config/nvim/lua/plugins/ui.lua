@@ -12,7 +12,6 @@ return {
     -- If you don't use Vista, disable airline vista ext instead:
     -- init = function() vim.g["airline#extensions#vista#enabled"] = 0 end,
   },
-  { "ryanoasis/vim-devicons",      lazy = true }, -- Vim devicons (fonts)
   { "nvim-tree/nvim-web-devicons", lazy = true }, -- Lua devicons
     -- show git diff in sign column
   { "airblade/vim-gitgutter",      event = "BufReadPre" },

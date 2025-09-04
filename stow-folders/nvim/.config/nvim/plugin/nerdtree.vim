@@ -29,11 +29,6 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 set mouse=a               " tell vim to recognize mouse commands in "all" modes
 set ttyfast               " improve fluidity of mouse commands, this isn't necessary but I believe improves performance
 
-
-" nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-
 " " Preview
 " if exists("g:loaded_nerdree_live_preview_mapping")
 "   finish
@@ -58,7 +53,7 @@ nnoremap <C-f> :NERDTreeFind<CR>
 " endfunction
 "
 
-let g:nerd_preview_enabled = 0
+let g:nerd_preview_enabled = 1
 let g:preview_last_buffer  = 0
 
 " enable line numbers
