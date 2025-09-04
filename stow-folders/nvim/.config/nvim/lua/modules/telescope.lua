@@ -9,76 +9,6 @@ local actions      = require("telescope.actions")
 
 local M = {}
 
--- Setup + keymaps (call from your lazy.nvim plugin config)
-function M.setup()
-  require("telescope").setup({
-    defaults = {
-      file_sorter      = require("telescope.sorters").get_fzy_sorter,
-      prompt_prefix    = " >",
-      color_devicons   = true,
-
-      file_previewer   = require("telescope.previewers").vim_buffer_cat.new,
-      grep_previewer   = require("telescope.previewers").vim_buffer_vimgrep.new,
-      qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
-
-      mappings = {
-        i = {
-          ["<C-x>"] = false,
-          ["<C-q>"] = actions.send_to_qflist,
-        },
-      },
-    },
-    extensions = {
-      fzy_native = {
-        override_generic_sorter = false,
-        override_file_sorter = true,
-      },
-    },
-  })
-
-  -- Extensions (don’t fail if missing)
-  pcall(function() require("telescope").load_extension("git_worktree") end)
-  pcall(function() require("telescope").load_extension("fzy_native") end)
-
-  -- Keymaps (Lua equivalents of your nnoremap lines)
-  local tb = require("telescope.builtin")
-  local map, base = vim.keymap.set, { silent = true, noremap = true }
-
-  map("n", "<leader>rr", function() require("tmnj.telescope").refactors() end,
-    vim.tbl_extend("force", base, { desc = "Refactor actions (telescope)" }))
-
-  map("n", "<leader>ps", function()
-    tb.grep_string({ search = vim.fn.input("Grep For > ") })
-  end, vim.tbl_extend("force", base, { desc = "Grep (prompt)" }))
-
-  map("n", "<C-p>",       tb.git_files,  vim.tbl_extend("force", base, { desc = "Git files" }))
-  map("n", "<leader>pf",  tb.find_files, vim.tbl_extend("force", base, { desc = "Find files" }))
-  map("n", "<leader>pw", function()
-    tb.grep_string({ search = vim.fn.expand("<cword>") })
-  end, vim.tbl_extend("force", base, { desc = "Grep word under cursor" }))
-  map("n", "<leader>pb",  tb.buffers,   vim.tbl_extend("force", base, { desc = "Buffers" }))
-  map("n", "<leader>vh",  tb.help_tags, vim.tbl_extend("force", base, { desc = "Help tags" }))
-
-  map("n", "<leader>vrc", function() require("tmnj.telescope").search_dotfiles() end,
-    vim.tbl_extend("force", base, { desc = "Search dotfiles" }))
-  map("n", "<leader>gc", function() require("tmnj.telescope").git_branches() end,
-    vim.tbl_extend("force", base, { desc = "Git branches (delete with <C-d>)" }))
-
-  -- git-worktree (guard for extension availability)
-  map("n", "<leader>gw", function()
-    local ok, ext = pcall(function() return require("telescope").extensions.git_worktree end)
-    if ok and ext then ext.git_worktrees() else vim.notify("git_worktree extension not loaded", vim.log.levels.WARN) end
-  end, vim.tbl_extend("force", base, { desc = "Git worktrees" }))
-
-  map("n", "<leader>gm", function()
-    local ok, ext = pcall(function() return require("telescope").extensions.git_worktree end)
-    if ok and ext then ext.create_git_worktree() else vim.notify("git_worktree extension not loaded", vim.log.levels.WARN) end
-  end, vim.tbl_extend("force", base, { desc = "Create git worktree" }))
-
-  map("n", "<leader>td", function() require("tmnj.telescope").dev() end,
-    vim.tbl_extend("force", base, { desc = "Run dev helpers (local dev.lua)" }))
-end
-
 -- ===== The helper functions you already had =====
 function M.search_dotfiles()
   require("telescope.builtin").find_files({
@@ -140,9 +70,7 @@ function M.dev(opts)
   end
   local ok, mod = pcall(loaded)
   if not ok then
-    print("===================================================")
     print("YOUR CODE DOESN'T WORK")
-    print("===================================================")
     return
   end
 
@@ -154,10 +82,8 @@ function M.dev(opts)
 
   local mod_name = vim.split(dev, "/lua/")
   if #mod_name ~= 2 then
-    print("===================================================")
     print("I DO NOT KNOW HOW TO FIND THIS FILE:")
     print(dev)
-    print("===================================================")
   end
   mod_name = string.gsub(mod_name[2], ".lua$", "")
   mod_name = string.gsub(mod_name, "/", ".")
