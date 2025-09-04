@@ -2,7 +2,7 @@
 return {
     {
         "R-nvim/R.nvim",
-        ft = { "r", "rmd", "rnoweb", "quarto" },
+        ft = { "r", "R", "rmd", "rnoweb", "quarto" },
         -- lazy = false, -- uncomment if you prefer eager load
         config = function()
           require("r").setup({
