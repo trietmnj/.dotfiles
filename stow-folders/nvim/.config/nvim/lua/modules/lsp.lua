@@ -35,20 +35,6 @@ local nvim_lsp = require("lspconfig")
 local coq      = require("coq") -- completion front-end
 
 -- ---------------------------------------------------------------------
--- 3) UI / Diagnostics / Trouble keymaps (global)
--- ---------------------------------------------------------------------
-do
-    local opts = { noremap = true, silent = true }
-    local map = vim.keymap.set
-    map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", opts)
-    map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", opts)
-    map("n", "<leader>xw", "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>", opts)
-    map("n", "<leader>xq", "<cmd>Trouble qflist toggle<cr>", opts)
-    map("n", "<leader>xl", "<cmd>Trouble loclist toggle<cr>", opts)
-    map("n", "gR", "<cmd>Trouble symbols toggle focus=false<cr>", opts)
-end
-
--- ---------------------------------------------------------------------
 -- 4) LSP: on_attach, flags, servers
 -- ---------------------------------------------------------------------
 local on_attach = function(client, bufnr)
