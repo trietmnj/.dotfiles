@@ -16,31 +16,32 @@ return {
     },
   },
 
-  -- Mason <-> lspconfig bridge (installs servers)
+  -- Mason ↔ lspconfig bridge (install LSP servers by lspconfig name)
   {
     "williamboman/mason-lspconfig.nvim",
     event = "VeryLazy",
     opts = {
       ensure_installed = {
         "lua_ls", "pyright", "rust_analyzer", "bashls", "vimls",
-        "r_language_server", "texlab", "jsonls", "gopls", "ts_ls",
+        "air", "texlab", "jsonls", "gopls", "ts_ls",
       },
       automatic_installation = true,
     },
   },
 
-  -- Extra tools via Mason
+  -- Extra tools via Mason (Mason package names)
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     event = "VeryLazy",
     dependencies = { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" },
     opts = {
       ensure_installed = {
-        -- LSP (Mason package names)
+        -- LSP servers (optional duplication is fine; handy for updates)
         "lua-language-server", "pyright", "rust-analyzer",
         "bash-language-server", "vim-language-server",
-        "r-languageserver", "texlab",
-        -- Tools
+        "texlab", "air",
+
+        -- Formatters / linters / misc
         "stylua", "black", "ruff", "shellcheck",
         "editorconfig-checker", "shfmt", "vint",
       },
@@ -51,7 +52,7 @@ return {
     },
   },
 
-  -- LSP setups (no setup_handlers)
+  -- LSP setups
   {
     "neovim/nvim-lspconfig",
     event = "VeryLazy",
@@ -71,7 +72,7 @@ return {
         vim.keymap.set(mode, lhs, rhs, { buffer = buf, silent = true, noremap = true, desc = desc })
       end
 
-      local on_attach = function(_, bufnr)
+      local function on_attach(_, bufnr)
         vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
         bmap(bufnr, "n", "ga", vim.lsp.buf.code_action,    "LSP code action")
         bmap(bufnr, "n", "gd", vim.lsp.buf.definition,     "LSP definition")
@@ -82,9 +83,9 @@ return {
         bmap(bufnr, "n", "<leader>rn", vim.lsp.buf.rename, "LSP rename")
       end
 
-      -- Per-server setups (COQ capabilities applied)
+      -- Go
       lspconfig.gopls.setup(coq.lsp_ensure_capabilities({
-        cmd = { "gopls", "serve" },
+        cmd = { "gopls" },
         filetypes = { "go", "gomod" },
         settings = {
           gopls = {
@@ -96,6 +97,7 @@ return {
         on_attach = on_attach, flags = flags,
       }))
 
+      -- Rust
       lspconfig.rust_analyzer.setup(coq.lsp_ensure_capabilities({
         settings = {
           ["rust-analyzer"] = {
@@ -107,17 +109,19 @@ return {
         on_attach = on_attach, flags = flags,
       }))
 
+      -- Python
       lspconfig.pyright.setup(coq.lsp_ensure_capabilities({
         settings = {
           python = {
             analysis = { autoSearchPaths = true, useLibraryCodeForTypes = true },
-            -- keep only if you truly need a fixed interpreter:
+            -- keep only if you really need a fixed interpreter:
             pythonPath = "/home/linuxbrew/.linuxbrew/bin/python3.11",
           },
         },
         on_attach = on_attach, flags = flags,
       }))
 
+      -- Lua
       lspconfig.lua_ls.setup(coq.lsp_ensure_capabilities({
         settings = {
           Lua = {
@@ -130,22 +134,26 @@ return {
         on_attach = on_attach, flags = flags,
       }))
 
-      lspconfig.r_language_server.setup(coq.lsp_ensure_capabilities({
+      -- R via Air (formatting-only LSP) — format on save
+      lspconfig.air.setup({
         filetypes = { "r", "rmd", "quarto", "rnoweb" },
-        settings  = { r = { lsp = { diagnostics = true } } },
-        on_attach = on_attach, flags = flags,
-      }))
+        on_attach = function(client, bufnr)
+          on_attach(client, bufnr)
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function() vim.lsp.buf.format() end,
+            desc = "Air: format R on save",
+          })
+        end,
+        flags = flags,
+      })
 
-      lspconfig.ts_ls.setup(coq.lsp_ensure_capabilities({
-        on_attach = on_attach, flags = flags,
-      }))
+      -- TypeScript (ts_ls) + misc servers
+      lspconfig.ts_ls.setup(coq.lsp_ensure_capabilities({ on_attach = on_attach, flags = flags }))
 
-      -- Simple defaults for others you ensure via Mason (bashls, vimls, jsonls, texlab)
       for _, srv in ipairs({ "bashls", "vimls", "jsonls", "texlab" }) do
         if lspconfig[srv] then
-          lspconfig[srv].setup(coq.lsp_ensure_capabilities({
-            on_attach = on_attach, flags = flags,
-          }))
+          lspconfig[srv].setup(coq.lsp_ensure_capabilities({ on_attach = on_attach, flags = flags }))
         end
       end
     end,
