@@ -58,4 +58,14 @@ return {
         event = "BufReadPre",
         config = function() require("colorizer").setup() end,
     },
+
+    -- window maximizer (toggle current split)
+  {
+    "declancm/maximize.nvim",
+    keys = {
+      { "<leader>m", function() require("maximize").toggle() end, desc = "Toggle maximize split" },
+    },
+    opts = {}, -- defaults are fine
+  },
+
 }
