@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd("BufWritePre", { group = aug, pattern = "*.go", call
 -- Leaders
 -------------------------------------------------
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = "\\"
 
 -------------------------------------------------
 -- Setup lazy.nvim for package management

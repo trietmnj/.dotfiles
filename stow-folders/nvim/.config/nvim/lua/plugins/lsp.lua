@@ -141,7 +141,7 @@ return {
 
             -- R via Air (formatting-only LSP) — format on save
             lspconfig.air.setup({
-                filetypes = { "r", "R", "rmd", "quarto", "rnoweb" },
+                filetypes = { "r", "rmd", "quarto", "rnoweb" },
                 on_attach = function(client, bufnr)
                     on_attach(client, bufnr)
                     vim.api.nvim_create_autocmd("BufWritePre", {
