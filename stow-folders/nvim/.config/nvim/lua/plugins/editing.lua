@@ -26,7 +26,6 @@ return {
     -- Mini suite (modern Lua replacements)
     --  mini.pairs    - autopairs brackets/quotes/etc.
     --  mini.comment  - commenting (replaces tpope/vim-commentary)
-    --  mini.surround - surround textobjects (optional, but recommended)
     --  mini.move    - move lines/blocks up/down
     {
         "echasnovski/mini.nvim",
