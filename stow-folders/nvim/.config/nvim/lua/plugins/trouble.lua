@@ -1,21 +1,15 @@
 -- lua/plugins/trouble.lua
 return {
     {
-        "folke/trouble.nvim",
+        -- temp fix
+        "h-michael/trouble.nvim",
+        branch = "fix/decoration-provider-api",
+        -- "folke/trouble.nvim",
         cmd = "Trouble",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
             "nvim-treesitter/nvim-treesitter",
         },
-        init = function()
-            -- Disable Treesitter inside Trouble buffers to avoid the crash
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = "trouble",
-                callback = function(args)
-                    pcall(vim.treesitter.stop, args.buf)
-                end,
-            })
-        end,
         opts = {
             multiline = false,
             auto_preview = false,
