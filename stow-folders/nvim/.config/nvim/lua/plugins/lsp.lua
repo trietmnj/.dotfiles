@@ -156,22 +156,22 @@ return {
             })
 
             -- -- R via r_language_server
-            -- lspconfig.r_language_server.setup(coq.lsp_ensure_capabilities({
-            --     filetypes = { "r", "rmd", "quarto", "rnoweb" },
-            --     settings = {
-            --         r = {
-            --             lsp = {
-            --                 diagnostics = false, -- disables lintr diagnostics
-            --                 -- optional extras:
-            --                 -- rich_documentation = false,
-            --                 -- hover = { markdown = false },
-            --             },
-            --         },
-            --     },
-            --     on_attach = on_attach, -- <- add this so your keymaps/features attach
-            --     flags = flags,
-            -- }))
-            --
+            lspconfig.r_language_server.setup(coq.lsp_ensure_capabilities({
+                filetypes = { "r", "rmd", "quarto", "rnoweb" },
+                settings = {
+                    r = {
+                        lsp = {
+                            diagnostics = true, -- disables lintr diagnostics
+                            -- optional extras:
+                            -- rich_documentation = false,
+                            -- hover = { markdown = false },
+                        },
+                    },
+                },
+                on_attach = on_attach, -- <- add this so your keymaps/features attach
+                flags = flags,
+            }))
+
             -- TypeScript (ts_ls) + misc servers
             lspconfig.ts_ls.setup(coq.lsp_ensure_capabilities({ on_attach = on_attach, flags = flags }))
 
