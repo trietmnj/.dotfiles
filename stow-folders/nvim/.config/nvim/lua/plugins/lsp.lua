@@ -70,6 +70,7 @@ return {
             local lspconfig    = require("lspconfig")
             local coq          = require("coq")
             local flags        = { debounce_text_changes = 150 }
+            local util         = require("lspconfig.util") -- <-- add this line
 
             local function bmap(buf, mode, lhs, rhs, desc)
                 vim.keymap.set(mode, lhs, rhs, { buffer = buf, silent = true, noremap = true, desc = desc })
@@ -115,14 +116,39 @@ return {
             }))
 
             -- Python
+            -- lspconfig.pyright.setup(coq.lsp_ensure_capabilities({
+            --     settings = {
+            --         python = {
+            --             analysis = { autoSearchPaths = true, useLibraryCodeForTypes = true },
+            --             -- keep only if you really need a fixed interpreter:
+            --             pythonPath = "/home/linuxbrew/.linuxbrew/bin/python3.11",
+            --         },
+            --     },
+            --     on_attach = on_attach,
+            --     flags = flags,
+            -- }))
+
+            local function get_venv_python(root)
+                local sep = package.config:sub(1, 1)
+                local venv = root .. sep .. ".venv"
+                local py = venv .. (sep == "\\" and "\\Scripts\\python.exe" or "/bin/python")
+                if vim.fn.filereadable(py) == 1 then return venv, py end
+                return nil, nil
+            end
+
             lspconfig.pyright.setup(coq.lsp_ensure_capabilities({
-                settings = {
-                    python = {
-                        analysis = { autoSearchPaths = true, useLibraryCodeForTypes = true },
-                        -- keep only if you really need a fixed interpreter:
-                        pythonPath = "/home/linuxbrew/.linuxbrew/bin/python3.11",
-                    },
-                },
+                root_dir = util.root_pattern("pyproject.toml", "setup.cfg", "setup.py", ".git"),
+                on_new_config = function(config, root_dir)
+                    local venv, py = get_venv_python(root_dir)
+                    if venv and py then
+                        config.settings = config.settings or {}
+                        config.settings.python = config.settings.python or {}
+                        config.settings.python.venvPath = root_dir
+                        config.settings.python.venv = ".venv"
+                        config.settings.python.pythonPath = py
+                    end
+                end,
+                settings = { python = { analysis = { autoSearchPaths = true, useLibraryCodeForTypes = true } } },
                 on_attach = on_attach,
                 flags = flags,
             }))
