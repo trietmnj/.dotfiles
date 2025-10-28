@@ -1,4 +1,3 @@
-
 -------------------------------------------------
 -- Globals
 -------------------------------------------------
@@ -17,18 +16,16 @@ vim.g.UltiSnipsJumpBackwardTrigger = "<S-tab>"
 
 -- WSL clipboard
 if vim.fn.has("wsl") == 1 then
-    vim.g.clipboard = {
-        name = "wslclipboard",
-        copy = {
-            ["+"] = "/mnt/c/Applications/win32yank-x64/win32yank.exe -i --crlf",
-            ["*"] = "/mnt/c/Applications/win32yank-x64/win32yank.exe -i --crlf",
-        },
-        paste = {
-            ["+"] = "/mnt/c/Applications/win32yank-x64/win32yank.exe -o --lf",
-            ["*"] = "/mnt/c/Applications/win32yank-x64/win32yank.exe -o --lf",
-        },
-        cache_enabled = 1,
-    }
+	vim.g.clipboard = {
+		name = "wslclipboard",
+		copy = {
+			["+"] = "/mnt/c/Applications/win32yank-x64/win32yank.exe -i --crlf",
+			["*"] = "/mnt/c/Applications/win32yank-x64/win32yank.exe -i --crlf",
+		},
+		paste = {
+			["+"] = "/mnt/c/Applications/win32yank-x64/win32yank.exe -o --lf",
+			["*"] = "/mnt/c/Applications/win32yank-x64/win32yank.exe -o --lf",
+		},
+		cache_enabled = 1,
+	}
 end
-
-
