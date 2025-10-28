@@ -13,3 +13,8 @@ Start/stop autocompilation with \ll
 Open pdf with mupdf and refresh with r
 vimtex setup with texlive which provides tlmgr to manage packages
     Install latex packages with tlmgr install <package>
+
+# Jupyter notebooks in neovim
+
+Make sure to install uvx
+
