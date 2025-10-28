@@ -1,5 +1,4 @@
 -- lua/plugins/jupyter.lua
--- lua/plugins/jupytext.lua (or inline in your plugins list)
 return {
 	"GCBallesteros/jupytext.nvim",
 	-- IMPORTANT: load it eagerly so .ipynb doesn't open as JSON
