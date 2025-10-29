@@ -18,7 +18,6 @@ return {
 			})
 		end,
 		config = function()
-			-- Extra guard: if somehow invoked on a non-R buffer, bail early.
 			local ok_ft = { r = true, rmd = true, rnoweb = true, quarto = true }
 			if not ok_ft[vim.bo.filetype] then
 				return
