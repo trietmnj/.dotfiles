@@ -40,27 +40,27 @@ return {
 					)
 					vim.keymap.set(
 						"n",
-						"<localleader>ml",
-						":MoltenEvaluateLine<CR>",
-						vim.tbl_extend("force", opts, { desc = "Molten: eval line" })
-					)
-					vim.keymap.set(
-						"n",
-						"<localleader>mR",
-						":MoltenReevaluateCell<CR>",
-						vim.tbl_extend("force", opts, { desc = "Molten: re-eval cell" })
-					)
-					vim.keymap.set(
-						"n",
-						"<localleader>me",
+						"<localleader>e",
 						":MoltenEvaluateOperator<CR>",
-						vim.tbl_extend("force", opts, { desc = "Molten: eval operator" })
+						{ silent = true, desc = "run operator selection" }
+					)
+					vim.keymap.set(
+						"n",
+						"<localleader>rl",
+						":MoltenEvaluateLine<CR>",
+						{ silent = true, desc = "evaluate line" }
+					)
+					vim.keymap.set(
+						"n",
+						"<localleader>rr",
+						":MoltenReevaluateCell<CR>",
+						{ silent = true, desc = "re-evaluate cell" }
 					)
 					vim.keymap.set(
 						"v",
-						"<localleader>mr",
+						"<localleader>r",
 						":<C-u>MoltenEvaluateVisual<CR>gv",
-						vim.tbl_extend("force", opts, { desc = "Molten: eval visual" })
+						{ silent = true, desc = "evaluate visual selection" }
 					)
 					vim.keymap.set(
 						"n",
