@@ -48,7 +48,7 @@ return {
     -- The “bridge” that maps Mason’s tool names ↔ nvim-lspconfig’s server IDs
     {
         "williamboman/mason-lspconfig.nvim",
-        event = "VeryLazy",
+        event = { "BufReadPre", "BufNewFile" },
         opts = {
             -- Keep these stable ids; TS is handled dynamically in the lspconfig block
             ensure_installed = {
@@ -66,7 +66,7 @@ return {
     -- official collection of ready-made configurations for LSP servers
     {
         "neovim/nvim-lspconfig",
-        event = "VeryLazy",
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             { "ms-jpq/coq_nvim",      branch = "coq" },
             { "ms-jpq/coq.artifacts", branch = "artifacts" },
@@ -101,13 +101,16 @@ return {
             end
 
             local function setup(name, cfg)
-                if has_server(name) then
-                    lspconfig[name].setup(coq.lsp_ensure_capabilities(vim.tbl_extend("force", {
-                        on_attach = on_attach, flags = flags,
-                    }, cfg or {})))
-                else
-                    vim.notify(("lspconfig: server '%s' not found; skipping"):format(name), vim.log.levels.WARN)
-                end
+                -- if has_server(name) then
+                --     lspconfig[name].setup(coq.lsp_ensure_capabilities(vim.tbl_extend("force", {
+                --         on_attach = on_attach, flags = flags,
+                --     }, cfg or {})))
+                -- else
+                --     vim.notify(("lspconfig: server '%s' not found; skipping"):format(name), vim.log.levels.WARN)
+                -- end
+                lspconfig[name].setup(coq.lsp_ensure_capabilities(vim.tbl_extend("force", {
+                    on_attach = on_attach, flags = flags,
+                }, cfg or {})))
             end
 
             -- Core servers you have
@@ -146,7 +149,17 @@ return {
                 autostart           = false,
             })
 
+            local function on_attach_dedupe(client, bufnr)
+                for _, c in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+                    if c.name == "gopls" and c.id ~= client.id then
+                        c.stop()
+                    end
+                end
+                on_attach(client, bufnr)
+            end
+
             setup("gopls", {
+                on_attach = on_attach_dedupe,
                 cmd = { "gopls" },
                 filetypes = { "go", "gomod" },
                 settings = {
