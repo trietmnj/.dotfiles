@@ -113,6 +113,18 @@ return {
                 }, cfg or {})))
             end
 
+            local function on_attach_dedupe(client, bufnr)
+                for _, c in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+                    if c.name == "gopls" and c.id ~= client.id then
+                        c.stop()
+                    end
+                    if c.name == "pyright" and c.id ~= client.id then
+                        c.stop()
+                    end
+                end
+                on_attach(client, bufnr)
+            end
+
             -- Core servers you have
             setup("lua_ls", {
                 settings = {
@@ -126,6 +138,7 @@ return {
             })
 
             setup("pyright", {
+                on_attach = on_attach_dedupe,
                 root_dir = util.root_pattern("pyproject.toml", "setup.cfg", "setup.py", ".git"),
                 on_new_config = function(config, root_dir)
                     -- auto-pick project .venv if present
@@ -148,15 +161,6 @@ return {
                 single_file_support = false,
                 autostart           = false,
             })
-
-            local function on_attach_dedupe(client, bufnr)
-                for _, c in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
-                    if c.name == "gopls" and c.id ~= client.id then
-                        c.stop()
-                    end
-                end
-                on_attach(client, bufnr)
-            end
 
             setup("gopls", {
                 on_attach = on_attach_dedupe,
