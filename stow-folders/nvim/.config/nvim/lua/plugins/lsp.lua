@@ -8,62 +8,66 @@ return {
         opts = {
             ui = {
                 icons = {
-                    package_installed   = "✓",
-                    package_pending     = "➜",
+                    package_installed = "✓",
+                    package_pending = "➜",
                     package_uninstalled = "✗",
                 },
             },
         },
     },
 
-    -- Automate tools installation
-    -- convenience layer on top of Mason.
-    -- ensures installed/updated on startup
-    -- (with debounce and delays so it doesn’t hammer your CPU/network)
+    -- Automate tools installation (just installs binaries; does NOT configure LSP)
     {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
-        event = "VeryLazy",
-        dependencies = { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" },
+        event = "VimEnter",
+        dependencies = { "williamboman/mason.nvim" },
         opts = {
             ensure_installed = {
-                -- LSP servers (tool names, not lspconfig ids)
-                "lua-language-server", "pyright", "rust-analyzer",
-                "bash-language-server", "vim-language-server",
-                "r-languageserver", "gopls",
-
-                -- "texlab", "ts_ls", "stylua", "ruff",
+                -- LSP servers (Mason tool names)
+                "lua-language-server",
+                "pyright",
+                "rust-analyzer",
+                "bash-language-server",
+                "vim-language-server",
+                "r-languageserver",
+                "gopls",
 
                 -- Formatters / linters / misc
-                "black", "shellcheck",
-                "editorconfig-checker", "shfmt", "vint",
+                "black",
+                "shellcheck",
+                "editorconfig-checker",
+                "shfmt",
+                "vint",
             },
-            auto_update      = true,
-            run_on_start     = true,
-            start_delay      = 3000,
-            debounce_hours   = 5,
+            auto_update = true,
+            run_on_start = true,
+            start_delay = 3000,
+            debounce_hours = 5,
         },
     },
 
-    -- Mason ↔ lspconfig bridge (install by lspconfig id)
-    -- The “bridge” that maps Mason’s tool names ↔ nvim-lspconfig’s server IDs
+    -- Optional: still useful to ensure Mason installs by lspconfig-id mapping,
+    -- but we no longer use it to *configure* servers.
     {
         "williamboman/mason-lspconfig.nvim",
-        event = { "BufReadPre" },
+        event = "VeryLazy",
         opts = {
-            -- Keep these stable ids; TS is handled dynamically in the lspconfig block
             ensure_installed = {
-                "vimls", "texlab",
-
-                "lua_ls", "pyright", "rust_analyzer", "bashls",
-                "r_language_server", "jsonls", "gopls",
-                "ts_ls"
+                "vimls",
+                "texlab",
+                "lua_ls",
+                "pyright",
+                "rust_analyzer",
+                "bashls",
+                "r_language_server",
+                "jsonls",
+                "gopls",
+                "ts_ls",
             },
             automatic_installation = false,
         },
     },
 
-    -- LSP setups
-    -- official collection of ready-made configurations for LSP servers
     {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
@@ -72,100 +76,110 @@ return {
             { "ms-jpq/coq.artifacts", branch = "artifacts" },
         },
         config = function()
+            local coq = require("coq")
             local lspconfig = require("lspconfig")
-            local coq       = require("coq")
-            local util      = require("lspconfig.util")
-            local flags     = { debounce_text_changes = 150 }
+            local util = require("lspconfig.util")
 
-            -- tiny helpers
-            local function bmap(buf, mode, lhs, rhs, desc)
-                vim.keymap.set(mode, lhs, rhs, { buffer = buf, silent = true, noremap = true, desc = desc })
-            end
+            local capabilities = coq.lsp_ensure_capabilities(vim.lsp.protocol.make_client_capabilities())
+            local flags = { debounce_text_changes = 150 }
 
-            local function on_attach(_, bufnr)
-                vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-                bmap(bufnr, "n", "ga", vim.lsp.buf.code_action, "LSP code action")
-                bmap(bufnr, "n", "gd", vim.lsp.buf.definition, "LSP definition")
-                bmap(bufnr, "n", "gD", vim.lsp.buf.declaration, "LSP declaration")
-                bmap(bufnr, "n", "gr", vim.lsp.buf.references, "LSP references")
-                bmap(bufnr, "n", "gi", vim.lsp.buf.implementation, "LSP implementation")
-                bmap(bufnr, "n", "K", vim.lsp.buf.hover, "LSP hover")
-                bmap(bufnr, "n", "<leader>rn", vim.lsp.buf.rename, "LSP rename")
-            end
+            -- Keymaps / buffer-local settings whenever ANY LSP attaches
+            vim.api.nvim_create_autocmd("LspAttach", {
+                group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true }),
+                callback = function(ev)
+                    local bufnr = ev.buf
+                    local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-            -- SAFE existence check (bypasses lspconfig __index)
-            local function has_server(name)
-                if not name then return false end
-                if rawget(lspconfig, name) ~= nil then return true end
-                return require("lspconfig.configs")[name] ~= nil
-            end
-
-            local function setup(name, cfg)
-                -- if has_server(name) then
-                --     lspconfig[name].setup(coq.lsp_ensure_capabilities(vim.tbl_extend("force", {
-                --         on_attach = on_attach, flags = flags,
-                --     }, cfg or {})))
-                -- else
-                --     vim.notify(("lspconfig: server '%s' not found; skipping"):format(name), vim.log.levels.WARN)
-                -- end
-                lspconfig[name].setup(coq.lsp_ensure_capabilities(vim.tbl_extend("force", {
-                    on_attach = on_attach, flags = flags,
-                }, cfg or {})))
-            end
-
-            local function on_attach_dedupe(client, bufnr)
-                for _, c in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
-                    if c.name == "gopls" and c.id ~= client.id then
-                        c.stop()
+                    -- Safety: if the same server name attaches twice, stop the newer one
+                    if client and client.name then
+                        for _, c in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+                            if c.id ~= client.id and c.name == client.name then
+                                client.stop()
+                                return
+                            end
+                        end
                     end
-                    if c.name == "pyright" and c.id ~= client.id then
-                        c.stop()
+
+                    local function bmap(mode, lhs, rhs, desc)
+                        vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true, noremap = true, desc = desc })
                     end
+
+                    vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+                    bmap("n", "ga", vim.lsp.buf.code_action, "LSP code action")
+                    bmap("n", "gd", vim.lsp.buf.definition, "LSP definition")
+                    bmap("n", "gD", vim.lsp.buf.declaration, "LSP declaration")
+                    bmap("n", "gr", vim.lsp.buf.references, "LSP references")
+                    bmap("n", "gi", vim.lsp.buf.implementation, "LSP implementation")
+                    bmap("n", "K", vim.lsp.buf.hover, "LSP hover")
+                    bmap("n", "<leader>rn", vim.lsp.buf.rename, "LSP rename")
+                end,
+            })
+
+            local function pyright_cmd()
+                local cmd = vim.fn.stdpath("data") .. "/mason/bin/pyright-langserver"
+                if vim.fn.executable(cmd) == 0 then
+                    cmd = vim.fn.exepath("pyright-langserver")
                 end
-                on_attach(client, bufnr)
+                if cmd == "" or vim.fn.executable(cmd) == 0 then
+                    error("pyright-langserver not found (check :Mason and PATH)")
+                end
+                return { cmd, "--stdio" }
             end
 
-            -- Core servers you have
-            setup("lua_ls", {
+            -- LUA
+            lspconfig.lua_ls.setup({
+                capabilities = capabilities,
+                flags = flags,
                 settings = {
                     Lua = {
-                        runtime     = { version = "LuaJIT" },
+                        runtime = { version = "LuaJIT" },
                         diagnostics = { globals = { "vim" } },
-                        workspace   = { library = vim.api.nvim_get_runtime_file("", true) },
-                        telemetry   = { enable = false },
+                        workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+                        telemetry = { enable = false },
                     },
                 },
             })
 
-            setup("pyright", {
-                on_attach = on_attach_dedupe,
-                root_dir = util.root_pattern("pyproject.toml", "setup.cfg", "setup.py", ".git"),
+            -- PYRIGHT
+            lspconfig.pyright.setup({
+                cmd = pyright_cmd(),
+                capabilities = capabilities,
+                flags = flags,
+                root_dir = function(fname)
+                    return util.root_pattern("pyproject.toml", "setup.cfg", "setup.py", ".git")(fname)
+                        or util.path.dirname(fname)
+                end,
                 on_new_config = function(config, root_dir)
-                    -- auto-pick project .venv if present
-                    local sep, venv = package.config:sub(1, 1), root_dir .. package.config:sub(1, 1) .. ".venv"
+                    local sep = package.config:sub(1, 1)
+                    local venv = root_dir .. sep .. ".venv"
                     local py = venv .. (sep == "\\" and "\\Scripts\\python.exe" or "/bin/python")
                     if vim.fn.filereadable(py) == 1 then
-                        config.settings                   = config.settings or {}
-                        config.settings.python            = config.settings.python or {}
-                        config.settings.python.venvPath   = root_dir
-                        config.settings.python.venv       = ".venv"
+                        config.settings = config.settings or {}
+                        config.settings.python = config.settings.python or {}
+                        config.settings.python.venvPath = root_dir
+                        config.settings.python.venv = ".venv"
                         config.settings.python.pythonPath = py
                     end
                 end,
-                settings = { python = { analysis = { autoSearchPaths = true, useLibraryCodeForTypes = true } } },
+                settings = {
+                    python = { analysis = { autoSearchPaths = true, useLibraryCodeForTypes = true } },
+                },
             })
 
-            setup("r_language_server", {
-                filetypes           = { "r", "rmd", "quarto", "rnoweb" },
-                settings            = { r = { lsp = { diagnostics = true } } },
+            -- R (manual start)
+            lspconfig.r_language_server.setup({
+                capabilities = capabilities,
+                flags = flags,
+                filetypes = { "r", "rmd", "quarto", "rnoweb" },
                 single_file_support = false,
-                autostart           = false,
+                autostart = false,
+                settings = { r = { lsp = { diagnostics = true } } },
             })
 
-            setup("gopls", {
-                on_attach = on_attach_dedupe,
-                cmd = { "gopls" },
-                filetypes = { "go", "gomod" },
+            -- GO
+            lspconfig.gopls.setup({
+                capabilities = capabilities,
+                flags = flags,
                 settings = {
                     gopls = {
                         experimentalPostfixCompletions = true,
@@ -175,55 +189,45 @@ return {
                 },
             })
 
-            setup("rust_analyzer", {
+            -- RUST
+            lspconfig.rust_analyzer.setup({
+                capabilities = capabilities,
+                flags = flags,
                 settings = {
                     ["rust-analyzer"] = {
-                        assist    = { importGranularity = "module", importPrefix = "self" },
-                        cargo     = { loadOutDirsFromCheck = true },
+                        assist = { importGranularity = "module", importPrefix = "self" },
+                        cargo = { loadOutDirsFromCheck = true },
                         procMacro = { enable = true },
                     },
                 },
             })
 
-            setup("terraformls", {
+            -- TERRAFORM
+            lspconfig.terraformls.setup({
+                capabilities = capabilities,
+                flags = flags,
                 root_dir = function(fname)
-                    local util = require("lspconfig.util")
                     return util.root_pattern("*.tf")(fname)
                         or util.root_pattern(".git")(fname)
                         or util.path.dirname(fname)
                 end,
-                on_attach = function(client, bufnr)
-                    on_attach(client, bufnr)
+                on_attach = function(client)
                     client.server_capabilities.semanticTokensProvider = nil
                 end,
             })
 
-            setup("yamlls")
-            setup("clangd")
-
-            -- Already in your list:
-            for _, s in ipairs({ "bashls", "vimls", "jsonls", "texlab" }) do setup(s) end
-
-            -- TypeScript/JavaScript: pick whichever your lspconfig exposes
-            local ts = (has_server("ts_ls") and "ts_ls") or (has_server("tsserver") and "tsserver") or nil
-            if ts then setup(ts) else vim.notify("No TS LSP (ts_ls/tsserver) found in lspconfig", vim.log.levels.WARN) end
-
-            -- Optional: only if lspconfig actually registers 'air'
-            if has_server("air") then
-                lspconfig.air.setup({
-                    filetypes = { "r", "rmd", "quarto", "rnoweb" },
-                    on_attach = function(client, bufnr)
-                        on_attach(client, bufnr)
-                        vim.api.nvim_create_autocmd("BufWritePre", {
-                            buffer = bufnr,
-                            callback = function() vim.lsp.buf.format() end,
-                            desc = "Air: format R on save",
-                        })
-                    end,
-                    flags = flags,
-                })
-            end
+            -- Simple ones
+            lspconfig.yamlls.setup({ capabilities = capabilities, flags = flags })
+            lspconfig.clangd.setup({ capabilities = capabilities, flags = flags })
+            lspconfig.bashls.setup({ capabilities = capabilities, flags = flags })
+            lspconfig.vimls.setup({ capabilities = capabilities, flags = flags })
+            lspconfig.jsonls.setup({ capabilities = capabilities, flags = flags })
+            lspconfig.texlab.setup({ capabilities = capabilities, flags = flags })
+            lspconfig.ts_ls.setup({
+                cmd = { "typescript-language-server", "--stdio" },
+                capabilities = capabilities,
+                flags = flags,
+            })
         end,
     },
-
 }
