@@ -48,7 +48,7 @@ return {
     -- The “bridge” that maps Mason’s tool names ↔ nvim-lspconfig’s server IDs
     {
         "williamboman/mason-lspconfig.nvim",
-        event = { "BufReadPre", "BufNewFile" },
+        event = { "BufReadPre" },
         opts = {
             -- Keep these stable ids; TS is handled dynamically in the lspconfig block
             ensure_installed = {
