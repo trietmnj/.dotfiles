@@ -19,7 +19,7 @@ return {
 	config = function(_, opts)
 		require("conform").setup(opts)
 
-		vim.keymap.set("n", "<leader>f", function()
+		vim.keymap.set("n", "<leader>ff", function()
 			require("conform").format({
 				async = false,
 				timeout_ms = 5000,
