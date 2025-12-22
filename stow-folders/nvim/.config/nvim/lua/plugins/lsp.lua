@@ -225,8 +225,19 @@ return {
             lspconfig.texlab.setup({ capabilities = capabilities, flags = flags })
             lspconfig.ts_ls.setup({
                 cmd = { "typescript-language-server", "--stdio" },
+                filetypes = {
+                    "typescript",
+                    "typescriptreact",
+                    "javascript",
+                    "javascriptreact",
+                },
+
                 capabilities = capabilities,
                 flags = flags,
+                on_attach = function(client)
+                    client.server_capabilities.documentFormattingProvider = false
+                    client.server_capabilities.documentRangeFormattingProvider = false
+                end,
             })
         end,
     },
