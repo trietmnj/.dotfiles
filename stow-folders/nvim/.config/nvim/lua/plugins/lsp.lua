@@ -25,7 +25,7 @@ return {
             ensure_installed = {
                 -- LSP servers (Mason tool names)
                 "lua-language-server",
-                "pyright",
+                -- "pyright",
                 "rust-analyzer",
                 "bash-language-server",
                 "vim-language-server",
@@ -56,7 +56,7 @@ return {
                 "vimls",
                 "texlab",
                 "lua_ls",
-                "pyright",
+                -- "pyright",
                 "rust_analyzer",
                 "bashls",
                 "r_language_server",
@@ -141,30 +141,30 @@ return {
             })
 
             -- PYRIGHT
-            lspconfig.pyright.setup({
-                cmd = pyright_cmd(),
-                capabilities = capabilities,
-                flags = flags,
-                root_dir = function(fname)
-                    return util.root_pattern("pyproject.toml", "setup.cfg", "setup.py", ".git")(fname)
-                        or util.path.dirname(fname)
-                end,
-                on_new_config = function(config, root_dir)
-                    local sep = package.config:sub(1, 1)
-                    local venv = root_dir .. sep .. ".venv"
-                    local py = venv .. (sep == "\\" and "\\Scripts\\python.exe" or "/bin/python")
-                    if vim.fn.filereadable(py) == 1 then
-                        config.settings = config.settings or {}
-                        config.settings.python = config.settings.python or {}
-                        config.settings.python.venvPath = root_dir
-                        config.settings.python.venv = ".venv"
-                        config.settings.python.pythonPath = py
-                    end
-                end,
-                settings = {
-                    python = { analysis = { autoSearchPaths = true, useLibraryCodeForTypes = true } },
-                },
-            })
+            -- lspconfig.pyright.setup({
+            --     cmd = pyright_cmd(),
+            --     capabilities = capabilities,
+            --     flags = flags,
+            --     root_dir = function(fname)
+            --         return util.root_pattern("pyproject.toml", "setup.cfg", "setup.py", ".git")(fname)
+            --             or util.path.dirname(fname)
+            --     end,
+            --     on_new_config = function(config, root_dir)
+            --         local sep = package.config:sub(1, 1)
+            --         local venv = root_dir .. sep .. ".venv"
+            --         local py = venv .. (sep == "\\" and "\\Scripts\\python.exe" or "/bin/python")
+            --         if vim.fn.filereadable(py) == 1 then
+            --             config.settings = config.settings or {}
+            --             config.settings.python = config.settings.python or {}
+            --             config.settings.python.venvPath = root_dir
+            --             config.settings.python.venv = ".venv"
+            --             config.settings.python.pythonPath = py
+            --         end
+            --     end,
+            --     settings = {
+            --         python = { analysis = { autoSearchPaths = true, useLibraryCodeForTypes = true } },
+            --     },
+            -- })
 
             -- R (manual start)
             lspconfig.r_language_server.setup({
