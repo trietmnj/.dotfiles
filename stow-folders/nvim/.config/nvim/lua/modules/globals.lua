@@ -14,17 +14,17 @@ vim.g.UltiSnipsExpandTrigger = "<tab>"
 vim.g.UltiSnipsJumpForwardTrigger = "<tab>"
 vim.g.UltiSnipsJumpBackwardTrigger = "<S-tab>"
 
--- WSL clipboard (using xsel for reliability)
+-- WSL clipboard
 if vim.fn.has("wsl") == 1 then
 	vim.g.clipboard = {
 		name = "wslclipboard",
 		copy = {
-			["+"] = "xsel --nodetach -i -b",
-			["*"] = "xsel --nodetach -i -p",
+			["+"] = "/home/tmnj/.dotfiles/win32yank-x64/win32yank.exe -i --crlf",
+			["*"] = "/home/tmnj/.dotfiles/win32yank-x64/win32yank.exe -i --crlf",
 		},
 		paste = {
-			["+"] = "xsel -o -b",
-			["*"] = "xsel -o -p",
+			["+"] = "/home/tmnj/.dotfiles/win32yank-x64/win32yank.exe -o --lf",
+			["*"] = "/home/tmnj/.dotfiles/win32yank-x64/win32yank.exe -o --lf",
 		},
 		cache_enabled = 1,
 	}

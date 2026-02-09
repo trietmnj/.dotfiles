@@ -91,14 +91,14 @@ return {
       map("n", "<leader>pb",  tb.buffers,   vim.tbl_extend("force", base, { desc = "Buffers" }))
       map("n", "<leader>vh",  tb.help_tags, vim.tbl_extend("force", base, { desc = "Help tags" }))
 
-      -- Your helper pickers from tmnj/telescope.lua
-      map("n", "<leader>rr",  function() require("tmnj.telescope").refactors() end,
+      -- Your helper pickers from modules/telescope.lua
+      map("n", "<leader>rr",  function() require("modules.telescope").refactors() end,
         vim.tbl_extend("force", base, { desc = "Refactor actions" }))
 
-      map("n", "<leader>vrc", function() require("tmnj.telescope").search_dotfiles() end,
+      map("n", "<leader>vrc", function() require("modules.telescope").search_dotfiles() end,
         vim.tbl_extend("force", base, { desc = "Search dotfiles" }))
 
-      map("n", "<leader>gc",  function() require("tmnj.telescope").git_branches() end,
+      map("n", "<leader>gc",  function() require("modules.telescope").git_branches() end,
         vim.tbl_extend("force", base, { desc = "Git branches (delete with <C-d>)" }))
 
       map("n", "<leader>gw",  function()
@@ -123,7 +123,7 @@ return {
         end
       end, vim.tbl_extend("force", base, { desc = "Create git worktree" }))
 
-      map("n", "<leader>td",  function() require("tmnj.telescope").dev() end,
+      map("n", "<leader>td",  function() require("modules.telescope").dev() end,
         vim.tbl_extend("force", base, { desc = "Run dev helpers (local dev.lua)" }))
     end,
   },
