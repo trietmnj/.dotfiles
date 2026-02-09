@@ -19,5 +19,13 @@ set -x JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk-amd64
 # !! Contents within this block are managed by 'micromamba shell init' !!
 set -gx MAMBA_EXE "/home/tmnj/.local/bin/micromamba"
 set -gx MAMBA_ROOT_PREFIX "/home/tmnj/micromamba"
-$MAMBA_EXE shell hook --shell fish --root-prefix $MAMBA_ROOT_PREFIX | source
+if test -f "$MAMBA_EXE"
+    $MAMBA_EXE shell hook --shell fish --root-prefix $MAMBA_ROOT_PREFIX | source
+end
 # <<< mamba initialize <<<
+
+# Set cursor shape to block
+set -g fish_cursor_default block
+set -g fish_cursor_insert block
+set -g fish_cursor_replace_one underscore
+set -g fish_cursor_visual block

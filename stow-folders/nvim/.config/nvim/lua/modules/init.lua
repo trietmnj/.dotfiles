@@ -17,7 +17,6 @@ function M.setup()
   setup("modules.keymaps")
   setup("modules.navigation")
   setup("modules.telescope")
-  setup("modules.remaps")
   setup("modules.theme")
   setup("modules.globals")
 end

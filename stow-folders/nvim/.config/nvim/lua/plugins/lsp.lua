@@ -77,10 +77,11 @@ return {
         },
         config = function()
             local coq = require("coq")
-            local lspconfig = require("lspconfig")
+            -- Use the new 0.11+ API for configurations
+            local lsp = vim.lsp
             local util = require("lspconfig.util")
 
-            local capabilities = coq.lsp_ensure_capabilities(vim.lsp.protocol.make_client_capabilities())
+            local capabilities = coq.lsp_ensure_capabilities(lsp.protocol.make_client_capabilities())
             local flags = { debounce_text_changes = 150 }
 
             -- Keymaps / buffer-local settings whenever ANY LSP attaches
@@ -92,7 +93,7 @@ return {
 
                     -- Safety: if the same server name attaches twice, stop the newer one
                     if client and client.name then
-                        for _, c in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+                        for _, c in ipairs(lsp.get_clients({ bufnr = bufnr })) do
                             if c.id ~= client.id and c.name == client.name then
                                 client.stop()
                                 return
@@ -105,29 +106,18 @@ return {
                     end
 
                     vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-                    bmap("n", "ga", vim.lsp.buf.code_action, "LSP code action")
-                    bmap("n", "gd", vim.lsp.buf.definition, "LSP definition")
-                    bmap("n", "gD", vim.lsp.buf.declaration, "LSP declaration")
-                    bmap("n", "gr", vim.lsp.buf.references, "LSP references")
-                    bmap("n", "gi", vim.lsp.buf.implementation, "LSP implementation")
-                    bmap("n", "K", vim.lsp.buf.hover, "LSP hover")
-                    bmap("n", "<leader>rn", vim.lsp.buf.rename, "LSP rename")
+                    bmap("n", "ga", lsp.buf.code_action, "LSP code action")
+                    bmap("n", "gd", lsp.buf.definition, "LSP definition")
+                    bmap("n", "gD", lsp.buf.declaration, "LSP declaration")
+                    bmap("n", "gr", lsp.buf.references, "LSP references")
+                    bmap("n", "gi", lsp.buf.implementation, "LSP implementation")
+                    bmap("n", "K", lsp.buf.hover, "LSP hover")
+                    bmap("n", "<leader>rn", lsp.buf.rename, "LSP rename")
                 end,
             })
 
-            local function pyright_cmd()
-                local cmd = vim.fn.stdpath("data") .. "/mason/bin/pyright-langserver"
-                if vim.fn.executable(cmd) == 0 then
-                    cmd = vim.fn.exepath("pyright-langserver")
-                end
-                if cmd == "" or vim.fn.executable(cmd) == 0 then
-                    error("pyright-langserver not found (check :Mason and PATH)")
-                end
-                return { cmd, "--stdio" }
-            end
-
             -- LUA
-            lspconfig.lua_ls.setup({
+            vim.lsp.config("lua_ls", {
                 capabilities = capabilities,
                 flags = flags,
                 settings = {
@@ -140,34 +130,8 @@ return {
                 },
             })
 
-            -- PYRIGHT
-            -- lspconfig.pyright.setup({
-            --     cmd = pyright_cmd(),
-            --     capabilities = capabilities,
-            --     flags = flags,
-            --     root_dir = function(fname)
-            --         return util.root_pattern("pyproject.toml", "setup.cfg", "setup.py", ".git")(fname)
-            --             or util.path.dirname(fname)
-            --     end,
-            --     on_new_config = function(config, root_dir)
-            --         local sep = package.config:sub(1, 1)
-            --         local venv = root_dir .. sep .. ".venv"
-            --         local py = venv .. (sep == "\\" and "\\Scripts\\python.exe" or "/bin/python")
-            --         if vim.fn.filereadable(py) == 1 then
-            --             config.settings = config.settings or {}
-            --             config.settings.python = config.settings.python or {}
-            --             config.settings.python.venvPath = root_dir
-            --             config.settings.python.venv = ".venv"
-            --             config.settings.python.pythonPath = py
-            --         end
-            --     end,
-            --     settings = {
-            --         python = { analysis = { autoSearchPaths = true, useLibraryCodeForTypes = true } },
-            --     },
-            -- })
-
             -- R (manual start)
-            lspconfig.r_language_server.setup({
+            vim.lsp.config("r_language_server", {
                 capabilities = capabilities,
                 flags = flags,
                 filetypes = { "r", "rmd", "quarto", "rnoweb" },
@@ -177,7 +141,7 @@ return {
             })
 
             -- GO
-            lspconfig.gopls.setup({
+            vim.lsp.config("gopls", {
                 capabilities = capabilities,
                 flags = flags,
                 settings = {
@@ -190,7 +154,7 @@ return {
             })
 
             -- RUST
-            lspconfig.rust_analyzer.setup({
+            vim.lsp.config("rust_analyzer", {
                 capabilities = capabilities,
                 flags = flags,
                 settings = {
@@ -203,7 +167,7 @@ return {
             })
 
             -- TERRAFORM
-            lspconfig.terraformls.setup({
+            vim.lsp.config("terraformls", {
                 capabilities = capabilities,
                 flags = flags,
                 root_dir = function(fname)
@@ -217,13 +181,13 @@ return {
             })
 
             -- Simple ones
-            lspconfig.yamlls.setup({ capabilities = capabilities, flags = flags })
-            lspconfig.clangd.setup({ capabilities = capabilities, flags = flags })
-            lspconfig.bashls.setup({ capabilities = capabilities, flags = flags })
-            lspconfig.vimls.setup({ capabilities = capabilities, flags = flags })
-            lspconfig.jsonls.setup({ capabilities = capabilities, flags = flags })
-            lspconfig.texlab.setup({ capabilities = capabilities, flags = flags })
-            lspconfig.ts_ls.setup({
+            vim.lsp.enable("yamlls", { capabilities = capabilities, flags = flags })
+            vim.lsp.enable("clangd", { capabilities = capabilities, flags = flags })
+            vim.lsp.enable("bashls", { capabilities = capabilities, flags = flags })
+            vim.lsp.enable("vimls", { capabilities = capabilities, flags = flags })
+            vim.lsp.enable("jsonls", { capabilities = capabilities, flags = flags })
+            vim.lsp.enable("texlab", { capabilities = capabilities, flags = flags })
+            vim.lsp.enable("ts_ls", {
                 cmd = { "typescript-language-server", "--stdio" },
                 filetypes = {
                     "typescript",

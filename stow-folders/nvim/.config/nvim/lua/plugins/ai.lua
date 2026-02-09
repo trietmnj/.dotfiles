@@ -40,30 +40,4 @@ return {
           },
         },
       },
-
-    -- -- 3. The Cursor Experience: Avante.nvim (Streaming Chat)
-    -- {
-    --     "yetone/avante.nvim",
-    --     event = "VeryLazy",
-    --     lazy = false,
-    --     version = false,
-    --     opts = {
-    --       provider = "copilot", -- Ensure this matches your speed preference
-    --     },
-    --     -- This 'build' step is CRITICAL for Avante speed/performance
-    --     build = "make",
-    --     dependencies = {
-    --       "nvim-treesitter/nvim-treesitter",
-    --       "stevearc/dressing.nvim",
-    --       "nvim-lua/plenary.nvim",
-    --       "MunifTanjim/nui.nvim", --- THIS IS THE MISSING MODULE
-    --       "nvim-tree/nvim-web-devicons",
-    --       "zbirenbaum/copilot.lua",
-    --       {
-    --         "MeanderingProgrammer/render-markdown.nvim",
-    --         opts = { file_types = { "markdown", "Avante" } },
-    --         ft = { "markdown", "Avante" },
-    --       },
-    --     },
-    -- },
 }

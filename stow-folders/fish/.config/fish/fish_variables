@@ -7,7 +7,7 @@ SETUVAR --export LS_COLORS:rs\x3d0\x3adi\x3d01\x3b34\x3aln\x3d01\x3b36\x3amh\x3d
 SETUVAR --export --path PATH:\x1d
 SETUVAR --export STOW_FOLDERS:/home/tmnj/\x2edotfiles/
 SETUVAR --export TEXLIVE_HOME:/usr/local/texlive/2024
-SETUVAR __fish_initialized:3800
+SETUVAR __fish_initialized:3400
 SETUVAR fish_color_autosuggestion:BD93F9
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:F8F8F2

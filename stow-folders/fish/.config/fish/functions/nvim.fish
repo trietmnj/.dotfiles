@@ -4,8 +4,16 @@ function nvim
     if test $machine_name = "tTunesLaptop"
         ~/apps/squashfs-root/usr/bin/nvim $argv;
     else if test $machine_name = "tmnj-desktop"
-        /usr/local/bin/nvim $argv;
+        if test -f ~/.local/bin/nvim
+            ~/.local/bin/nvim $argv;
+        else
+            /usr/local/bin/nvim $argv;
+        end
     else
-        ~/apps/nvim-linux64/bin/nvim $argv;
+        if command -q nvim
+            command nvim $argv;
+        else
+            ~/apps/nvim-linux64/bin/nvim $argv;
+        end
     end
 end
