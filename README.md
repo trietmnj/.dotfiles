@@ -1,28 +1,30 @@
 # .dotfiles
 
-A streamlined, **idempotent** setup for a Linux/WSL development environment using **Oh My Fish**, **tmux**, and **Neovim**—plus language toolchains (Rust, Node.js), R, TeX Live, and **Python via uv**.
+A streamlined, **idempotent** setup for a Linux/WSL development environment using **Oh My Fish**, **tmux**, and **Neovim**—plus language toolchains (Rust, Node.js, Go), R, TeX Live, and **Python via uv**.
 
 > Target: Ubuntu/WSL (works on Debian-based).
-> Assumes your dotfiles repo layout is compatible with `stow` (e.g., `fish/`, `nvim/`, `tmux/`, etc.).
+> Assumes your dotfiles repo layout is compatible with `stow` (e.g., `stow-folders/fish/`, `stow-folders/nvim/`, etc.).
 
 ---
 
 ## 1. System Prep
 
-Update base system and install common tooling:
+Update base system and install core toolchains:
 
 ```bash
 sudo apt update
 sudo apt install -y \
   build-essential curl git unzip ca-certificates \
   ripgrep fd-find universal-ctags \
-  stow
+  stow xsel golang-go r-base
 ```
 
-- `ripgrep`, `fd-find`, and `universal-ctags` are used by many Neovim configs.j
-- `unzip` fixes failures like `Could not find executable "unzip"` during tool installs.
+- **Runtimes:** `golang-go` and `r-base` are required for Mason to install their respective LSPs.
+- **Utilities:** `ripgrep` is required for Telescope's grep features. `xsel` is a reliable Linux-native clipboard fallback.
 
-Install fonts from `fonts/` and set Windows Terminal to use a Nerd Font (e.g., FiraCode NF).
+### Fonts & Icons
+1.  **Install Fonts:** Open the `fonts/` directory in Windows. Right-click and **Install** the `Dank Mono Nerd Font` files.
+2.  **Terminal Setup:** In Windows Terminal, go to **Settings > Profiles > Ubuntu > Appearance** and set **Font face** to `DankMono Nerd Font`. This is required for icons in Neovim (Airline, NERDTree) and the Fish prompt.
 
 ---
 
@@ -34,13 +36,9 @@ Install fonts from `fonts/` and set Windows Terminal to use a Nerd Font (e.g., F
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 ```
 
-2b. Set Fish as the default shell:
+2b. Set Fish as default: `chsh -s /usr/bin/fish`.
 
-```bash
-chsh -s /usr/bin/fish
-```
-
-2c. Set theme **neolambda**:
+2c. Setup **neolambda** theme:
 
 ```fish
 omf install neolambda
@@ -51,252 +49,85 @@ omf theme neolambda
 
 ## 3. tmux + TPM
 
-3a. Install **TPM** (Tmux Plugin Manager):
+3a. Install **TPM**:
 
 ```bash
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-3b. Ensure `~/.tmux.conf` includes:
-
-```tmux
-set -g @plugin 'tmux-plugins/tpm'
-run -b '~/.tmux/plugins/tpm/tpm'
-```
-
-3c. Install plugins inside tmux:
-
-```text
-tmux
-Ctrl + b   I
-```
+3b. Install plugins inside tmux: Press `Ctrl + b` then `I` (capital I).
 
 ---
 
-## 4. Neovim + Tooling
+## 4. Neovim (v0.11+)
 
-4a. Install dependencies:
+Plugins are managed by `lazy.nvim`. On first launch, they will auto-install.
 
-```bash
-sudo apt install -y gcc ripgrep fd-find universal-ctags unzip
-```
-
-4b. Install formatters & plugin bridges:
+### Python Provider (uv)
+Highly recommended for speed and isolation:
 
 ```bash
-cargo install stylua        # Lua formatter
-npm install -g neovim       # Node bridge for NVim
+uv venv ~/.venvs/nvim
+source ~/.venvs/nvim/bin/activate
+uv pip install -U pynvim
+deactivate
 ```
 
-> If `cargo` not found, see [7.1 Rust](#71-rust) first.
-
-4c. Install Treesitter grammars (inside Neovim):
-
-```vim
-:TSInstall <language>
-```
+### Note on Treesitter & LSP
+This configuration is optimized for **Neovim v0.11+**. It uses the new `require("nvim-treesitter").setup` and `vim.lsp.config` APIs.
 
 ---
 
-## 5. Windows Clipboard (win32yank) for WSL
+## 5. WSL Interop & Clipboard
 
-5a. Copy `win32yank-x64/` to Windows (e.g., `C:\Applications\win32yank-x64\`).
-
-5b. Ensure executable permissions from WSL:
+### Windows Binary Execution (Fix "Exec format error")
+If Windows binaries (like `explorer.exe` or `win32yank.exe`) fail to run, re-register the interop handler:
 
 ```bash
-chmod +x /mnt/c/Applications/win32yank-x64/win32yank.exe
+echo ':WSLInterop:M::MZ::/init:PF' | sudo tee /proc/sys/fs/binfmt_misc/register
 ```
 
-5c. Point Neovim config to correct clipboard provider.
+### win32yank Setup
+1.  Ensure `win32yank.exe` is executable: `chmod +x ~/.dotfiles/win32yank-x64/win32yank.exe`.
+2.  **Requirement:** You must install the [Visual C++ Redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe) on the **Windows host** for this binary to run.
 
 ---
 
-## 6. Dotfile Symlinks with GNU Stow
+## 6. Git Token (Permanent Login)
 
-From your dotfiles repo root:
+To save your GitHub Personal Access Token (PAT) permanently on this private computer:
+
+```bash
+git config --global credential.helper store
+git pull  # Enter your username and PAT when prompted
+```
+Git will save these to `~/.git-credentials` and won't ask again.
+
+---
+
+## 7. Dotfile Symlinks (GNU Stow)
+
+From the repo root:
 
 ```bash
 ./install.sh
 ```
 
-Restow after changes:
-
-```bash
-stow -R -v fish nvim tmux
-```
-
-Unlink:
-
-```bash
-stow -D -v fish nvim tmux
-```
+The script is idempotent—it will unstow and restow to ensure links are clean.
 
 ---
 
-## 7. Languages & Runtimes
+## 8. Languages & Runtimes
 
-### 7.1 Rust
-
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-source "$HOME/.cargo/env"
-```
-
-### 7.2 Node.js (22.x)
-
-```bash
-sudo apt remove -y nodejs || true
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-sudo apt install -y nodejs
-
-# Optional yarn through corepack
-npm install -g corepack
-corepack enable
-```
-
-### 7.3 Python (uv)
-
-**uv** replaces most uses of `pip`, `pipx`, and `virtualenv` with a single, fast tool.
-
-7.3a. Install **uv**:
-
-```bash
-curl -Ls https://astral.sh/uv/install.sh | sh
-```
-
-Make sure `~/.local/bin` is on your PATH (Fish):
-
-```fish
-set -U fish_user_paths $HOME/.local/bin $fish_user_paths
-```
-
-7.3b. Neovim Python provider (isolated venv):
-
-```bash
-uv venv ~/.venvs/nvim
-source ~/.venvs/nvim/bin/activate
-uv pip install -U pip setuptools wheel pynvim
-deactivate
-```
-
-In your `init.lua` (or `init.vim`) point NVim to this provider:
-
-```lua
-vim.g.python3_host_prog = os.getenv("HOME") .. "/.venvs/nvim/bin/python"
-```
-
-7.3c. Per‑project workflow with uv:
-
-```bash
-# create a project venv
-uv venv .venv
-# install deps (pyproject.toml / requirements.txt supported)
-uv pip install -r requirements.txt
-# run scripts via the project venv
-uv run python your_script.py
-```
-
-7.3d. One‑shot tools with **uvx** (no global installs):
-
-```bash
-# Linters/formatters
-uvx ruff --version
-uvx black --version
-
-# Tests
-uvx pytest -q
-
-# Vim script linter
-uvx --from vim-vint vint --version
-```
-
-> Tips:
-> • Use `uv run` to execute commands inside the project venv without activating it.
-> • `uv lock` can generate a lockfile for reproducible installs if you’re using `pyproject.toml`.
-
-### 7.4 R
-
-```bash
-sudo apt install -y r-base libcurl4-openssl-dev libssl-dev libxml2-dev
-R -q -e 'install.packages(c("languageserver","lintr","styler","jsonlite"), repos="https://cloud.r-project.org")'
-```
-
-In R:
-
-```r
-install.packages("xml2")
-install.packages("roxygen2")
-install.packages("lintr")
-```
-
-`nvim-R` requires `latexmk`, which needs `tlmgr`
-
-```bash
-sudo tlmgr install latexmk
-```
-
-### 7.5 Java
-
-```bash
-sudo apt install -y openjdk-21-jdk
-```
+- **Rust:** `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+- **Node.js:** `curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt install -y nodejs`
+- **Python:** Managed via `uv`. Use `uv run` or `uvx` for tool isolation.
 
 ---
 
-## 8. LaTeX / TeX Live
+## 9. Troubleshooting
 
-### 8a. Install via TUG (recommended)
-
-```bash
-cd /tmp
-wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-tar xzf install-tl-unx.tar.gz
-cd install-tl-*
-./install-tl --no-interaction --texdir="$HOME/texlive/2025" --texuserdir="$HOME/texmf"
-```
-
-Add to PATH (Fish):
-
-```fish
-set -Ux PATH $HOME/texlive/2025/bin/x86_64-linux $PATH
-```
-
-Update and install latexmk:
-
-```bash
-tlmgr update --self
-tlmgr install latexmk
-```
-
-### 8b. Change mirror
-
-```bash
-tlmgr option repository https://mirror.ctan.org/systems/texlive/tlnet
-```
-
-### 8c. Usage
-
-Clean intermediate files
-
-```bash
-latexmk -c
-```
-
----
-
-## 9. Troubleshooting & Maintenance
-
-- **Package failures**:
-  ```bash
-  sudo apt update --fix-missing
-  sudo apt -f install
-  ```
-- **Oh My Fish not found** → run `exec fish`
-- **Stylua fails** → ensure Rust + unzip installed
-- **Treesitter errors** → `:TSUpdate` inside NVim
-- **Clipboard issues (WSL)** → check `chmod +x` and config path
-- **uv tips**:
-  - `uv tool` state lives under `~/.cache/uv`; clear if needed.
-  - Use `uv pip list` to inspect env packages.
-  - Prefer `uv run` and `uvx` over activating environments.
+- **"open ." fails:** Ensure WSL Interop is registered (see Section 5).
+- **No Icons:** Ensure Nerd Font is set in terminal settings (see Section 1).
+- **LSP Failures:** Check `:Mason` inside Neovim. Ensure `go` and `R` are installed on the system.
+- **UNC Path Warning:** The custom `open` function in Fish handles this by jumping to `C:` temporarily to silence `cmd.exe`.

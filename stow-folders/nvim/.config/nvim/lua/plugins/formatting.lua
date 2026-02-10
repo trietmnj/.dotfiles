@@ -14,6 +14,7 @@ return {
 			html = { "prettier" },
 			yaml = { "prettier" },
 			markdown = { "prettier" },
+			python = { "ruff_format" },
 		},
 	},
 	config = function(_, opts)

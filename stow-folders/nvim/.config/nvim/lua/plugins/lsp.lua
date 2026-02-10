@@ -25,7 +25,8 @@ return {
             ensure_installed = {
                 -- LSP servers (Mason tool names)
                 "lua-language-server",
-                -- "pyright",
+                "pyright",
+                "ruff-lsp",
                 "rust-analyzer",
                 "bash-language-server",
                 "vim-language-server",
@@ -34,6 +35,8 @@ return {
 
                 -- Formatters / linters / misc
                 "black",
+                "ruff",
+                "debugpy",
                 "shellcheck",
                 "editorconfig-checker",
                 "shfmt",
@@ -56,7 +59,8 @@ return {
                 "vimls",
                 "texlab",
                 "lua_ls",
-                -- "pyright",
+                "pyright",
+                "ruff",
                 "rust_analyzer",
                 "bashls",
                 "r_language_server",
@@ -106,12 +110,16 @@ return {
                     end
 
                     vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+                    -- Disable keywordprg so K uses LSP hover correctly
+                    vim.bo[bufnr].keywordprg = ""
+                    
                     bmap("n", "ga", lsp.buf.code_action, "LSP code action")
                     bmap("n", "gd", lsp.buf.definition, "LSP definition")
                     bmap("n", "gD", lsp.buf.declaration, "LSP declaration")
                     bmap("n", "gr", lsp.buf.references, "LSP references")
                     bmap("n", "gi", lsp.buf.implementation, "LSP implementation")
                     bmap("n", "K", lsp.buf.hover, "LSP hover")
+                    bmap("n", "<C-k>", lsp.buf.hover, "LSP hover (fallback)")
                     bmap("n", "<leader>rn", lsp.buf.rename, "LSP rename")
                 end,
             })
@@ -129,6 +137,35 @@ return {
                     },
                 },
             })
+
+            -- PYRIGHT
+            vim.lsp.config("pyright", {
+                capabilities = capabilities,
+                flags = flags,
+                settings = {
+                    python = {
+                        analysis = {
+                            autoSearchPaths = true,
+                            useLibraryCodeForTypes = true,
+                            diagnosticMode = "workspace",
+                        },
+                    },
+                },
+                root_dir = function(fname)
+                    return util.root_pattern("pyproject.toml", "setup.cfg", "setup.py", ".git", "requirements.txt")(fname)
+                end,
+            })
+
+            -- RUFF (Linting)
+            vim.lsp.config("ruff", {
+                capabilities = capabilities,
+                flags = flags,
+                on_attach = function(client)
+                    -- Disable hover in favor of Pyright
+                    client.server_capabilities.hoverProvider = false
+                end,
+            })
+            vim.lsp.enable({ "pyright", "ruff" })
 
             -- R (manual start)
             vim.lsp.config("r_language_server", {
