@@ -47,7 +47,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
 ### 4. Neovim
-Ensure dependencies are installed (`ripgrep`, `fd`, `unzip`, `gcc`). Plugins will auto-install on first launch via `lazy.nvim`.
+Ensure dependencies are installed (`ripgrep`, `fd`, `unzip`, `gcc`, `universal-ctags`). Plugins will auto-install on first launch via `lazy.nvim`.
 To manually sync plugins:
 ```bash
 nvim --headless "+Lazy! sync" +qa
