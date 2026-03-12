@@ -45,6 +45,11 @@ function M.setup()
 	map("n", "<leader>gu", "<cmd>diffget //2<CR>", opts)
 	map("n", "<leader>gs", "<cmd>G<CR>", opts)
 
+	-- DVC helpers
+	map("n", "<leader>ds", "<cmd>DVCStatus<CR>", opts)
+	map("n", "<leader>dp", "<cmd>DVCPush<CR>", opts)
+	map("n", "<leader>dl", "<cmd>DVCPull<CR>", opts)
+
 	-- Prevent stray remap: ensure "~" in insert mode is literal
 	map("i", "~", "~", opts)
 
