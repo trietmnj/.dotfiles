@@ -20,6 +20,6 @@ decision = "allow"
 priority = 600
 
 [[rule]]
-mcpName = "uv-mcp"
+mcpName = "context7"
 decision = "allow"
-priority = 400
+priority = 700
