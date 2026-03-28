@@ -1,0 +1,77 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "general": {
+    "previewFeatures": true,
+    "sessionRetention": {
+      "enabled": true,
+      "warningAcknowledged": true,
+      "maxAge": "30d"
+    }
+  },
+  "model": {
+    "name": "auto-gemini-3"
+  },
+  "ui": {
+    "theme": "Dracula",
+    "showMemoryUsage": true,
+    "showCitations": true
+  },
+  "tools": {
+    "shell": {
+      "showColor": true
+    }
+  },
+  "experimental": {
+    "plan": true
+  },
+  "hooks": {
+    "BeforeTool": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node '/usr/lib/node_modules/context-mode/hooks/gemini-cli/beforetool.mjs'"
+          }
+        ]
+      }
+    ],
+    "AfterTool": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node '/usr/lib/node_modules/context-mode/hooks/gemini-cli/aftertool.mjs'"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node '/usr/lib/node_modules/context-mode/hooks/gemini-cli/sessionstart.mjs'"
+          }
+        ]
+      }
+    ]
+  },
+  "mcpServers": {
+    "context7": {
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "X-API-Key": "ctx7sk-0424c446-0a62-43b9-8fe2-01ebe1ba5578"
+      }
+    },
+    "context-mode": {
+      "command": "context-mode"
+    }
+  }
+}

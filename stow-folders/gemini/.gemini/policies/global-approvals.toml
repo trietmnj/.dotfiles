@@ -1,0 +1,25 @@
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = ["ls", "cd", "pwd", "date", "cat", "grep", "find", "git status", "git diff", "git log"]
+decision = "allow"
+priority = 100
+
+[[rule]]
+mcpName = "zotero"
+decision = "allow"
+priority = 300
+
+[[rule]]
+mcpName = "context-mode"
+decision = "allow"
+priority = 500
+
+[[rule]]
+toolName = "cli_help"
+decision = "allow"
+priority = 600
+
+[[rule]]
+mcpName = "uv-mcp"
+decision = "allow"
+priority = 400
