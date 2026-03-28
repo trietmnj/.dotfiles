@@ -8,3 +8,4 @@
 - Always save raw investment analysis, writeups, and returns data locally (e.g., in 'data/raw' or 'data/author_performance') to ensure persistence and accessibility across sessions.
 - The 'activate_skill' tool only accepts the 'name' parameter. Do not provide a 'prompt' or any other additional properties.
 - All literature, handbook, and book reviews should be saved in the Obsidian vault at the path: 'phd/01_Literature/review/'
+- The global approvals policy file is located at /home/tmnj/.gemini/policies/global-approvals.toml for managing auto-approvals of tools and skills.

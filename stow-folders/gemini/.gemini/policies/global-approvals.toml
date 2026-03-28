@@ -1,6 +1,6 @@
 [[rule]]
 toolName = "run_shell_command"
-commandPrefix = ["ls", "cd", "pwd", "date", "cat", "grep", "find", "git status", "git diff", "git log"]
+commandPrefix = ["ls", "cd", "pwd", "date", "cat", "grep", "find", "head", "tail", "git status", "git diff", "git log"]
 decision = "allow"
 priority = 100
 
@@ -23,3 +23,19 @@ priority = 600
 mcpName = "context7"
 decision = "allow"
 priority = 700
+
+[[rule]]
+toolName = "mcp_gemini-obsidian_obsidian_read_note"
+decision = "allow"
+priority = 400
+
+[[rule]]
+toolName = "activate_skill"
+argsPattern = ".*\"name\":\"skill-storyline-architect\".*"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "mcp_gemini-obsidian_obsidian_search_notes"
+decision = "allow"
+priority = 100
