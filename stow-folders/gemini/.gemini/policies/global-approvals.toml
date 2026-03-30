@@ -36,6 +36,13 @@ decision = "allow"
 priority = 100
 
 [[rule]]
+toolName = "activate_skill"
+argsPattern = ".*\"name\":\"skill-exhibit-manager\".*"
+decision = "allow"
+priority = 100
+
+
+[[rule]]
 toolName = "mcp_gemini-obsidian_obsidian_search_notes"
 decision = "allow"
 priority = 100
