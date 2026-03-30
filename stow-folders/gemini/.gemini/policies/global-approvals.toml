@@ -30,6 +30,16 @@ decision = "allow"
 priority = 400
 
 [[rule]]
+toolName = "mcp_gemini-obsidian_obsidian_search_notes"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "mcp_gemini-obsidian_obsidian_list_notes"
+decision = "allow"
+priority = 100
+
+[[rule]]
 toolName = "activate_skill"
 argsPattern = ".*\"name\":\"skill-storyline-architect\".*"
 decision = "allow"
@@ -59,12 +69,3 @@ argsPattern = ".*\"name\":\"skill-academic-stylist\".*"
 decision = "allow"
 priority = 100
 
-[[rule]]
-toolName = "mcp_gemini-obsidian_obsidian_search_notes"
-decision = "allow"
-priority = 100
-
-[[rule]]
-toolName = "mcp_gemini-obsidian_obsidian_list_notes"
-decision = "allow"
-priority = 100
