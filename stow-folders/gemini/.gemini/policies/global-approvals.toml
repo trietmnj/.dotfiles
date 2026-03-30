@@ -41,6 +41,23 @@ argsPattern = ".*\"name\":\"skill-exhibit-manager\".*"
 decision = "allow"
 priority = 100
 
+[[rule]]
+toolName = "activate_skill"
+argsPattern = ".*\"name\":\"critical-analysis\".*"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "activate_skill"
+argsPattern = ".*\"name\":\"peer-review\".*"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "activate_skill"
+argsPattern = ".*\"name\":\"skill-academic-stylist\".*"
+decision = "allow"
+priority = 100
 
 [[rule]]
 toolName = "mcp_gemini-obsidian_obsidian_search_notes"
