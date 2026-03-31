@@ -69,3 +69,8 @@ argsPattern = ".*\"name\":\"skill-academic-stylist\".*"
 decision = "allow"
 priority = 100
 
+[[rule]]
+toolName = "activate_skill"
+argsPattern = ".*\"name\":\"find-docs\".*"
+decision = "allow"
+priority = 100
