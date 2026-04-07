@@ -6,11 +6,13 @@ priority = 100
 
 [[rule]]
 mcpName = "zotero"
+toolName = "*"
 decision = "allow"
 priority = 300
 
 [[rule]]
 mcpName = "context-mode"
+toolName = "*"
 decision = "allow"
 priority = 500
 
@@ -21,6 +23,7 @@ priority = 600
 
 [[rule]]
 mcpName = "context7"
+toolName = "*"
 decision = "allow"
 priority = 700
 
