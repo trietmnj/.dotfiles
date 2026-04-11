@@ -10,6 +10,9 @@
       "enabled": true,
       "warningAcknowledged": true,
       "maxAge": "30d"
+    },
+    "plan": {
+      "enabled": true
     }
   },
   "model": {
@@ -25,9 +28,7 @@
       "showColor": true
     }
   },
-  "experimental": {
-    "plan": true
-  },
+  "experimental": {},
   "hooks": {
     "BeforeTool": [
       {
@@ -72,6 +73,15 @@
     },
     "context-mode": {
       "command": "context-mode"
+    },
+    "gemini-obsidian": {
+      "command": "node",
+      "args": [
+        "/home/tmnj/.gemini/extensions/gemini-obsidian/dist/index.js"
+      ]
     }
+  },
+  "agents": {
+    "overrides": {}
   }
 }
