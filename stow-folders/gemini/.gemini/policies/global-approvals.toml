@@ -83,3 +83,25 @@ toolName = "activate_skill"
 argsPattern = ".*\"name\":\"research-manager\".*"
 decision = "allow"
 priority = 100
+
+[[rule]]
+mcpName = "jupyter"
+toolName = "list_kernels"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "mcp_jupyter_list_kernels"
+decision = "allow"
+priority = 100
+
+[[rule]]
+mcpName = "jupyter"
+toolName = "list_files"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "mcp_jupyter_list_files"
+decision = "allow"
+priority = 100
