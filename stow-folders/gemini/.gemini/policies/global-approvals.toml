@@ -1,6 +1,6 @@
 [[rule]]
 toolName = "run_shell_command"
-commandPrefix = ["ls", "cd", "pwd", "date", "cat", "grep", "find", "head", "tail", "git status", "git diff", "git log"]
+commandPrefix = ["ls", "cd", "pwd", "date", "cat", "grep", "pgrep", "find", "head", "tail", "git status", "git diff", "git log"]
 decision = "allow"
 priority = 100
 
