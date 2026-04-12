@@ -105,3 +105,14 @@ priority = 100
 toolName = "mcp_jupyter_list_files"
 decision = "allow"
 priority = 100
+
+[[rule]]
+mcpName = "jupyter"
+toolName = "read_notebook"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "mcp_jupyter_read_notebook"
+decision = "allow"
+priority = 100
