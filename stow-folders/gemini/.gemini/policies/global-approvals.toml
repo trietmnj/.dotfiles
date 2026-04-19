@@ -1,8 +1,80 @@
 [[rule]]
 toolName = "run_shell_command"
-commandPrefix = ["ls", "cd", "pwd", "date", "cat", "grep", "pgrep", "find", "head", "tail", "git status", "git diff", "git log"]
+commandPrefix = "ls"
 decision = "allow"
-priority = 100
+priority = 800
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "cat"
+decision = "allow"
+priority = 800
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "cd"
+decision = "allow"
+priority = 800
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "pwd"
+decision = "allow"
+priority = 800
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "date"
+decision = "allow"
+priority = 800
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "grep"
+decision = "allow"
+priority = 800
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "pgrep"
+decision = "allow"
+priority = 800
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "find"
+decision = "allow"
+priority = 800
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "head"
+decision = "allow"
+priority = 800
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "tail"
+decision = "allow"
+priority = 800
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git status"
+decision = "allow"
+priority = 800
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git diff"
+decision = "allow"
+priority = 800
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git log"
+decision = "allow"
+priority = 800
 
 [[rule]]
 mcpName = "zotero"
@@ -81,60 +153,5 @@ priority = 100
 [[rule]]
 toolName = "activate_skill"
 argsPattern = ".*\"name\":\"research-manager\".*"
-decision = "allow"
-priority = 100
-
-[[rule]]
-mcpName = "jupyter"
-toolName = "list_kernels"
-decision = "allow"
-priority = 100
-
-[[rule]]
-toolName = "mcp_jupyter_list_kernels"
-decision = "allow"
-priority = 100
-
-[[rule]]
-mcpName = "jupyter"
-toolName = "list_files"
-decision = "allow"
-priority = 100
-
-[[rule]]
-toolName = "mcp_jupyter_list_files"
-decision = "allow"
-priority = 100
-
-[[rule]]
-mcpName = "jupyter"
-toolName = "list_notebooks"
-decision = "allow"
-priority = 100
-
-[[rule]]
-toolName = "mcp_jupyter_list_notebooks"
-decision = "allow"
-priority = 100
-
-[[rule]]
-mcpName = "jupyter"
-toolName = "read_notebook"
-decision = "allow"
-priority = 100
-
-[[rule]]
-toolName = "mcp_jupyter_read_notebook"
-decision = "allow"
-priority = 100
-
-[[rule]]
-mcpName = "jupyter"
-toolName = "use_notebook"
-decision = "allow"
-priority = 100
-
-[[rule]]
-toolName = "mcp_jupyter_use_notebook"
 decision = "allow"
 priority = 100
