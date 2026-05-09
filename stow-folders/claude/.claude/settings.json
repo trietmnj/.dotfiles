@@ -1,6 +1,7 @@
 {
   "permissions": {
     "allow": [
+      "Read",
       "Bash(ls*)",
       "Bash(cat*)",
       "Bash(cd*)",
@@ -26,38 +27,6 @@
       "mcp__obsidian__obsidian_get_broken_links"
     ]
   },
-  "enabledPlugins": {
-    "context-mode@context-mode": true
-  },
-  "extraKnownMarketplaces": {
-    "context-mode": {
-      "source": {
-        "source": "github",
-        "repo": "mksglu/context-mode"
-      }
-    }
-  },
-  "theme": "dark",
-  "mcpServers": {
-    "obsidian": {
-      "command": "node",
-      "args": [
-        "/home/tmnj/.gemini/extensions/gemini-obsidian/dist/index.js"
-      ],
-      "env": {
-        "OBSIDIAN_VAULT_PATH": "/mnt/c/tmnj/notes/personal-docs"
-      }
-    },
-    "zotero": {
-      "command": "/home/tmnj/.local/bin/zotero-mcp"
-    },
-    "context7": {
-      "url": "https://mcp.context7.com/mcp",
-      "headers": {
-        "X-API-Key": "ctx7sk-0424c446-0a62-43b9-8fe2-01ebe1ba5578"
-      }
-    }
-  },
   "hooks": {
     "SessionStart": [
       {
@@ -69,5 +38,17 @@
         ]
       }
     ]
-  }
+  },
+  "enabledPlugins": {
+    "context-mode@context-mode": true
+  },
+  "extraKnownMarketplaces": {
+    "context-mode": {
+      "source": {
+        "source": "github",
+        "repo": "mksglu/context-mode"
+      }
+    }
+  },
+  "theme": "dark"
 }
