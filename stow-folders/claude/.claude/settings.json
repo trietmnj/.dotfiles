@@ -24,7 +24,16 @@
       "mcp__obsidian__obsidian_rag_index",
       "mcp__obsidian__obsidian_get_backlinks",
       "mcp__obsidian__obsidian_get_links",
-      "mcp__obsidian__obsidian_get_broken_links"
+      "mcp__obsidian__obsidian_get_broken_links",
+      "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+      "mcp__plugin_context-mode_context-mode__ctx_search",
+      "mcp__plugin_context-mode_context-mode__ctx_execute",
+      "mcp__plugin_context-mode_context-mode__ctx_execute_file",
+      "mcp__plugin_context-mode_context-mode__ctx_fetch_and_index",
+      "mcp__plugin_context-mode_context-mode__ctx_index",
+      "mcp__plugin_context-mode_context-mode__ctx_stats",
+      "mcp__plugin_context-mode_context-mode__ctx_insight",
+      "mcp__plugin_context-mode_context-mode__ctx_doctor"
     ]
   },
   "hooks": {
