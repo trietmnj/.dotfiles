@@ -83,5 +83,6 @@
   },
   "agents": {
     "overrides": {}
-  }
+  },
+  "remote-sync": true
 }

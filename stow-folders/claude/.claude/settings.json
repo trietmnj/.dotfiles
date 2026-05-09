@@ -1,0 +1,73 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls*)",
+      "Bash(cat*)",
+      "Bash(cd*)",
+      "Bash(pwd*)",
+      "Bash(date*)",
+      "Bash(grep*)",
+      "Bash(pgrep*)",
+      "Bash(find*)",
+      "Bash(head*)",
+      "Bash(tail*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "mcp__zotero__*",
+      "mcp__context7__*",
+      "mcp__obsidian__obsidian_list_notes",
+      "mcp__obsidian__obsidian_read_note",
+      "mcp__obsidian__obsidian_search_notes",
+      "mcp__obsidian__obsidian_rag_query",
+      "mcp__obsidian__obsidian_rag_index",
+      "mcp__obsidian__obsidian_get_backlinks",
+      "mcp__obsidian__obsidian_get_links",
+      "mcp__obsidian__obsidian_get_broken_links"
+    ]
+  },
+  "enabledPlugins": {
+    "context-mode@context-mode": true
+  },
+  "extraKnownMarketplaces": {
+    "context-mode": {
+      "source": {
+        "source": "github",
+        "repo": "mksglu/context-mode"
+      }
+    }
+  },
+  "theme": "dark",
+  "mcpServers": {
+    "obsidian": {
+      "command": "node",
+      "args": [
+        "/home/tmnj/.gemini/extensions/gemini-obsidian/dist/index.js"
+      ],
+      "env": {
+        "OBSIDIAN_VAULT_PATH": "/mnt/c/tmnj/notes/personal-docs"
+      }
+    },
+    "zotero": {
+      "command": "/home/tmnj/.local/bin/zotero-mcp"
+    },
+    "context7": {
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "X-API-Key": "ctx7sk-0424c446-0a62-43b9-8fe2-01ebe1ba5578"
+      }
+    }
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"/home/tmnj/.claude/hooks/context-mode-cache-heal.mjs\""
+          }
+        ]
+      }
+    ]
+  }
+}
