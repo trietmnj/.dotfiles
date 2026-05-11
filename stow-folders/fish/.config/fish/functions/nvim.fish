@@ -2,7 +2,11 @@
 function nvim
     set machine_name (hostname)
     if test $machine_name = "tTunesLaptop"
-        ~/apps/squashfs-root/usr/bin/nvim $argv;
+        if test -f /usr/local/bin/nvim
+            /usr/local/bin/nvim $argv;
+        else
+            ~/apps/squashfs-root/usr/bin/nvim $argv;
+        end
     else if test $machine_name = "tmnj-desktop"
         if test -f ~/.local/bin/nvim
             ~/.local/bin/nvim $argv;

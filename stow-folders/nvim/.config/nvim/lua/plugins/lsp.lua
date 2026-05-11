@@ -63,12 +63,12 @@ return {
                 "ruff",
                 "rust_analyzer",
                 "bashls",
-                "r_language_server",
                 "jsonls",
                 "gopls",
                 "ts_ls",
             },
             automatic_installation = false,
+            automatic_enable = false,
         },
     },
 
@@ -84,6 +84,7 @@ return {
             -- Use the new 0.11+ API for configurations
             local lsp = vim.lsp
             local util = require("lspconfig.util")
+            local lspconfig = require("lspconfig")
 
             local capabilities = coq.lsp_ensure_capabilities(lsp.protocol.make_client_capabilities())
             local flags = { debounce_text_changes = 150 }
@@ -125,7 +126,7 @@ return {
             })
 
             -- LUA
-            vim.lsp.config("lua_ls", {
+            lspconfig.lua_ls.setup({
                 capabilities = capabilities,
                 flags = flags,
                 settings = {
@@ -139,7 +140,7 @@ return {
             })
 
             -- PYRIGHT
-            vim.lsp.config("pyright", {
+            lspconfig.pyright.setup({
                 capabilities = capabilities,
                 flags = flags,
                 settings = {
@@ -157,18 +158,16 @@ return {
             })
 
             -- RUFF (Linting)
-            vim.lsp.config("ruff", {
+            lspconfig.ruff.setup({
                 capabilities = capabilities,
                 flags = flags,
                 on_attach = function(client)
-                    -- Disable hover in favor of Pyright
                     client.server_capabilities.hoverProvider = false
                 end,
             })
-            vim.lsp.enable({ "pyright", "ruff" })
 
             -- R (manual start)
-            vim.lsp.config("r_language_server", {
+            lspconfig.r_language_server.setup({
                 capabilities = capabilities,
                 flags = flags,
                 filetypes = { "r", "rmd", "quarto", "rnoweb" },
@@ -178,7 +177,7 @@ return {
             })
 
             -- GO
-            vim.lsp.config("gopls", {
+            lspconfig.gopls.setup({
                 capabilities = capabilities,
                 flags = flags,
                 settings = {
@@ -191,7 +190,7 @@ return {
             })
 
             -- RUST
-            vim.lsp.config("rust_analyzer", {
+            lspconfig.rust_analyzer.setup({
                 capabilities = capabilities,
                 flags = flags,
                 settings = {
@@ -204,7 +203,7 @@ return {
             })
 
             -- TERRAFORM
-            vim.lsp.config("terraformls", {
+            lspconfig.terraformls.setup({
                 capabilities = capabilities,
                 flags = flags,
                 root_dir = function(fname)
@@ -218,21 +217,14 @@ return {
             })
 
             -- Simple ones
-            vim.lsp.enable("yamlls", { capabilities = capabilities, flags = flags })
-            vim.lsp.enable("clangd", { capabilities = capabilities, flags = flags })
-            vim.lsp.enable("bashls", { capabilities = capabilities, flags = flags })
-            vim.lsp.enable("vimls", { capabilities = capabilities, flags = flags })
-            vim.lsp.enable("jsonls", { capabilities = capabilities, flags = flags })
-            vim.lsp.enable("texlab", { capabilities = capabilities, flags = flags })
-            vim.lsp.enable("ts_ls", {
-                cmd = { "typescript-language-server", "--stdio" },
-                filetypes = {
-                    "typescript",
-                    "typescriptreact",
-                    "javascript",
-                    "javascriptreact",
-                },
+            local simple = { "yamlls", "clangd", "bashls", "vimls", "jsonls", "texlab" }
+            for _, server in ipairs(simple) do
+                lspconfig[server].setup({ capabilities = capabilities, flags = flags })
+            end
 
+            lspconfig.ts_ls.setup({
+                cmd = { "typescript-language-server", "--stdio" },
+                filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
                 capabilities = capabilities,
                 flags = flags,
                 on_attach = function(client)
